@@ -20,7 +20,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       resizeToAvoidBottomInset: false,
       extendBody: true,
       appBar: AppBar(
-        title: Text(AppStrings.aboutUsText,
+        title: Text(AppStrings.sendOTP,
           style: TextStyle(fontSize: 18.sp),
         ),
         leading: IconButton(

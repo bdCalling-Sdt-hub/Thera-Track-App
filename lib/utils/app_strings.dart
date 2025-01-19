@@ -1,9 +1,5 @@
 class AppStrings {
 
-  //============================> On Boarding Screen <==============================
-  static String anytimeText = 'Anytime,\nAnywhere!';
-  static String receiveDivineText = 'Receive Divine\nGuidance and \nSupport';
-
   //============================> Sign in Screen <==============================
   static String myProfile = 'My Profile';
   static String signUp = 'Sign Up';
@@ -14,7 +10,7 @@ class AppStrings {
   static String passwordText = 'Password';
   static String confirmPasswordText = 'Confirm Password';
   static String resendIt = 'Resend It';
-  static String backToLogin = 'Back To Login';
+  static String backToLogin = 'Back To Sign In';
   static String buyPlan = 'Buy Plan';
   static String updateYourPlan = 'Update Your Plan';
   static String sureLogOut = 'Are you sure you want to log out?';
@@ -23,14 +19,12 @@ class AppStrings {
 
   static String  enterPassword = 'Enter Password';
   static String  enterConfirmPassword = 'Enter Confirm Password';
-  static String  loginToYourAccount = 'Login to your account';
-  static String  welcomeBack = 'Welcome back! We’ve missed you.';
+
+
   static String  doNotHaveAnAccount = 'Don’t Have An Account?';
 
   //============================> Sign up Screen <==============================
-  static String  createAccount = 'Create an account';
-  static String  signUpNow = 'Sign up now to get started on your journey.';
-  static String  userName = 'User Name';
+  static String  nameText = 'Name';
   static String  phoneNumber = 'Phone Number';
   static String  alreadyHaveAnAccount = 'Already Have An Account?';
   static String  byCreating = 'By Creating An Account, I Accept The \n';
@@ -47,7 +41,7 @@ class AppStrings {
 
 
   static String  enterEmail = 'Enter Email';
-  static String  email = 'Email';
+  static String  email = 'Your Email';
   static String  forgotPassword = 'Forgot Password?';
   static String  forgotPass = 'Forgot Password';
   static String  changePassword = 'Change Password';
@@ -60,7 +54,7 @@ class AppStrings {
 
   //forgot password screen
   static String  pleaseEnterText = 'Please enter your email address to reset password.';
-  static String  yourEmail = 'Your Email';
+
   static String  sendOTP = 'Send OTP';
 
 
@@ -99,34 +93,13 @@ class AppStrings {
   static String  payNow = 'Pay Now';
   static String  makePayment = 'Make Payment';
 
-  static String  cancelText = 'Cancel';
-  static String deleteText = 'Delete';
-  static String areYouSureText = 'Are you Sure you want to delete the post';
-  static String premiumAccountText = 'Premium Account';
 
 
-  static String followersText = 'Followers';
-  static String followText = 'Follow';
-  static String aboutUsText = 'About Us';
-  static String privacyPolicyText = 'Privacy Policy';
-
-
- // Text(AppStrings.textCopiedText,
-  //Chat Bot Ai
-  static String yourDailyText = 'Your Daily Inspiration';
-  static String textCopiedText = 'Text copied to clipboard';
-  static String howCanHelpText = 'How Can I Help You My Friend? 😊';
-
-
-  static String subscriptionText = 'Subscription';
-  static String selectPaymentMethod = 'Select Payment Method';
-  static String cardHolderName = 'Card holder name';
-  static String cardNumber = 'Card number';
-  static String cvvText = 'CVV/CVC';
-  static String mmyyText = 'MM/YY';
-  static String nothingIsImpossibleText = 'Nothing is impossible.\nThe word itsels says \nI’m Possible!';
-
-
+//Sign In screen
+  static String  signInToYourAccount = 'Sign in to \nyour account';
+  static String  welcomeBack = 'Welcome back! Please enter your details.';
+  static String  yourEmail = 'Your email';
+  static String  signupToYourAccount = 'Sign up to \nyour account';
 
 
 }

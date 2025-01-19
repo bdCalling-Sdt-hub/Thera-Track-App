@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:thera_track_app/utils/app_colors.dart';
 
 
 class AppStyles {
   static TextStyle onboardingScreen(
       {Color? color, FontWeight? fontWeight, double? letterSpacing}) {
     return TextStyle(
-        color: color,
+        color: color ?? AppColors.blackColor,
         fontSize: 68.sp,
         letterSpacing: letterSpacing,
         fontWeight: fontWeight ?? FontWeight.w700);
@@ -14,7 +15,7 @@ class AppStyles {
   static TextStyle onboardingScreenNormalText(
       {Color? color, FontWeight? fontWeight, double? letterSpacing}) {
     return TextStyle(
-        color: color,
+        color: color ?? AppColors.blackColor,
         fontSize: 48.sp,
         letterSpacing: letterSpacing,
         fontWeight: fontWeight ?? FontWeight.w400);
@@ -30,7 +31,7 @@ class AppStyles {
   static TextStyle fontSize24(
       {Color? color, FontWeight? fontWeight, double? letterSpacing}) {
     return TextStyle(
-        color: color,
+        color: color ?? AppColors.blackColor,
         fontSize: 24.sp,
         letterSpacing: letterSpacing,
         fontWeight: fontWeight ?? FontWeight.w400);
@@ -41,7 +42,7 @@ class AppStyles {
   static TextStyle fontSize20(
       {Color? color, FontWeight? fontWeight, double? letterSpacing}) {
     return TextStyle(
-        color: color,
+        color: color ?? AppColors.blackColor,
         fontSize: 20.sp,
         letterSpacing: letterSpacing,
         fontWeight: fontWeight ?? FontWeight.w400);
@@ -67,7 +68,7 @@ class AppStyles {
         double? height}) {
     return TextStyle(
         fontSize: 16.sp,
-        color: color,
+        color: color ?? AppColors.blackColor,
         height: height,
         letterSpacing: letterSpacing,
         fontWeight: fontWeight ?? FontWeight.w400);
@@ -80,7 +81,7 @@ class AppStyles {
         double? height}) {
     return TextStyle(
         fontSize: 14.sp,
-        color: color,
+        color: color ?? AppColors.blackColor,
         height: height,
         letterSpacing: letterSpacing,
         fontWeight: fontWeight ?? FontWeight.w400);
@@ -93,7 +94,7 @@ class AppStyles {
         double? height}) {
     return TextStyle(
         fontSize: 12.sp,
-        color: color,
+        color: color ?? AppColors.blackColor,
         height: height,
         letterSpacing: letterSpacing,
         fontWeight: fontWeight ?? FontWeight.w400);
@@ -121,7 +122,7 @@ class AppStyles {
         FontWeight? fontWeight}) {
     return TextStyle(
         fontWeight: fontWeight ?? FontWeight.w400,
-        color: color,
+        color: color ?? AppColors.blackColor,
         fontSize: size,
         height: height,
         letterSpacing: letterSpacing,

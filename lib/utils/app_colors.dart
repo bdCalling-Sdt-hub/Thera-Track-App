@@ -5,7 +5,8 @@ import 'package:flutter/cupertino.dart';
 class AppColors{
 
   static const Color primaryColor = Color(0xFF2196F3);
-  static const Color shadoColor = Color(0xFFD3D7FF);
+
+
 
   static const Color firstColor = Color(0xFFFAF1FF);
   static const Color secondColor = Color(0x804040F8);
@@ -39,6 +40,8 @@ class AppColors{
   static Color notificationBGColor = const Color(0xFF707FFF);
   static Color fillupColor = const Color(0xFFF1F2FF);
   static Color colorE7E7FE = const Color(0xFFE7E7FE);
+//=============
+  static const Color color878787 = Color(0xFF878787);
 
 
   static BoxShadow shadow = BoxShadow(

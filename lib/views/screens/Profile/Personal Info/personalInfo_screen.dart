@@ -130,7 +130,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> w
                           children: [
                             SvgPicture.asset(AppIcons.daimonIcon),
                             SizedBox(width: 5),
-                            Text(AppStrings.premiumAccountText,
+                            Text(AppStrings.sendOTP,
                               style:  AppStyles.fontSize14(fontWeight: FontWeight.w400,color: AppColors.whiteColor)
                             ),
                           ],
@@ -142,14 +142,14 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> w
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(AppStrings.followText,style: AppStyles.fontSize14(color: AppColors.primaryColor,fontWeight: FontWeight.w600),),
+                        Text(AppStrings.sendOTP,style: AppStyles.fontSize14(color: AppColors.primaryColor,fontWeight: FontWeight.w600),),
                         SizedBox(width: 50.w),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text('(300)'),
-                            Text(AppStrings.followersText,style: AppStyles.fontSize14(fontWeight: FontWeight.w600),),
+                            Text(AppStrings.sendOTP,style: AppStyles.fontSize14(fontWeight: FontWeight.w600),),
                           ],
                         ),
                       ],

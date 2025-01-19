@@ -3,17 +3,17 @@ class AppIcons{
 
   static String homeIcon = "$baseUrl/home_icon.svg";
   static String homeFillUpIcon = "$baseUrl/home_fillUp_Icon.svg";
-  static String emailIcon ="$baseUrl/emailIcon.svg";
+
   static String passWordIcon ="$baseUrl/passwordIcon.svg";
 
 
-  static String cartIcon = "$baseUrl/cart.svg";
+
 
   static String splashBG = "$baseUrl/splashBG.svg";
   static String googleIcon = "$baseUrl/google.svg";
   static String eyeIcon = "$baseUrl/eye.svg";
   static String eyeOffIcon = "$baseUrl/eye-off.svg";
-  static String personIcon = "$baseUrl/personIcon.svg";
+
 
   static String postNow = "$baseUrl/postNow.svg";
   static String postNowFillUp = "$baseUrl/postNow_fillup.svg";
@@ -49,5 +49,9 @@ class AppIcons{
   static String line = "$baseUrl/line.svg";
   static String backButton = "$baseUrl/backArrow.svg";
 
+//Sign in Screen
+  static String emailIcon ="$baseUrl/email.svg";
+  static String passwordLockIcon ="$baseUrl/passwordLockIcon.svg";
+  static String personIcon ="$baseUrl/personIcon.svg";
 
 }

@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
 import 'package:thera_track_app/utils/app_images.dart';
@@ -35,16 +36,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: SvgPicture.asset(AppIcons.backButton),
-          padding: EdgeInsets.all(8.0),
-          iconSize: 18.sp,
-        ),
-      ),
       backgroundColor: AppColors.whiteColor,
       body: SingleChildScrollView(
         child: Padding(
@@ -57,16 +48,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   Image.asset(AppImages.appLogo, width: 72.w, height: 72.h),
                   SizedBox(height: 20.h),
-                  Text(AppStrings.createAccount,
-                    style: AppStyles.fontSize24(fontWeight: FontWeight.w700),
+                  Text(AppStrings.signupToYourAccount,
+                    style: AppStyles.fontSize24(fontWeight: FontWeight.w400),
                   ),
-                  Text(AppStrings.signUpNow,
-                    style: AppStyles.fontSize14(fontWeight: FontWeight.w400),
+                  SizedBox(height: 20.h),
+                  Text(AppStrings.welcomeBack,
+                    style: AppStyles.fontSize14(fontWeight: FontWeight.w400,color: AppColors.color878787),
                   ),
                   SizedBox(height: 30.h),
 
                   // User Name
-                  Text(AppStrings.userName, style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
+                  Text(AppStrings.nameText, style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
                   SizedBox(height: 8.h),
                   CustomTextField(
                     controller: userNameCTRL,
@@ -112,15 +104,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       hintStyle: TextStyle(color: Colors.grey),
                       contentPadding:EdgeInsets.symmetric(horizontal: 15.w,vertical: 15.h),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16.r)),
+                        borderRadius: BorderRadius.all(Radius.circular(4.r)),
                         borderSide: BorderSide(color: AppColors.primaryColor),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16.r)),
+                        borderRadius: BorderRadius.all(Radius.circular(4.r)),
                         borderSide: BorderSide(color: AppColors.primaryColor),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16.r)),
+                        borderRadius: BorderRadius.all(Radius.circular(4.r)),
                         borderSide: BorderSide(color: AppColors.primaryColor, width: 1.w),
                       ),
                     ),
@@ -143,7 +135,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     isPassword: true,
                     prefixIcon: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-                      child: SvgPicture.asset(AppIcons.passWordIcon),
+                      child: SvgPicture.asset(AppIcons.passwordLockIcon),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -163,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     isPassword: true,
                     prefixIcon: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
-                      child: SvgPicture.asset(AppIcons.passWordIcon),
+                      child: SvgPicture.asset(AppIcons.passwordLockIcon),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -193,10 +185,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Text(AppStrings.alreadyHaveAnAccount, style: AppStyles.fontSize14()),
                       TextButton(
                         onPressed: () {
-                          // Get.toNamed(AppRoutes.signInScreen);
+                           Get.toNamed(AppRoutes.signInScreen);
                         },
                         child: CustomText(
-                          text: AppStrings.logIn,
+                          text: AppStrings.signIn,
                           color: AppColors.primaryColor,
                           fontWeight: FontWeight.w600,
                         ),
@@ -236,7 +228,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           maxLines: 2,
           TextSpan(
             text: AppStrings.byCreating,
-            style: TextStyle(fontSize: 14.w, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 14.w, fontWeight: FontWeight.w500,color: AppColors.color878787),
             children: [
               TextSpan(
                 text: AppStrings.termsConditions,

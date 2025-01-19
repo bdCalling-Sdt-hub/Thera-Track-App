@@ -66,8 +66,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(AppImages.appLogo, width: 72.w, height: 72.h),
-                  SizedBox(height: 20.h),
+                  SizedBox(height: 100.h),
                   Text(AppStrings.verifyEmail,
                     style: AppStyles.fontSize24(fontWeight: FontWeight.w700),
                   ),
@@ -89,13 +88,13 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     onTap: () {
                       _showPasswordChangeBottomSheet(context);
                     },
-                    text:AppStrings.verifyText,
+                    text: 'Confirm',
                     textColor: AppColors.whiteColor,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(AppStrings.didNotReceiveCode,style: AppStyles.fontSize14()),
+                      Text(AppStrings.didNotReceiveCode,style: AppStyles.fontSize14(color: AppColors.color878787)),
                       TextButton(
                         onPressed: () {
                           //Get.toNamed(AppRoutes.signUpScreen);
@@ -143,6 +142,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
   //=========================>>>>>  Password Change BottomSheet    <<<================================
   void _showPasswordChangeBottomSheet(BuildContext context) {
     showModalBottomSheet(
+      backgroundColor: AppColors.whiteColor,
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
@@ -169,7 +169,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
               Text(AppStrings.passwordChanged, style: AppStyles.fontSize20(color: AppColors.blackColor,fontWeight: FontWeight.w700),),
               SizedBox(height: 20.h),
               Text(AppStrings.returnToLogIn,
-                style: AppStyles.fontSize16(color: AppColors.blackColor),
+                style: AppStyles.fontSize16(color: AppColors.color878787),
               ),
               SizedBox(height: 20.h),
               CustomButton(

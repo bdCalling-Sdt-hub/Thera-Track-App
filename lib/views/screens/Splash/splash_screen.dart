@@ -2,9 +2,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:thera_track_app/utils/app_icons.dart';
+import 'package:get/get.dart';
+import 'package:thera_track_app/helpers/prefs_helpers.dart';
+import 'package:thera_track_app/helpers/route.dart';
+import 'package:thera_track_app/utils/app_colors.dart';
+import 'package:thera_track_app/utils/app_constants.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:thera_track_app/utils/app_images.dart';
-import 'package:thera_track_app/views/base/custom_background.dart';
+import 'package:thera_track_app/utils/app_strings.dart';
+import 'package:thera_track_app/views/base/custom_button.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -24,24 +30,27 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomBackground(
-      child: Scaffold(
-        body: Center(
-          child: Stack(
-            alignment: Alignment.center,
+    return Scaffold(
+      backgroundColor: AppColors.whiteColor,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.asset(AppIcons.splashBG),
-              Positioned(
-                top: 80.0,
-                left: 90.0,
-                child: ClipOval(
-                  child: Image.asset(
-                    AppImages.appLogo,
-                    width: 130.w,
-                    height: 130.h,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+              Image.asset(
+                AppImages.appLogo,
+                height: 130.h,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(height: 80.h),
+              CustomButton(
+                textColor: AppColors.textColor,
+                onTap: () {
+                   Get.toNamed(AppRoutes.signInScreen);
+                },
+                text: 'Get Started',
               ),
             ],
           ),
@@ -50,12 +59,13 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
+
   ///===================internet connection checker==================>
   StreamSubscription? streamSubscription;
   bool isConnection = false;
 
   ///========================is internet connection check========================>
- /* void getConnectivity() {
+/*  void getConnectivity() {
     streamSubscription =
         Connectivity().onConnectivityChanged.listen((event) async {
     //  isConnection = await InternetConnectionChecker().hasConnection;

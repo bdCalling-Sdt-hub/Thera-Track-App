@@ -21,7 +21,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       extendBody: true,
       appBar: AppBar(
         title: Text(
-          AppStrings.privacyPolicyText,
+          AppStrings.sendOTP,
           style: TextStyle(fontSize: 18.sp),
         ),
         leading: IconButton(

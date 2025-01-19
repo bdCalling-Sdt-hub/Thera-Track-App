@@ -91,7 +91,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             }
             return null;
           },*/
-      cursorColor: AppColors.primaryColor,
+      cursorColor: AppColors.color878787,
       obscureText: widget.isPassword ? obscureText : false,
       style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
@@ -114,7 +114,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         prefixIconColor: AppColors.primaryColor,
         labelText: widget.labelText,
         hintText: widget.hintText,
-        hintStyle: TextStyle(color: AppColors.hintColor, fontFamily: 'Raleway'),
+        hintStyle: TextStyle(color: AppColors.hintColor, fontFamily: 'OpenSans'),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.r),
           borderSide: BorderSide(
@@ -129,7 +129,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
     );
   }
-
   _suffixIcon(String icon) {
     return Padding(
       padding: EdgeInsets.only(right: 15.w),
@@ -142,7 +141,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   _buildOutlineInputBorder() {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(12.r),
+      borderRadius: BorderRadius.circular(4.r),
       borderSide: BorderSide(
         width: 1.w,
         color: AppColors.primaryColor,
