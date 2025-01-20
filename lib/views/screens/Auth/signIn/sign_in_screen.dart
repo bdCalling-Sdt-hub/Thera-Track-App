@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
@@ -100,7 +101,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   SizedBox(height: 20.h),
                   CustomButton(
                     onTap: () {
-                     // Get.toNamed(AppRoutes.homeScreen);
+                      Get.toNamed(AppRoutes.homeScreen);
                     },
                     text: 'Sign In',
                     textColor: AppColors.whiteColor,
@@ -110,7 +111,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(AppStrings.doNotHaveAnAccount,style: AppStyles.fontSize14(color: AppColors.greyColor)),
+                      Text(AppStrings.doNotHaveAnAccount.tr,style: AppStyles.fontSize14(color: AppColors.greyColor)),
                       TextButton(
                         onPressed: () {
                            Get.toNamed(AppRoutes.signUpScreen);

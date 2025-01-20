@@ -27,7 +27,7 @@ class CustomListTile extends StatelessWidget {
         child: Container(
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.r),
+              borderRadius: BorderRadius.circular(4.r),
               color: AppColors.fillColor,
               border: Border.all(width: 1.w, color: borderColor ?? AppColors.primaryColor)),
           child: ListTile(
@@ -41,6 +41,7 @@ class CustomListTile extends StatelessWidget {
               maxLine: 2,
               fontSize: 16.sp,
               fontWeight: FontWeight.w500,
+              fontName: 'OpenSans',
             ),
           ),
         ),

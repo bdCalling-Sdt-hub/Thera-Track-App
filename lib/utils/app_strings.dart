@@ -21,7 +21,7 @@ class AppStrings {
   static String  enterConfirmPassword = 'Enter Confirm Password';
 
 
-  static String  doNotHaveAnAccount = 'Don’t Have An Account?';
+  static String  doNotHaveAnAccount = 'Don’t have an account?';
 
   //============================> Sign up Screen <==============================
   static String  nameText = 'Name';
@@ -48,29 +48,24 @@ class AppStrings {
   static String  oldPassword = 'Old Password';
   static String  setNewPassword = 'Set new password';
   static String  reEnterNewPassword = 'Re-enter new password';
-  static String  askAnything = 'Ask anything...';
-  static String  askMeAnything = 'Ask Me anything...';
+
 
 
   //forgot password screen
   static String  pleaseEnterText = 'Please enter your email address to reset password.';
-
-  static String  sendOTP = 'Send OTP';
-
-
   static String  enterName = 'Enter Name';
   static String  enterPhoneNumber = 'Enter Phone name';
 
 
-  //============================> Profile Screen <==============================
+ //============================> Profile Screen <==============================
   static String  personalInformationText = 'Personal Information';
   static String  settingText = 'Setting';
   static String  notificationText = 'Notification';
-  static String  premiumAccount = 'Premium Account';
+
 
 
   //============================> Personal Info Screen <======
-  static String personalInfo = 'Personal Information';
+
   static String editPersonalInfo = 'Edit Personal Information';
   static String myPostText = 'My Post';
   static String myProfileText = 'My Profile';
@@ -82,17 +77,6 @@ class AppStrings {
   static String  backToHomePage = 'Back to home page';
 
 
-  //Post Now screen
-  static String  uploadImage = 'Upload Image';
-  static String  postNow = 'Post Now';
-  static String  shareSomeText = 'Share Some Positivity...';
-  static String  typeText = 'Type Chat Box';
-  static String  editText = 'Edit';
-  static String  copyText = 'Copy';
-  static String  topQuestion = 'Top Questions';
-  static String  payNow = 'Pay Now';
-  static String  makePayment = 'Make Payment';
-
 
 
 //Sign In screen
@@ -100,6 +84,7 @@ class AppStrings {
   static String  welcomeBack = 'Welcome back! Please enter your details.';
   static String  yourEmail = 'Your email';
   static String  signupToYourAccount = 'Sign up to \nyour account';
+  static String  sendOTP = 'Send OTP';
 
 
 }

@@ -48,7 +48,7 @@ class CustomText extends StatelessWidget {
           decoration: decoration,
           fontSize: fontSize,
           decorationColor: AppColors.primaryColor,
-          fontFamily: fontName ?? "Raleway",
+          fontFamily: fontName ?? "Inter",
           fontWeight: fontWeight,
           color: color,
         ),

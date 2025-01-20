@@ -29,7 +29,6 @@ class OnboardingScreen extends StatelessWidget {
                 SizedBox(height: 40.h),
                 // GET STARTED Button
                 CustomButton(
-                  textColor: AppColors.textColor,
                   onTap: () {
                     Get.toNamed(AppRoutes.signInScreen);
                   },

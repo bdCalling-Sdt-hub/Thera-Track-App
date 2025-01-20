@@ -7,7 +7,8 @@ import 'package:thera_track_app/utils/app_icons.dart';
 import 'package:thera_track_app/utils/app_strings.dart';
 import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
-import '../../../../base/custom_text_field.dart';
+import 'package:thera_track_app/views/base/custom_text_field.dart';
+
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});

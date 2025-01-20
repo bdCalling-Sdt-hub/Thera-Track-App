@@ -5,10 +5,6 @@ class AppIcons{
   static String homeFillUpIcon = "$baseUrl/home_fillUp_Icon.svg";
 
   static String passWordIcon ="$baseUrl/passwordIcon.svg";
-
-
-
-
   static String splashBG = "$baseUrl/splashBG.svg";
   static String googleIcon = "$baseUrl/google.svg";
   static String eyeIcon = "$baseUrl/eye.svg";
@@ -53,5 +49,18 @@ class AppIcons{
   static String emailIcon ="$baseUrl/email.svg";
   static String passwordLockIcon ="$baseUrl/passwordLockIcon.svg";
   static String personIcon ="$baseUrl/personIcon.svg";
+  static String newChart ="$baseUrl/newChart.svg";
+  static String chartArchive ="$baseUrl/chartArchive.svg";
+  static String contactIcon ="$baseUrl/contactIcon.svg";
+  static String appointmentIcon ="$baseUrl/appointmentIcon.svg";
+  static String offlineIcon ="$baseUrl/offlineIcon.svg";
+  static String notificationIcon ="$baseUrl/notificationIcon.svg";
+  static String accountSetUp ="$baseUrl/accountSetUp.svg";
+  static String treatMentIcon ="$baseUrl/treatMentIcon.svg";
+  static String paidIcon ="$baseUrl/paidIcon.svg";
+  static String unPaidIcon ="$baseUrl/unPaid.svg";
+  static String settingIcon ="$baseUrl/settingIcon.svg";
+  static String logOut ="$baseUrl/logOut.svg";
+  static String rightArrow ="$baseUrl/rightArrow.svg";
 
 }

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_utils/get_utils.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
@@ -182,7 +183,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(AppStrings.alreadyHaveAnAccount, style: AppStyles.fontSize14()),
+                      Text(AppStrings.alreadyHaveAnAccount.tr, style: AppStyles.fontSize14(color: AppColors.color878787)),
                       TextButton(
                         onPressed: () {
                            Get.toNamed(AppRoutes.signInScreen);
