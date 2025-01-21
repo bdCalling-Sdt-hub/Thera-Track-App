@@ -62,5 +62,6 @@ class AppIcons{
   static String settingIcon ="$baseUrl/settingIcon.svg";
   static String logOut ="$baseUrl/logOut.svg";
   static String rightArrow ="$baseUrl/rightArrow.svg";
+  static String searchIcon ="$baseUrl/searchIcon.svg";
 
 }

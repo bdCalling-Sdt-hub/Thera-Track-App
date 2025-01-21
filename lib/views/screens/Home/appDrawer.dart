@@ -59,21 +59,21 @@ class AppDrawer extends StatelessWidget {
               leading: SvgPicture.asset(AppIcons.paidIcon,color: Colors.white),
               title: Text('Paid',style: TextStyle(color: AppColors.whiteColor),),
               onTap: () {
-                //  Get.toNamed(AppRoutes.treatmentScreen);
+                  Get.toNamed(AppRoutes.paidDetailsScreen);
               },
             ),
             ListTile(
               leading: SvgPicture.asset(AppIcons.treatMentIcon),
               title: Text('Unpaid',style: TextStyle(color: AppColors.whiteColor),),
               onTap: () {
-                //  Get.toNamed(AppRoutes.treatmentScreen);
+                Get.toNamed(AppRoutes.unPaidDetailsScreen);
               },
             ),
             ListTile(
               leading: SvgPicture.asset(AppIcons.unPaidIcon),
               title: Text('Feedback',style: TextStyle(color: AppColors.whiteColor),),
               onTap: () {
-                //  Get.toNamed(AppRoutes.treatmentScreen);
+                Get.toNamed(AppRoutes.feedbackScreen);
               },
             ),
             ListTile(

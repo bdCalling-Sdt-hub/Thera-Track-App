@@ -9,7 +9,6 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
-import 'package:thera_track_app/utils/app_images.dart';
 import 'package:thera_track_app/utils/app_strings.dart';
 import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
@@ -47,7 +46,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(AppImages.appLogo, width: 72.w, height: 72.h),
                   SizedBox(height: 20.h),
                   Text(AppStrings.signupToYourAccount,
                     style: AppStyles.fontSize24(fontWeight: FontWeight.w400),
@@ -172,7 +170,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   // Sign Up Button
                   SizedBox(height: 20.h),
                   CustomButton(
-                    textColor: AppColors.textColor,
                     onTap: () {
                     //  Get.toNamed(AppRoutes.signInScreen);
                     },

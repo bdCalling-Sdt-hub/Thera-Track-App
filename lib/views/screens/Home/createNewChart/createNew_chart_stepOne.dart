@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
 import 'package:thera_track_app/utils/style.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/innerWidget/customHeaderWithSearch_widget.dart';
 
 class CreateNewChartStepOneScreen extends StatefulWidget {
   @override
@@ -12,12 +15,11 @@ class CreateNewChartStepOneScreen extends StatefulWidget {
 
 class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScreen> {
   TextEditingController searchController = TextEditingController();
+
   List<String> recentClients = [
     'Christopher Rogers',
     'Joshua Walker',
-    'Richard Turner',
-    'Richard Turner',
-    'Richard Turner'
+
   ];
   List<String> allClients = [
     'Christopher Rogers',
@@ -41,27 +43,31 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Search field
-              TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                  hintText: 'Search',
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: Colors.blue),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-        
+              CustomHeaderWithSearch(
+                titleText: 'Clients',
+                actionChild: InkWell(
+                    onTap: (){
+                    Get.toNamed(AppRoutes.createNewChartStepTwoScreen);
+                    },
+                    child: Text('Add Client')),
+                searchController: searchController),
               // Recent Clients section
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Recent Clients',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  Container(
+                    height: 50.h,
+                    color: AppColors.colorBADEFB,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          'Recent Clients',
+                          style: AppStyles.fontSize16(),
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(height: 10),
                   ListView.builder(
@@ -86,7 +92,7 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
                 ],
               ),
               SizedBox(height: 20),
-        
+
               // All Clients section
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +107,7 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           'All Clients',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          style: AppStyles.fontSize16(),
                         ),
                       ),
                     ),
@@ -118,7 +124,7 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
                             title: Text(allClients[index]),
                             trailing: SvgPicture.asset(AppIcons.rightArrow),
                             onTap: () {
-                              // Handle client selection
+
                             },
                           ),
                           Divider(color: AppColors.colorBADEFB),

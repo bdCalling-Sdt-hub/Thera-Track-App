@@ -22,45 +22,48 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey, // Assign the scaffold key
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            Container(
-              width: 50.w,
-              height: 50.h,
-              decoration: BoxDecoration(
-                color: AppColors.whiteColor,
-                borderRadius: BorderRadius.all(Radius.circular(4)),
+      key: _scaffoldKey,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(80.h),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          title: Row(
+            children: [
+              Container(
+                width: 60.w,
+                height: 60.h,
+                decoration: BoxDecoration(
+                  color: AppColors.whiteColor,
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                ),
+                child: SvgPicture.asset('assets/icons/image.svg'),
               ),
-              child: SvgPicture.asset('assets/icons/image.svg'),
-            ),
-            SizedBox(width: 10.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Hello, Good Evening',
-                  style: AppStyles.fontSize14(color: AppColors.whiteColor),
-                ),
-                Text(
-                  'Setup Your Account',
-                  style: AppStyles.fontSize16(color: AppColors.whiteColor),
-                ),
-              ],
+              SizedBox(width: 10.w),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Hello, Good Evening',
+                    style: AppStyles.fontSize14(color: AppColors.whiteColor),
+                  ),
+                  Text(
+                    'Setup Your Account',
+                    style: AppStyles.fontSize16(color: AppColors.whiteColor,fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          backgroundColor: Colors.blue,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.menu, color: Colors.white),
+              onPressed: () {
+                _scaffoldKey.currentState?.openDrawer();
+              },
             ),
           ],
         ),
-        backgroundColor: Colors.blue,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.menu, color: Colors.white),
-            onPressed: () {
-              _scaffoldKey.currentState?.openDrawer();
-            },
-          ),
-        ],
       ),
       drawer: AppDrawer(),
       body: Padding(
