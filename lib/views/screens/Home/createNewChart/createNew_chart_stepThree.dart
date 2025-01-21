@@ -20,9 +20,7 @@ class _CreateNewChartStepThreeScreenState extends State<CreateNewChartStepThreeS
     'Amigo',
     'Blaze',
     'Thunder',
-
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +65,7 @@ class _CreateNewChartStepThreeScreenState extends State<CreateNewChartStepThreeS
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(horseList[index]),
-                            SizedBox(width: 60.w),
+                            SizedBox(width: 8.w),
 
                             Row(
                               children: [
