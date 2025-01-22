@@ -123,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SvgPicture.asset( AppIcons.offlineIcon),
               label: 'Offline Files',
               onTap: () {
-                //   Get.toNamed(AppRoutes.chartArchiveScreen);
+                 Get.toNamed(AppRoutes.offLineFileScreen);
               },
             ),
           ],

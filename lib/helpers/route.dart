@@ -16,6 +16,7 @@ import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/cre
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepTwo.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/horseDetailsScreen.dart';
 import 'package:thera_track_app/views/screens/Home/home_screen.dart';
+import 'package:thera_track_app/views/screens/Home/offline_file/offline_file_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/onboarding_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/splash_screen.dart';
 import 'package:thera_track_app/views/screens/appDrawer/AccountSetUp/accountSetUp_screen.dart';
@@ -52,6 +53,7 @@ class AppRoutes{
   static String contactSearchScreen= "/contactSearchScreen";
   static String contactDetailsScreen= "/contactDetailsScreen";
   static String editContactDetailsScreen= "/editContactDetailsScreen";
+  static String offLineFileScreen= "/offLineFileScreen";
 
 
  static List<GetPage> page=[
@@ -91,10 +93,14 @@ class AppRoutes{
 
    //ChartArchiveScreen
    GetPage(name:appointmentScreen, page: ()=> AppointmentScreen(),transition: Transition.noTransition),
+
    //ContactsScreen
    GetPage(name:contactsScreen, page: ()=> ContactsScreen(),transition: Transition.noTransition),
    GetPage(name:contactSearchScreen, page: ()=> ContactSearchScreen(),transition: Transition.noTransition),
    GetPage(name:contactDetailsScreen, page: ()=> ContactDetailsScreen(),transition: Transition.noTransition),
    GetPage(name:editContactDetailsScreen, page: ()=> EditContactDetailsScreen(),transition: Transition.noTransition),
+
+   //OffLineFileScreen
+   GetPage(name:offLineFileScreen, page: ()=> OffLineFileScreen(),transition: Transition.noTransition),
   ];
 }

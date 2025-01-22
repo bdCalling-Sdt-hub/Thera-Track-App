@@ -154,7 +154,7 @@ class _ChartArchiveDetailsScreenState extends State<ChartArchiveDetailsScreen> {
               TextBoxList(),
 
               // Footer Actions
-              if(screenType == 'chartArchiveScreen')...{
+              if (screenType == 'chartArchiveScreen')...{
 
                 // Services Section
                 PriceDetailWidget(title: 'Cryotherapy', price: '200'),
@@ -310,6 +310,83 @@ class _ChartArchiveDetailsScreenState extends State<ChartArchiveDetailsScreen> {
                         ],
                       ),
                     )
+                  ],
+                )
+              }
+              else if ( screenType == 'offLineFileScreen')...{
+
+                // Services Section
+                PriceDetailWidget(title: 'Cryotherapy', price: '200'),
+                PriceDetailWidget(title: 'Massage Therapy', price: '200'),
+                PriceDetailWidget(title: 'Acupuncture', price: '200'),
+                PriceDetailWidget(title: 'Heat and Cold Therapy', price: '200'),
+                Divider(color: AppColors.blackColor),
+                PriceDetailWidget(title: 'Full Cost', price: '200'),
+                PriceDetailWidget(title: 'Discount ', price: '200'),
+                Divider(color: AppColors.blackColor),
+                PriceDetailWidget(title: 'Final Cost', price: '1000'),
+                SizedBox(height: 8.h),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomButton(
+                                  onTap: (){},
+                                  prefixIcon: Icon(Icons.send),
+                                  text: 'Send')
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: 10.w),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomButton(
+                                  onTap: (){},
+                                  prefixIcon: Icon(Icons.sync_rounded),
+                                  text: 'Sync')
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 12.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomButton(
+                                  onTap: (){},
+                                  prefixIcon: Icon(Icons.print),
+                                  text: 'Print')
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: 10.w),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CustomButton(
+                                  onTap: (){},
+                                  prefixIcon: Icon(CupertinoIcons.delete),
+                                  text: 'Delete')
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 )
               }
