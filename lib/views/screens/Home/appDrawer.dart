@@ -27,7 +27,7 @@ class AppDrawer extends StatelessWidget {
           children: [
         DrawerHeader(
         decoration: BoxDecoration(
-          color: AppColors.colorBADEFB,
+          color: AppColors.secondaryColor,
         ),
         child:  Image.asset(
           AppImages.appLogo,

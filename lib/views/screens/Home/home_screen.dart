@@ -94,27 +94,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               label: 'Notification',
-              onTap: () {},
+              onTap: () {
+                //   Get.toNamed(AppRoutes.chartArchiveScreen);
+              },
             ),
             GridViewTile(
               child: SvgPicture.asset( AppIcons.chartArchive),
               label: 'Chart Archive',
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(AppRoutes.chartArchiveScreen);
+              },
             ),
             GridViewTile(
               child: SvgPicture.asset( AppIcons.contactIcon),
               label: 'Contacts',
-              onTap: () {},
+              onTap: () {
+              Get.toNamed(AppRoutes.contactsScreen);
+              },
             ),
             GridViewTile(
               child: SvgPicture.asset( AppIcons.appointmentIcon),
               label: 'Appointments',
-              onTap: () {},
+              onTap: () {
+                   Get.toNamed(AppRoutes.appointmentScreen);
+              },
             ),
             GridViewTile(
               child: SvgPicture.asset( AppIcons.offlineIcon),
               label: 'Offline Files',
-              onTap: () {},
+              onTap: () {
+                //   Get.toNamed(AppRoutes.chartArchiveScreen);
+              },
             ),
           ],
         ),

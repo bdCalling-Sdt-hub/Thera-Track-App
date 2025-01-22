@@ -86,7 +86,7 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
                         Container(
                           width: 205.w,
                           decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.colorBADEFB),
+                            border: Border.all(color: AppColors.secondaryColor),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           padding: EdgeInsets.all(8.0),
@@ -103,7 +103,7 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
                           height: 44.h,
                           width: 80.w,
                           decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.colorBADEFB),
+                            border: Border.all(color: AppColors.secondaryColor),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           padding: EdgeInsets.all(8.0),

@@ -20,7 +20,7 @@ class CustomHeaderWithSearch extends StatelessWidget {
       children: [
         Container(
           height: 50.h,
-          color: AppColors.colorBADEFB,
+          color: AppColors.secondaryColor,
           child: Align(
             alignment: Alignment.centerLeft,
             child: Padding(
@@ -40,7 +40,7 @@ class CustomHeaderWithSearch extends StatelessWidget {
         ),
         // Search field container
         Container(
-          color: AppColors.colorBADEFB,
+          color: AppColors.secondaryColor,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 8,vertical: 8),
             child: TextField(
@@ -51,11 +51,11 @@ class CustomHeaderWithSearch extends StatelessWidget {
                 filled: true,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(color: AppColors.colorBADEFB),
+                  borderSide: BorderSide(color: AppColors.secondaryColor),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(color: AppColors.colorBADEFB),
+                  borderSide: BorderSide(color: AppColors.secondaryColor),
                 ),
               ),
 

@@ -78,10 +78,10 @@ class _CreateNewChartStepThreeScreenState extends State<CreateNewChartStepThreeS
                         ),
                         trailing: SvgPicture.asset(AppIcons.rightArrow),
                         onTap: () {
-                          // Handle client selection
+                           Get.toNamed(AppRoutes.horseDetailsScreen);
                         },
                       ),
-                      Divider(color: AppColors.colorBADEFB),
+                      Divider(color: AppColors.secondaryColor),
                     ],
                   );
                 },

@@ -49,7 +49,7 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
                     onTap: (){
                     Get.toNamed(AppRoutes.createNewChartStepTwoScreen);
                     },
-                    child: Text('Add Client')),
+                    child: Text('Add Client',style: AppStyles.fontSize14(color: AppColors.primaryColor,fontWeight: FontWeight.w500))),
                 searchController: searchController),
               // Recent Clients section
               Column(
@@ -57,7 +57,7 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
                 children: [
                   Container(
                     height: 50.h,
-                    color: AppColors.colorBADEFB,
+                    color: AppColors.secondaryColor,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
@@ -84,7 +84,7 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
                               // Handle client selection
                             },
                           ),
-                          Divider(color: AppColors.colorBADEFB),
+                          Divider(color: AppColors.secondaryColor),
                         ],
                       );
                     },
@@ -100,7 +100,7 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
                 children: [
                   Container(
                     height: 50.h,
-                    color: AppColors.colorBADEFB,
+                    color: AppColors.secondaryColor,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
@@ -127,7 +127,7 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
 
                             },
                           ),
-                          Divider(color: AppColors.colorBADEFB),
+                          Divider(color: AppColors.secondaryColor),
                         ],
                       );
 

@@ -85,7 +85,7 @@ class PaidDetailsScreen extends StatelessWidget {
         padding: EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
-          color: AppColors.colorBADEFB,
+          color: AppColors.secondaryColor,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

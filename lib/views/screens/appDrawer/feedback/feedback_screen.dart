@@ -28,7 +28,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               padding: EdgeInsets.all(16.r),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4.r),
-                color: AppColors.colorBADEFB,
+                color: AppColors.secondaryColor,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,8 +62,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     decoration: InputDecoration(
                       hintText: 'Write your feedback here...',
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.colorBADEFB)),
-                      focusedBorder: UnderlineInputBorder( borderSide: BorderSide(color: AppColors.colorBADEFB)),
+                        borderSide: BorderSide(color: AppColors.secondaryColor)),
+                      focusedBorder: UnderlineInputBorder( borderSide: BorderSide(color: AppColors.secondaryColor)),
                       contentPadding: EdgeInsets.all(10),
                       fillColor: Colors.white,
                       filled: true,
