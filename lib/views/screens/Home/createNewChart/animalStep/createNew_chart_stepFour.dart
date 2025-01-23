@@ -64,6 +64,7 @@ class _CreateNewChartStepFourScreenState extends State<CreateNewChartStepFourScr
                     onTap: (){}, text: 'Next'),
                 ],
               ),*/
+
               Container(
                 padding: EdgeInsets.all(4),
                 decoration: BoxDecoration(
