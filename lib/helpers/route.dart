@@ -7,10 +7,13 @@ import 'package:thera_track_app/views/screens/Auth/forgotPassword/forgotPassword
 import 'package:thera_track_app/views/screens/Home/appointment/appointment_screen.dart';
 import 'package:thera_track_app/views/screens/Home/chartArchive/chartArchive_screen.dart';
 import 'package:thera_track_app/views/screens/Home/chartArchive/detailsChartArchive_screen.dart';
-import 'package:thera_track_app/views/screens/Home/contacts/contact_details_screen.dart';
+import 'package:thera_track_app/views/screens/Home/contacts/animal/animalList_screen.dart';
+import 'package:thera_track_app/views/screens/Home/contacts/animal/animal_contact_details_screen.dart';
+import 'package:thera_track_app/views/screens/Home/contacts/animal/edit_animal_contact_details_screen.dart';
+import 'package:thera_track_app/views/screens/Home/contacts/human/clients_contact_details_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/contact_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/contact_search_screen.dart';
-import 'package:thera_track_app/views/screens/Home/contacts/edit_contact_details_screen.dart';
+import 'package:thera_track_app/views/screens/Home/contacts/human/edit_contact_details_screen.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepOne.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepThree.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepTwo.dart';
@@ -25,6 +28,7 @@ import 'package:thera_track_app/views/screens/appDrawer/feedback/feedback_screen
 import 'package:thera_track_app/views/screens/appDrawer/paid/paidDetails_screen.dart';
 import 'package:thera_track_app/views/screens/appDrawer/treatment/treatment_screen.dart';
 import 'package:thera_track_app/views/screens/appDrawer/unpaid/undPaidDetails_screen.dart';
+import '../views/screens/Home/createNewChart/animalStep/createNew_chart_stepFour.dart';
 import '../views/screens/appDrawer/yourDetails/yourDetails_screen.dart';
 
 class AppRoutes{
@@ -51,9 +55,13 @@ class AppRoutes{
   static String appointmentScreen="/appointmentScreen";
   static String contactsScreen= "/contactsScreen";
   static String contactSearchScreen= "/contactSearchScreen";
-  static String contactDetailsScreen= "/contactDetailsScreen";
+  static String clientsContactDetailsScreen= "/clientsContactDetailsScreen";
   static String editContactDetailsScreen= "/editContactDetailsScreen";
   static String offLineFileScreen= "/offLineFileScreen";
+  static String animalContactDetailsScreen= "/animalContactDetailsScreen";
+  static String animalListScreen= "/animalListScreen";
+  static String editAnimalContactDetailsScreen= "/editAnimalContactDetailsScreen";
+  static String createNewChartStepFourScreen = "/createNewChartStepFourScreen";
 
 
  static List<GetPage> page=[
@@ -84,6 +92,8 @@ class AppRoutes{
    GetPage(name:createNewChartStepOneScreen, page: ()=> CreateNewChartStepOneScreen(),transition: Transition.noTransition),
    GetPage(name:createNewChartStepTwoScreen, page: ()=> CreateNewChartStepTwoScreen(),transition: Transition.noTransition),
    GetPage(name:createNewChartStepThreeScreen, page: ()=> CreateNewChartStepThreeScreen(),transition: Transition.noTransition),
+   GetPage(name:createNewChartStepFourScreen, page: ()=> CreateNewChartStepFourScreen(),transition: Transition.noTransition),
+
    GetPage(name:horseDetailsScreen, page: ()=> HorseDetailsScreen(),transition: Transition.noTransition),
 
 
@@ -97,8 +107,11 @@ class AppRoutes{
    //ContactsScreen
    GetPage(name:contactsScreen, page: ()=> ContactsScreen(),transition: Transition.noTransition),
    GetPage(name:contactSearchScreen, page: ()=> ContactSearchScreen(),transition: Transition.noTransition),
-   GetPage(name:contactDetailsScreen, page: ()=> ContactDetailsScreen(),transition: Transition.noTransition),
+   GetPage(name:clientsContactDetailsScreen, page: ()=> ClientsContactDetailsScreen(),transition: Transition.noTransition),
    GetPage(name:editContactDetailsScreen, page: ()=> EditContactDetailsScreen(),transition: Transition.noTransition),
+   GetPage(name:animalContactDetailsScreen, page: ()=> AnimalContactDetailsScreen(),transition: Transition.noTransition),
+   GetPage(name:animalListScreen, page: ()=> AnimalListScreen(),transition: Transition.noTransition),
+   GetPage(name:editAnimalContactDetailsScreen, page: ()=> EditAnimalContactDetailsScreen(),transition: Transition.noTransition),
 
    //OffLineFileScreen
    GetPage(name:offLineFileScreen, page: ()=> OffLineFileScreen(),transition: Transition.noTransition),

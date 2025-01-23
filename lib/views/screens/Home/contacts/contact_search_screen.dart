@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:thera_track_app/helpers/route.dart';
@@ -18,17 +17,19 @@ class ContactSearchScreen extends StatefulWidget {
 class _ContactSearchScreenState extends State<ContactSearchScreen> {
   TextEditingController searchController = TextEditingController();
 
-  List<String> recentClients = [
-    'Christopher Rogers',
-    'Joshua Walker',
-
+  // A sample list with both humans and animals
+  List<Map<String, dynamic>> recentContacts = [
+    {'name': 'Human - Christopher Rogers', 'type': 'human'},
+    {'name': 'Human - Joshua Walker', 'type': 'human'},
+    {'name': 'Animal - Dog', 'type': 'animal'},
+    {'name': 'Animal -- Cat', 'type': 'animal'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Clients',style: AppStyles.fontSize16(),),
+        title: Text('Contacts', style: AppStyles.fontSize16()),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -37,14 +38,20 @@ class _ContactSearchScreenState extends State<ContactSearchScreen> {
           child: Column(
             children: [
               CustomHeaderWithSearch(
-                  titleText: 'Clients',
-                  actionChild: InkWell(
-                      onTap: (){
-                       // Get.toNamed(AppRoutes.createNewChartStepTwoScreen);
-                      },
-                      child: Text('Add Client',style: AppStyles.fontSize14(color: AppColors.primaryColor,fontWeight: FontWeight.w500))),
-                  searchController: searchController),
-              // Recent Clients section
+                titleText: 'Clients',
+                actionChild: InkWell(
+                  onTap: () {
+                    // Get.toNamed(AppRoutes.createNewChartStepTwoScreen);
+                  },
+                  child: Text(
+                    'Add Client',
+                    style: AppStyles.fontSize14(
+                        color: AppColors.primaryColor, fontWeight: FontWeight.w500),
+                  ),
+                ),
+                searchController: searchController,
+              ),
+              // Recent Contacts section
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -52,15 +59,21 @@ class _ContactSearchScreenState extends State<ContactSearchScreen> {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: recentClients.length,
+                    itemCount: recentContacts.length,
                     itemBuilder: (context, index) {
+                      var contact = recentContacts[index];
                       return Column(
                         children: [
                           ListTile(
-                            title: Text(recentClients[index]),
+                            title: Text(contact['name']),
                             trailing: SvgPicture.asset(AppIcons.rightArrow),
                             onTap: () {
-                              Get.toNamed(AppRoutes.contactDetailsScreen);
+                              // Navigate based on the type (human or animal)
+                              if (contact['type'] == 'human') {
+                                Get.toNamed(AppRoutes.clientsContactDetailsScreen);
+                              } else if (contact['type'] == 'animal') {
+                                Get.toNamed(AppRoutes.animalListScreen);
+                              }
                             },
                           ),
                           Divider(color: AppColors.secondaryColor),

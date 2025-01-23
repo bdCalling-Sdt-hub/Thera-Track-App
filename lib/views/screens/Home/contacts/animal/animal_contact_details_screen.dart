@@ -8,18 +8,18 @@ import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
 import 'package:thera_track_app/utils/app_strings.dart';
 import 'package:thera_track_app/utils/style.dart';
-import 'package:thera_track_app/views/base/custom_background.dart';
+
 
 import 'package:thera_track_app/views/base/custom_list_tile.dart';
 
-class ContactDetailsScreen extends StatefulWidget {
-  const ContactDetailsScreen({super.key});
+class AnimalContactDetailsScreen extends StatefulWidget {
+  const AnimalContactDetailsScreen({super.key});
 
   @override
-  State<ContactDetailsScreen> createState() => _ContactDetailsScreenState();
+  State<AnimalContactDetailsScreen> createState() => _AnimalContactDetailsScreenState();
 }
 
-class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
+class _AnimalContactDetailsScreenState extends State<AnimalContactDetailsScreen> {
   final TextEditingController fullNameCTRl = TextEditingController();
   final TextEditingController emailCTRl = TextEditingController();
   final TextEditingController addressCTRl = TextEditingController();
@@ -32,7 +32,7 @@ class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
         title: Text(
-          'Client Name',
+          'Animal Name',
           style: AppStyles.fontSize16(fontWeight: FontWeight.w500),
         ),
         centerTitle: true,
@@ -41,13 +41,13 @@ class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
             padding:  EdgeInsets.symmetric(horizontal: 16.h),
             child: InkWell(
                 onTap: (){
-                  Get.toNamed(AppRoutes.editContactDetailsScreen);
+                  Get.toNamed(AppRoutes.editAnimalContactDetailsScreen);
                 },
                 child: SvgPicture.asset(AppIcons.editIcon,color:AppColors.blackColor)),
           ),
         ],
       ),
-        //=======================================>> Body Section <<===============================
+      //=======================================>> Body Section <<===============================
       body: SingleChildScrollView(
         child: Padding(
           padding:  EdgeInsets.symmetric(horizontal: 12.h,vertical: 12.w),
@@ -58,29 +58,33 @@ class _ContactDetailsScreenState extends State<ContactDetailsScreen> {
               //Full Name
               Text(AppStrings.nameText,style: AppStyles.fontSize16(fontWeight:FontWeight.w400,color: AppColors.color424242),),
               SizedBox(height: 8.h),
-              CustomListTile(title: 'Md. Nurunnabi'),
-              //Address
-              Text('Address',style: AppStyles.fontSize16(fontWeight:FontWeight.w400,color: AppColors.color424242),),
+              CustomListTile(title: 'My Horse'),
+              //Age
+              Text('Age',style: AppStyles.fontSize16(fontWeight:FontWeight.w400,color: AppColors.color424242),),
               SizedBox(height: 8.h),
-              CustomListTile(title: 'Dhaka'),
-              //PostCode
-              Text('Postcode', style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242)),
+              CustomListTile(title: '3 years 2 month'),
+              //Foaling Year
+              Text('Foaling Year', style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242)),
               SizedBox(height: 8.h),
-              CustomListTile(title: '12300'),
-              //Telephone
-              Text('Telephone', style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242)),
+              CustomListTile(title: '2025'),
+              //Breed
+              Text('Breed', style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242)),
               SizedBox(height: 8.h),
-              CustomListTile(title: '+109 2475 4545'),
-              // Mobile
+              CustomListTile(title: 'Twoooo'),
+              // Gender
               SizedBox(height: 8.h),
-              Text('Mobile', style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242)),
+              Text('Gender', style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242)),
               SizedBox(height: 8.h),
-              CustomListTile(title: '+44 - 000 -0042'),
-              // Email
+              CustomListTile(title: 'Male'),
+              // Height
               SizedBox(height: 8.h),
-              Text('Email',style: AppStyles.fontSize16(fontWeight:FontWeight.w400,color: AppColors.color424242)),
+              Text('Height',style: AppStyles.fontSize16(fontWeight:FontWeight.w400,color: AppColors.color424242)),
               SizedBox(height: 8.h),
-              CustomListTile(title: 'email@gmail.com'),
+              CustomListTile(title: '68 inches'),
+              //Color
+              Text('Color', style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242)),
+              SizedBox(height: 8.h),
+              CustomListTile(title: 'Black'),
               //Other
               Text('Other', style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242)),
               SizedBox(height: 8.h),

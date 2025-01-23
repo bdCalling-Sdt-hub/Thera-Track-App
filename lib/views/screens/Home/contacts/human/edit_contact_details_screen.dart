@@ -1,18 +1,11 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:thera_track_app/controller/accountSetup_controller.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_strings.dart';
 import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
-import 'package:thera_track_app/views/base/custom_text.dart';
 import 'package:thera_track_app/views/base/custom_text_field.dart';
 
 class EditContactDetailsScreen extends StatefulWidget {
