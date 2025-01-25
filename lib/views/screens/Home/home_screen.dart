@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               label: 'Notification',
               onTap: () {
-                //   Get.toNamed(AppRoutes.chartArchiveScreen);
+                Get.toNamed(AppRoutes.notificationScreen);
               },
             ),
             GridViewTile(

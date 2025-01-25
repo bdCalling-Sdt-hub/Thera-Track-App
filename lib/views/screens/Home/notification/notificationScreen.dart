@@ -1,67 +1,120 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
-import 'package:thera_track_app/utils/app_icons.dart';
-import 'package:thera_track_app/utils/app_strings.dart';
-import 'package:thera_track_app/utils/style.dart';
 
 class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({super.key});
-
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  _NotificationScreenState createState() => _NotificationScreenState();
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  final List<Map<String, dynamic>> notifications = [
+    {"title": "Nur’s appointment rescheduled", "time": "2 days ago", "selected": false},
+    {"title": "Nur’s appointment rescheduled", "time": "1 day ago", "selected": false},
+    {"title": "You have an appointment with (client’s name)", "time": "12 hours ago", "selected": false},
+    {"title": "Nur’s appointment rescheduled", "time": "Just Now", "selected": false},
+    {"title": "Nur’s appointment rescheduled", "time": "2 hours ago", "selected": false},
+  ];
+
+  bool isSelectionMode = false; // Track if selection mode is active
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //=============================> AppBar Section <=======================
       appBar: AppBar(
         title: Text(
-          AppStrings.notificationText,
-          style: AppStyles.fontSize16(fontWeight: FontWeight.w500),
+          isSelectionMode
+              ? "${notifications.where((n) => n['selected']).length} Notifications"
+              : "Notifications",
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
         ),
-        leading: IconButton(
+        leading: isSelectionMode
+            ? IconButton(
+          icon: Icon(Icons.close),
           onPressed: () {
-            Get.back();
+            setState(() {
+              isSelectionMode = false;
+              _clearAllSelections();
+            });
           },
-          icon: SvgPicture.asset(AppIcons.backButton),
-          padding: EdgeInsets.all(8.0),
-          iconSize: 18.sp,
-        ),
+        )
+            : BackButton(),
+        actions: isSelectionMode
+            ? [
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: _deleteSelectedItems,
+          ),
+        ]
+            : null,
+        backgroundColor: Colors.white,
+        elevation: 1,
         centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
-      backgroundColor: Colors.white,
-      //=============================> Body Section <=========================
-      body: ListView.builder(
-        itemCount: 2,
+      body: ListView.separated(
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        itemCount: notifications.length,
+        separatorBuilder: (context, index) => SizedBox(height: 12.h),
         itemBuilder: (context, index) {
-          return ListTile(
-            dense: true,
-            title: Text(
-              'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-              textAlign: TextAlign.justify,
-              style: const TextStyle(fontSize: 12),
-            ),
-            leading: SizedBox(
-              height: 50.h,
-              width: 50.w,
-              child: Container(
-                height: 50.h,
-                width: 50.w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColors.likeColor,
-                ),
-                child: Icon(
-                  Icons.notifications,
-                  color: AppColors.whiteColor,
-                  size: 27, // Adjust the size of the icon
-                ),
+          final notification = notifications[index];
+          return GestureDetector(
+            onLongPress: () {
+              setState(() {
+                isSelectionMode = true;
+                notifications[index]['selected'] = true;
+              });
+            },
+            onTap: () {
+              if (isSelectionMode) {
+                setState(() {
+                  notifications[index]['selected'] = !notifications[index]['selected'];
+                });
+              }
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
+              decoration: BoxDecoration(
+                color: notification["selected"]
+                    ? Colors.blue.withOpacity(0.2)
+                    : Colors.transparent,
+                borderRadius: BorderRadius.circular(8.r),
+                border: notification["selected"]
+                    ? Border.all(color: AppColors.secondaryColor, width: 1)
+                    : Border.all(color: AppColors.greyColor, width: 1),
+              ),
+              child: Row(
+                children: [
+                  if (isSelectionMode)
+                    Icon(
+                      notification['selected']
+                          ? Icons.check_box
+                          : Icons.check_box_outline_blank,
+                      color: Colors.blue,
+                    ),
+                  if (isSelectionMode) SizedBox(width: 8.w),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        notification["title"],
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(height: 4.h),
+                      Text(
+                        notification["time"],
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           );
@@ -69,4 +122,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
     );
   }
+
+  void _deleteSelectedItems() {
+    setState(() {
+      notifications.removeWhere((notification) => notification['selected']);
+      isSelectionMode = false;
+    });
+  }
+
+  void _clearAllSelections() {
+    for (var notification in notifications) {
+      notification['selected'] = false;
+    }
+  }
 }
+
+

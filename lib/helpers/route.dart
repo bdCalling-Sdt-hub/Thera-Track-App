@@ -23,6 +23,7 @@ import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/hor
 import 'package:thera_track_app/views/screens/Home/createNewChart/appoinmentCalenderScreen.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/createNewChartDetails.dart';
 import 'package:thera_track_app/views/screens/Home/home_screen.dart';
+import 'package:thera_track_app/views/screens/Home/notification/notificationScreen.dart';
 import 'package:thera_track_app/views/screens/Home/offline_file/offline_file_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/onboarding_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/splash_screen.dart';
@@ -70,6 +71,7 @@ class AppRoutes{
   static String createNewChartStepSixScreen = "/createNewChartStepSixScreen";
   static String createNewChartDetailsScreen = "/createNewChartDetailsScreen";
   static String appoinmentCalenderScreen = "/appoinmentCalenderScreen";
+  static String notificationScreen = "/notificationScreen";
 
 
  static List<GetPage> page=[
@@ -128,5 +130,8 @@ class AppRoutes{
 
    //OffLineFileScreen
    GetPage(name:offLineFileScreen, page: ()=> OffLineFileScreen(),transition: Transition.noTransition),
+
+   //Notification
+   GetPage(name:notificationScreen, page: ()=> NotificationScreen(),transition: Transition.noTransition),
   ];
 }
