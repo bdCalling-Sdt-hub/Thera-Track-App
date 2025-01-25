@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
+import 'package:thera_track_app/utils/style.dart';
 
 class NotificationScreen extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           isSelectionMode
               ? "${notifications.where((n) => n['selected']).length} Notifications"
               : "Notifications",
-          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
+           style: AppStyles.fontSize16(),
         ),
         leading: isSelectionMode
             ? IconButton(
