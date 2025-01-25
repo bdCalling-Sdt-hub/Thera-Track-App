@@ -252,14 +252,17 @@ class _ChartArchiveDetailsScreenState extends State<ChartArchiveDetailsScreen> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Checkbox(
-                                      value: isPaid,
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          isPaid = value ?? false;
-                                        });
-                                      },
-                                      activeColor: AppColors.primaryColor,
+                                    Transform.scale(
+                                      scale: 1.2,
+                                      child: Checkbox(
+                                        value: isPaid,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            isPaid = value ?? false;
+                                          });
+                                        },
+                                        activeColor: AppColors.primaryColor,
+                                      ),
                                     ),
                                     Text(
                                       'Paid',
@@ -289,14 +292,17 @@ class _ChartArchiveDetailsScreenState extends State<ChartArchiveDetailsScreen> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Checkbox(
-                                        value: !isPaid,
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            isPaid = !(value ?? false);
-                                          });
-                                        },
-                                        activeColor: AppColors.redColor
+                                    Transform.scale(
+                                      scale: 1.2,
+                                      child: Checkbox(
+                                          value: !isPaid,
+                                          onChanged: (bool? value) {
+                                            setState(() {
+                                              isPaid = !(value ?? false);
+                                            });
+                                          },
+                                          activeColor: AppColors.redColor
+                                      ),
                                     ),
                                     Text(
                                       'Unpaid',

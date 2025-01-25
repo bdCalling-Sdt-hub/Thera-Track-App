@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:thera_track_app/helpers/route.dart';
-import 'package:thera_track_app/utils/app_colors.dart';
-import 'package:thera_track_app/utils/app_icons.dart';
 import 'package:thera_track_app/utils/app_strings.dart';
 import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
 import 'package:thera_track_app/views/base/custom_text_field.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/innerWidget/customHeaderWithSearch_widget.dart';
 
 class CreateNewChartStepTwoScreen extends StatefulWidget {
   @override
@@ -22,6 +18,8 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
   final TextEditingController nameCTRL = TextEditingController();
   final TextEditingController stateController = TextEditingController();
   final TextEditingController zipController = TextEditingController();
+
+  final TextEditingController addAnimal = TextEditingController();
 
 
   List<String> recentClients = [
@@ -174,53 +172,64 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
               SizedBox(height: 8.h),
               Text('Select animal', style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
               SizedBox(height: 8.h),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomButton(onTap: (){}, text: 'Horse')
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 10.w),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomButton(onTap: (){}, text: 'Dog')
-                          ],
-                        ),
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomButton(onTap: (){}, text: 'Horse')
+                      ],
+                    ),
                   ),
-                  SizedBox(height: 12.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomButton(onTap: (){}, text: 'Cat')
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 10.w),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomButton(onTap: (){}, text: 'Add New')
-                          ],
-                        ),
-                      ),
-                    ],
+                  SizedBox(width: 10.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomButton(onTap: (){}, text: 'Dog')
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomButton(onTap: (){}, text: 'Cat')
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomButton(onTap: (){}, text: 'Add New')
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12.h),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: CustomTextField(
+                        controller: addAnimal),
+                  ),
+                  SizedBox(width: 10.w),
+                  SizedBox(
+                    height: 60.h,
+                    width: 80.w,
+                    child: CustomButton(onTap: () {}, text: 'Add'),
                   ),
                 ],
               ),

@@ -14,10 +14,14 @@ import 'package:thera_track_app/views/screens/Home/contacts/human/clients_contac
 import 'package:thera_track_app/views/screens/Home/contacts/contact_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/contact_search_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/human/edit_contact_details_screen.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepFive.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepOne.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepSix.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepThree.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepTwo.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/horseDetailsScreen.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/appoinmentCalenderScreen.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/createNewChartDetails.dart';
 import 'package:thera_track_app/views/screens/Home/home_screen.dart';
 import 'package:thera_track_app/views/screens/Home/offline_file/offline_file_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/onboarding_screen.dart';
@@ -62,6 +66,10 @@ class AppRoutes{
   static String animalListScreen= "/animalListScreen";
   static String editAnimalContactDetailsScreen= "/editAnimalContactDetailsScreen";
   static String createNewChartStepFourScreen = "/createNewChartStepFourScreen";
+  static String createNewChartStepFiveScreen = "/createNewChartStepFiveScreen";
+  static String createNewChartStepSixScreen = "/createNewChartStepSixScreen";
+  static String createNewChartDetailsScreen = "/createNewChartDetailsScreen";
+  static String appoinmentCalenderScreen = "/appoinmentCalenderScreen";
 
 
  static List<GetPage> page=[
@@ -93,8 +101,13 @@ class AppRoutes{
    GetPage(name:createNewChartStepTwoScreen, page: ()=> CreateNewChartStepTwoScreen(),transition: Transition.noTransition),
    GetPage(name:createNewChartStepThreeScreen, page: ()=> CreateNewChartStepThreeScreen(),transition: Transition.noTransition),
    GetPage(name:createNewChartStepFourScreen, page: ()=> CreateNewChartStepFourScreen(),transition: Transition.noTransition),
+   GetPage(name:createNewChartStepFiveScreen, page: ()=> CreateNewChartStepFiveScreen(),transition: Transition.noTransition),
+   GetPage(name:createNewChartStepSixScreen, page: ()=> CreateNewChartStepSixScreen(),transition: Transition.noTransition),
+
+   GetPage(name:createNewChartDetailsScreen, page: ()=> CreateNewChartDetailsScreen(),transition: Transition.noTransition),
 
    GetPage(name:horseDetailsScreen, page: ()=> HorseDetailsScreen(),transition: Transition.noTransition),
+   GetPage(name:appoinmentCalenderScreen, page: ()=> AppoinmentCalenderScreen(),transition: Transition.noTransition),
 
 
    //ChartArchiveScreen
