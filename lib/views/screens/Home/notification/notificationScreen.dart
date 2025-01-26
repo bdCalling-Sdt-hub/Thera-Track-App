@@ -17,7 +17,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     {"title": "Nur’s appointment rescheduled", "time": "2 hours ago", "selected": false},
   ];
 
-  bool isSelectionMode = false; // Track if selection mode is active
+  bool isSelectionMode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
               decoration: BoxDecoration(
                 color: notification["selected"]
-                    ? Colors.blue.withOpacity(0.2)
+                    ? AppColors.secondaryColor
                     : Colors.transparent,
                 borderRadius: BorderRadius.circular(8.r),
                 border: notification["selected"]

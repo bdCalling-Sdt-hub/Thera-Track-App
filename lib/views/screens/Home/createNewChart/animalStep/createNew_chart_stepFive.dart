@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
@@ -23,11 +22,6 @@ class _CreateNewChartStepFiveScreenState
     {"name": "Osteopathy", "isChecked": false},
   ];
 
-  void addNewTreatment() {
-    setState(() {
-      treatments.add({"name": "New Treatment", "isChecked": false});
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +42,6 @@ class _CreateNewChartStepFiveScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -60,7 +53,7 @@ class _CreateNewChartStepFiveScreenState
                   ),
                 ),
                 IconButton(
-                  onPressed: addNewTreatment,
+                  onPressed: _showAddTreatmentDialog,
                   icon: SvgPicture.asset(
                     AppIcons.addIcon,
                     height: 25.h,
@@ -70,7 +63,6 @@ class _CreateNewChartStepFiveScreenState
               ],
             ),
             SizedBox(height: 16.h),
-            // Treatments List
             Expanded(
               child: ListView.separated(
                 shrinkWrap: true,
@@ -104,7 +96,6 @@ class _CreateNewChartStepFiveScreenState
                                 treatments[index]['isChecked'] = value;
                               });
                             },
-
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4.r),
                             ),
@@ -117,14 +108,79 @@ class _CreateNewChartStepFiveScreenState
                 },
               ),
             ),
-            // Next Button
-            CustomButton(onTap: () {
-              Get.toNamed(AppRoutes.createNewChartStepSixScreen);
-            }, text: 'Next'),
-            SizedBox(height: 20.h)
+            CustomButton(
+              onTap: () {
+                Get.toNamed(AppRoutes.createNewChartStepSixScreen);
+              },
+              text: 'Next',
+            ),
+            SizedBox(height: 20.h),
           ],
         ),
       ),
+    );
+  }
+
+  void _showAddTreatmentDialog() {
+    final _textController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "Add New Treatment",
+            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+          ),
+          content: TextFormField(
+            controller: _textController,
+            decoration: InputDecoration(
+              hintText: "Enter treatment name",
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+            ),
+          ),
+          actions: [
+            Row(
+              children: [
+                Expanded(
+                  child: CustomButton(onTap: (){
+                    if (_textController.text.isNotEmpty) {
+                      setState(() {
+                        treatments.add({
+                          "name": _textController.text,
+                          "isChecked": false,
+                        });
+                      });
+                      Navigator.pop(context);
+                    }
+                  }, text: "Cancel",
+                  color: AppColors.redColor.withOpacity(.6),
+
+                  ),
+                ),
+                SizedBox(width: 4.w),
+                Expanded(
+                  child: CustomButton(onTap: (){
+                    if (_textController.text.isNotEmpty) {
+                      setState(() {
+                        treatments.add({
+                          "name": _textController.text,
+                          "isChecked": false,
+                        });
+                      });
+                      Navigator.pop(context); // Close the dialog
+                    }
+                  }, text: "Add"),
+                )
+              ],
+            ),
+
+
+          ],
+        );
+      },
     );
   }
 }
