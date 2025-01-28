@@ -69,11 +69,8 @@ class AuthController extends GetxController {
 
   signInMethod() async {
     try {
-      // Set loading to true at the start of the operation
       signInLoading.value = true;
       print('======== 1 : ${signInLoading.value}');
-
-      // Prepare headers and body for the API request
       var headers = {
         'Content-Type': 'application/json'
       };
@@ -94,23 +91,17 @@ class AuthController extends GetxController {
       );
 
       print("============> Response Body: ${response.body}, Status Code: ${response.statusCode}");
-
-      // Handle the response
       if (response.statusCode == 200 || response.statusCode == 201) {
-        // On success, navigate to the home screen and show a success message
         Get.offAllNamed(AppRoutes.homeScreen);
         Get.snackbar('Successfully', 'Logged In');
       } else {
-        // On failure, check the API response and show an error message
         ApiChecker.checkApi(response);
         Get.snackbar('Error', response.body['message'] ?? 'An error occurred');
       }
     } catch (e) {
-      // Handle any exceptions that occur during the API call
       print("=============================> Error: $e");
       Get.snackbar('Error', 'An unexpected error occurred');
     } finally {
-      // Ensure loading is set to false at the end of the operation
       signInLoading.value = false;
       print('======== Final Loading State : ${signInLoading.value}');
     }
