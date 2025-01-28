@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:thera_track_app/controller/auth_controller.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
@@ -22,8 +25,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController emailCTRl = TextEditingController();
-  final TextEditingController passwordCTRl = TextEditingController();
+  final AuthController authController = Get.put(AuthController());
 
   bool isChecked = false;
 
@@ -49,7 +51,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   Text(AppStrings.yourEmail,style: AppStyles.fontSize16(fontWeight:FontWeight.w700),),
                   SizedBox(height: 8.h),
                   CustomTextField(
-                    controller: emailCTRl,
+                    controller: authController.signInEmailCtrl,
                     hintText: AppStrings.enterEmail,
                     prefixIcon: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
@@ -67,7 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   SizedBox(height: 8.h),
                   // Password Text Field
                   CustomTextField(
-                    controller: passwordCTRl,
+                    controller: authController.signInPasswordCtrl,
                     hintText: AppStrings.enterPassword,
                     isPassword: true,
                     prefixIcon: Padding(
@@ -99,12 +101,18 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   // Sign In Button
                   SizedBox(height: 20.h),
-                  CustomButton(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.homeScreen);
-                    },
-                    text: 'Sign In',
-                    textColor: AppColors.whiteColor,
+                  Obx(()=>
+                      CustomButton(
+                        loading: authController.signInLoading.value,
+                        onTap: () {
+                          if(_formKey.currentState!.validate()){
+                            authController.signInMethod();
+                          }
+                        },
+                        text: 'Sign In',
+                        textColor: AppColors.whiteColor,
+                      ),
+
                   ),
 
                   // Don't Have an Account Section

@@ -1,11 +1,13 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:thera_track_app/controller/auth_controller.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
@@ -25,11 +27,9 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController userNameCTRL = TextEditingController();
-  final TextEditingController emailCTRl = TextEditingController();
-  final TextEditingController phoneNumberCTRL = TextEditingController();
-  final TextEditingController passwordCTRL = TextEditingController(); // Fixed naming
-  final TextEditingController confirmPasswordCTRL = TextEditingController(); // Fixed naming
+  final AuthController authController = Get.put(AuthController());
+
+
   String selectedCountryCode = '+880';
   bool isChecked = false;
 
@@ -60,7 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Text(AppStrings.nameText, style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
                   SizedBox(height: 8.h),
                   CustomTextField(
-                    controller: userNameCTRL,
+                    controller: authController.userNameCTRL,
                     hintText: AppStrings.enterName,
                     prefixIcon: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
@@ -79,7 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Text(AppStrings.email, style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
                   SizedBox(height: 8.h),
                   CustomTextField(
-                    controller: emailCTRl,
+                    controller: authController.signUpEmailCtrl,
                     hintText: AppStrings.enterEmail,
                     prefixIcon: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
@@ -97,39 +97,69 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   // Phone Number
                   Text(AppStrings.phoneNumber, style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
                   SizedBox(height: 8.h),
-                  IntlPhoneField(
-                    decoration: InputDecoration(
-                      hintText: "Enter Phone name",
-                      hintStyle: TextStyle(color: Colors.grey),
-                      contentPadding:EdgeInsets.symmetric(horizontal: 15.w,vertical: 15.h),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(4.r)),
-                        borderSide: BorderSide(color: AppColors.primaryColor),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: AppColors.fillColor,
+                            border: Border.all(
+                                width: 1.w, color: AppColors.primaryColor),
+                            borderRadius: BorderRadius.circular(4.r)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            //=================================> Country Code Picker Widget <============================
+                            CountryCodePicker(
+                              showFlag: false,
+                              showFlagDialog: true,
+                              onChanged: (countryCode) {
+                                setState(() {
+                                  authController.selectedCountryCodes = countryCode.dialCode!;
+                                });
+                              },
+                              initialSelection: 'BD',
+                              favorite: ['+880', 'BD'],
+                              showCountryOnly: false,
+                              showOnlyCountryWhenClosed: false,
+                              alignLeft: false,
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(right: 5.w),
+                                child: Icon(Icons.arrow_drop_down_sharp)
+                            )
+                          ],
+
+                        ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(4.r)),
-                        borderSide: BorderSide(color: AppColors.primaryColor),
+                      SizedBox(width: 10.w),
+                      Expanded(
+                        child: CustomTextField(
+                            keyboardType: TextInputType.phone,
+                            controller: authController.phoneNumberCTRL,
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20.w, vertical: 18.h),
+                              child: const Icon(Icons.call),
+                            ),
+                            hintText: 'Phone',
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Provide Phone Number';
+                              }else if (value.length < 5) {
+                                return 'Provide Phone Number';
+                              }
+                            }),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(4.r)),
-                        borderSide: BorderSide(color: AppColors.primaryColor, width: 1.w),
-                      ),
-                    ),
-                    showCountryFlag: true,
-                    initialCountryCode: 'US',
-                    flagsButtonMargin: EdgeInsets.only(left: 10.w),
-                    disableLengthCheck: true,
-                    dropdownIconPosition: IconPosition.trailing,
-                    onChanged: (phone) {
-                      print("Phone===============> ${phone.completeNumber}");
-                    },
+                    ],
                   ),
                   SizedBox(height: 8.h),
                   // Password
                   Text(AppStrings.passwordText, style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
                   SizedBox(height: 8.h),
                   CustomTextField(
-                    controller: passwordCTRL,
+                    controller: authController.passwordCTRL,
                     hintText: AppStrings.enterPassword,
                     isPassword: true,
                     prefixIcon: Padding(
@@ -149,7 +179,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Text(AppStrings.confirmPasswordText, style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
                   SizedBox(height: 8.h),
                   CustomTextField(
-                    controller: confirmPasswordCTRL,
+                    controller:authController.confirmPasswordCTRL,
                     hintText: AppStrings.enterConfirmPassword,
                     isPassword: true,
                     prefixIcon: Padding(
@@ -160,7 +190,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       if (value == null || value.isEmpty) {
                         return "Please enter your password again";
                       }
-                      if (value != passwordCTRL.text) { // Ensure passwords match
+                      if (value != authController.passwordCTRL.text) { // Ensure passwords match
                         return "Passwords do not match";
                       }
                       return null;
@@ -171,7 +201,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 20.h),
                   CustomButton(
                     onTap: () {
-                    //  Get.toNamed(AppRoutes.signInScreen);
+                      if (_formKey.currentState!.validate()) {
+                        if (isChecked) {
+                          authController.signUpMethod();
+                        } else {
+                          Get.snackbar(
+                            "Error in Checkbox",
+                            "Must agree to terms and conditions",
+                          );
+                        }
+                      }
                     },
                     text: AppStrings.signUp,
                   ),
