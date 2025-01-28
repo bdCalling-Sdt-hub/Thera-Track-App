@@ -17,16 +17,7 @@ class CustomBackground extends StatelessWidget {
       width: Get.width,
       alignment: Alignment.topCenter,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            AppColors.firstColor,
-            AppColors.primaryColor,
-            AppColors.thirdColor,
-          ],
-          stops: [0.0, 0.5, 1.0],
-        ),
+      color: AppColors.whiteColor
       ),
       child: child,
     );
