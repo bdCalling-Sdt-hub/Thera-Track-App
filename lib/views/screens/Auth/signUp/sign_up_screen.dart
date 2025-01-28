@@ -110,6 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+
                             //=================================> Country Code Picker Widget <============================
                             CountryCodePicker(
                               showFlag: false,
