@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:thera_track_app/helpers/route.dart';
+import 'package:thera_track_app/controller/auth_controller.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
 import 'package:thera_track_app/utils/app_images.dart';
@@ -24,8 +24,9 @@ class VerifyScreen extends StatefulWidget {
 
 class _VerifyScreenState extends State<VerifyScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController emailCTRl = TextEditingController();
-  final TextEditingController passwordCTRl = TextEditingController();
+  final AuthController authController = Get.put(AuthController());
+
+  var parameter = Get.parameters;
   bool isChecked = false;
 
   int _countdown = 180;
@@ -40,8 +41,12 @@ class _VerifyScreenState extends State<VerifyScreen> {
   @override
   void dispose() {
     _timer.cancel();
+    authController.verifyCodeCtrl.dispose();
     super.dispose();
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +79,9 @@ class _VerifyScreenState extends State<VerifyScreen> {
                     style: AppStyles.fontSize14(fontWeight: FontWeight.w400),
                   ),
                   SizedBox(height: 30.h),
-                  CustomPinCodeTextField(),
+                  CustomPinCodeTextField(
+                    textEditingController: authController.verifyCodeCtrl,
+                  ),
                   SizedBox(height: 25.h),
                   Center(
                     child: Text(
@@ -86,7 +93,13 @@ class _VerifyScreenState extends State<VerifyScreen> {
                   // Verify button
                   CustomButton(
                     onTap: () {
-                      _showPasswordChangeBottomSheet(context);
+                      authController.verifyCode(
+                          email: "${parameter['email']}",
+                          code: authController.verifyCodeCtrl.text,
+                          type:"${parameter['screenType']}");
+
+                      print('=========>> Succes');
+                      //_showPasswordChangeBottomSheet(context);
                     },
                     text: 'Confirm',
                     textColor: AppColors.whiteColor,
