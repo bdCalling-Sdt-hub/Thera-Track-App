@@ -7,7 +7,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_utils/get_utils.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:thera_track_app/controller/auth_controller.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
