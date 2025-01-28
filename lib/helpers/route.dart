@@ -85,7 +85,6 @@ class AppRoutes{
     GetPage(name:forgotPasswordScreen, page: ()=>const ForgotPasswordScreen()),
     GetPage(name:verifyScreen, page: ()=>const VerifyScreen()),
 
-
    //Home
    GetPage(name:homeScreen, page: ()=> HomeScreen(),transition: Transition.noTransition),
 
