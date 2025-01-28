@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -100,16 +101,18 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   // Sign In Button
                   SizedBox(height: 20.h),
-                  CustomButton(
-                    loading: authController.signUpLoading.value,
-                    onTap: () {
+                  Obx(()=>
+                      CustomButton(
+                        loading: authController.signInLoading.value,
+                        onTap: () {
+                          if(_formKey.currentState!.validate()){
+                            authController.signInMethod();
+                          }
+                        },
+                        text: 'Sign In',
+                        textColor: AppColors.whiteColor,
+                      ),
 
-                      if(_formKey.currentState!.validate()){
-                        authController.signInMethod();
-                      }
-                    },
-                    text: 'Sign In',
-                    textColor: AppColors.whiteColor,
                   ),
 
                   // Don't Have an Account Section

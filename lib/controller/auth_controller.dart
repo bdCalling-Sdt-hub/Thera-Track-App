@@ -23,7 +23,7 @@ class AuthController extends GetxController {
   String role = 'admin';
 
    signUpMethod() async {
-     signUpLoading.value = true;
+     signUpLoading(true);
     // var fcmToken = await PrefsHelper.getString(AppConstants.fcmToken);
 
      String phoneNumber = phoneNumberCTRL.text.trim();
@@ -49,10 +49,9 @@ class AuthController extends GetxController {
      if(response.statusCode==200){
        Get.toNamed(AppRoutes.verifyScreen, parameters: {
          "email": signUpEmailCtrl.text.trim(),
-         "screenType": "signupScreen",
-       },
+         "screenType": "signupScreen"},
        );
-        signUpLoading(false);
+       signUpLoading(false);
        update();
      }
      else{
@@ -66,43 +65,56 @@ class AuthController extends GetxController {
   final TextEditingController signInEmailCtrl = TextEditingController();
   final TextEditingController signInPasswordCtrl = TextEditingController();
 
-  var signInLoading = false.obs;
+  RxBool signInLoading = false.obs;
 
   signInMethod() async {
-    signInLoading(true);
-    //  var fcmToken = await PrefsHelper.getString(AppConstants.fcmToken);
-    var headers = {
-      'Content-Type': 'application/json'
-    };
+    try {
+      // Set loading to true at the start of the operation
+      signInLoading.value = true;
+      print('======== 1 : ${signInLoading.value}');
 
-    Map<String, dynamic> body = {
-      "email": signInEmailCtrl.text.trim(),
-      "password": signInPasswordCtrl.text.trim(),
-      //"fcmToken": fcmToken,
-    };
+      // Prepare headers and body for the API request
+      var headers = {
+        'Content-Type': 'application/json'
+      };
 
-    print("===================> $body");
+      Map<String, dynamic> body = {
+        "email": signInEmailCtrl.text.trim(),
+        "password": signInPasswordCtrl.text.trim(),
+        //"fcmToken": await PrefsHelper.getString(AppConstants.fcmToken),
+      };
 
-    Response response = await ApiClient.postData(
-      ApiConstants.signInEndPoint,
-      jsonEncode(body),
-      headers: headers,
-    );
+      print("===================> $body");
 
-    print("============> Response Body: ${response.body}, Status Code: ${response.statusCode}");
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      signInLoading(false);
-      Get.offAllNamed(AppRoutes.homeScreen);
-      Get.snackbar('Successfully', 'Logged In');
-    } else {
+      // Make the API call
+      Response response = await ApiClient.postData(
+        ApiConstants.signInEndPoint,
+        jsonEncode(body),
+        headers: headers,
+      );
 
-      ApiChecker.checkApi(response);
-      print("=============================> Server Down");
-      Get.snackbar('Error', response.body['message']);
-      signInLoading(false);
+      print("============> Response Body: ${response.body}, Status Code: ${response.statusCode}");
+
+      // Handle the response
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        // On success, navigate to the home screen and show a success message
+        Get.offAllNamed(AppRoutes.homeScreen);
+        Get.snackbar('Successfully', 'Logged In');
+      } else {
+        // On failure, check the API response and show an error message
+        ApiChecker.checkApi(response);
+        Get.snackbar('Error', response.body['message'] ?? 'An error occurred');
+      }
+    } catch (e) {
+      // Handle any exceptions that occur during the API call
+      print("=============================> Error: $e");
+      Get.snackbar('Error', 'An unexpected error occurred');
+    } finally {
+      // Ensure loading is set to false at the end of the operation
+      signInLoading.value = false;
+      print('======== Final Loading State : ${signInLoading.value}');
     }
   }
-
 
 
 

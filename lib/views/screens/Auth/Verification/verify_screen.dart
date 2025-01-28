@@ -41,7 +41,6 @@ class _VerifyScreenState extends State<VerifyScreen> {
   @override
   void dispose() {
     _timer.cancel();
-    authController.verifyCodeCtrl.dispose();
     super.dispose();
   }
 
