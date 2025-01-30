@@ -12,5 +12,6 @@ class ApiConstants {
   static const String signUpEndPoint = "/auth/register";
   static const String signInEndPoint = "/auth/login";
   static const String otpVerifyEndPoint = "/auth/verify-email";
+  static const String forgotPasswordEndPoint = "/auth/forgot-password";
 
 }

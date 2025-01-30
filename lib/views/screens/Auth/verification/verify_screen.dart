@@ -95,10 +95,10 @@ class _VerifyScreenState extends State<VerifyScreen> {
                       authController.verifyCode(
                           email: "${parameter['email']}",
                           code: authController.verifyCodeCtrl.text,
-                          type:"${parameter['screenType']}");
-
-                      print('=========>> Succes');
-                      //_showPasswordChangeBottomSheet(context);
+                          type:"${parameter['screenType']}").
+                      then((_) {
+                        authController.verifyCodeCtrl.clear();
+                      });
                     },
                     text: 'Confirm',
                     textColor: AppColors.whiteColor,
@@ -136,7 +136,7 @@ class _VerifyScreenState extends State<VerifyScreen> {
           _countdown--;
         } else {
           _timer.cancel();
-        //  Get.toNamed(AppRoutes.forgotPasswordScreen); // Redirect when timer ends
+        //  Get.toNamed(AppRoutes.forgotPasswordScreen);
         }
       });
     });
