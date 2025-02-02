@@ -21,8 +21,8 @@ class GridViewTile extends StatelessWidget {
       child: Container(
         height: 192.h,
         decoration: BoxDecoration(
-          color: Color(0xFFBADEFB),
-          borderRadius: BorderRadius.circular(4),
+          color: Color(0xFFE9F5FE),
+          borderRadius: BorderRadius.circular(16.r),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

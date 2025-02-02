@@ -90,26 +90,32 @@ class _VerifyScreenState extends State<VerifyScreen> {
                   ),
                   SizedBox(height: 20.h),
                   // Verify button
-                  CustomButton(
-                    onTap: () {
-                      authController.verifyCode(
-                          email: "${parameter['email']}",
-                          code: authController.verifyCodeCtrl.text,
-                          type:"${parameter['screenType']}").
-                      then((_) {
-                        authController.verifyCodeCtrl.clear();
-                      });
-                    },
-                    text: 'Confirm',
-                    textColor: AppColors.whiteColor,
+                  Obx(()=>
+                      CustomButton(
+                        loading: authController.verifyOTPLoading.value,
+                        onTap: () {
+                          authController.verifyCode(
+                              email: "${parameter['email']}",
+                              code: authController.verifyCodeCtrl.text,
+                              type:"${parameter['screenType']}").
+                          then((_) {
+                            authController.verifyCodeCtrl.clear();
+                          });
+                        },
+                        text: 'Confirm',
+                        textColor: AppColors.whiteColor,
+                      ),
                   ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(AppStrings.didNotReceiveCode,style: AppStyles.fontSize14(color: AppColors.color878787)),
                       TextButton(
                         onPressed: () {
-                          //Get.toNamed(AppRoutes.signUpScreen);
+                        authController.resendOtp(
+                          "${parameter['email']}",
+                        );
                         },
                         child: CustomText(
                           fontSize: 14.sp,

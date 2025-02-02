@@ -126,6 +126,20 @@ class _HomeScreenState extends State<HomeScreen> {
                  Get.toNamed(AppRoutes.offLineFileScreen);
               },
             ),
+            GridViewTile(
+              child: SvgPicture.asset( AppIcons.inventoryIcon),
+              label: 'Inventory',
+              onTap: () {
+                Get.toNamed(AppRoutes.inventoryScreen);
+              },
+            ),
+            GridViewTile(
+              child: SvgPicture.asset( AppIcons.walletIcon),
+              label: 'Wallet',
+              onTap: () {
+                Get.toNamed(AppRoutes.walletDetailsScreen);
+              },
+            ),
           ],
         ),
       ),

@@ -29,5 +29,7 @@ class AppIcons{
   static String searchIcon ="$baseUrl/searchIcon.svg";
   static String removeIcon ="$baseUrl/removeIcon.svg";
   static String addIcon ="$baseUrl/addIcon.svg";
+  static String inventoryIcon ="$baseUrl/inventoryIcon.svg";
+  static String walletIcon ="$baseUrl/walletAlt.svg";
 
 }

@@ -81,7 +81,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         loading: authController.forgotLoading.value,
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            authController.handleForget();
+                           authController.handleForget();
                           }
                         },
                         text: AppStrings.sendOTP,
