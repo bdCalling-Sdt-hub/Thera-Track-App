@@ -97,7 +97,8 @@ class AuthController extends GetxController {
       print("============> Response Body: ${response
           .body}, Status Code: ${response.statusCode}");
       if (response.statusCode == 200 || response.statusCode == 201) {
-        await PrefsHelper.setBool(AppConstants.isLogged, true);
+         PrefsHelper.setBool(AppConstants.isLogged, true);
+         PrefsHelper.setString(AppConstants.bearerToken, response.body['data']['attributes']['tokens']['accessToken']);
 
         Get.offAllNamed(AppRoutes.homeScreen);
         Get.snackbar('Successfully', 'Logged In');

@@ -20,6 +20,7 @@ import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/cre
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepSix.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepThree.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepTwo.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/equipmentScreen.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/horseDetailsScreen.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/appoinmentCalenderScreen.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/createNewChartDetails.dart';
@@ -27,6 +28,7 @@ import 'package:thera_track_app/views/screens/Home/home_screen.dart';
 import 'package:thera_track_app/views/screens/Home/inventory/inventory_screen.dart';
 import 'package:thera_track_app/views/screens/Home/notification/notificationScreen.dart';
 import 'package:thera_track_app/views/screens/Home/offline_file/offline_file_screen.dart';
+import 'package:thera_track_app/views/screens/Home/wallet/costDetailsScreen.dart';
 import 'package:thera_track_app/views/screens/Home/wallet/innerWidget/costRowWidget/addCostScreen.dart';
 import 'package:thera_track_app/views/screens/Home/wallet/wallet_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/onboarding_screen.dart';
@@ -80,6 +82,8 @@ class AppRoutes{
   static String inventoryScreen = "/inventoryScreen";
   static String walletDetailsScreen = "/walletDetailsScreen";
   static String costAddScreen = "/costAddScreen";
+  static String costDetailsScreen = "/costDetailsScreen";
+  static String equipmentScreen = "/equipmentScreen";
 
 
  static List<GetPage> page=[
@@ -144,8 +148,13 @@ class AppRoutes{
    // Wallet Details Screen
    GetPage(name:walletDetailsScreen, page: ()=> WalletDetailsScreen(),transition: Transition.noTransition),
    GetPage(name:costAddScreen, page: ()=> CostAddScreen(),transition: Transition.noTransition),
+   GetPage(name:costDetailsScreen, page: ()=> CostDetailsScreen(),transition: Transition.noTransition),
 
    //Notification
    GetPage(name:notificationScreen, page: ()=> NotificationScreen(),transition: Transition.noTransition),
+
+
+   // EquipmentScreen
+   GetPage(name:equipmentScreen, page: ()=> EquipmentScreen(),transition: Transition.noTransition),
   ];
 }

@@ -53,6 +53,7 @@ class AppColors{
   static Color greenColor = const Color(0xFFADDAAF);
 //=============
   static const Color color878787 = Color(0xFF878787);
+  static const Color colorB1B1B1 = Color(0xFFB1B1B1);
 
 
   static BoxShadow shadow = BoxShadow(

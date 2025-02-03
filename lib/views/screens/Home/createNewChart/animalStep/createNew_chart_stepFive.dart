@@ -110,7 +110,7 @@ class _CreateNewChartStepFiveScreenState
             ),
             CustomButton(
               onTap: () {
-                Get.toNamed(AppRoutes.createNewChartStepSixScreen);
+                Get.toNamed(AppRoutes.equipmentScreen);
               },
               text: 'Next',
             ),

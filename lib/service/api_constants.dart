@@ -16,4 +16,13 @@ class ApiConstants {
   static const String resetPasswordEndPoint = "/auth/reset-password";
   static const String resendOTPEndPoint = "/auth/resend-otp";
 
+  //ProfileInfo
+  static const String getProfileDataEndPoint = "/user/profile";
+  static const String editProfileEndPoint = "/user/profile";
+
+
+  //============================>> Create Clients <<=================================
+  static const String createHumanClientEndPoint = "/client/create-client";
+
+
 }

@@ -18,6 +18,7 @@ class CreateNewChartStepSixScreen extends StatefulWidget {
 }
 
 class _CreateNewChartStepSixScreenState extends State<CreateNewChartStepSixScreen> {
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,21 +39,59 @@ class _CreateNewChartStepSixScreenState extends State<CreateNewChartStepSixScree
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             PriceDetailWidget(title: 'Cryotherapy', price: '200'),
             PriceDetailWidget(title: 'Hydrotherapy', price: '200'),
-            PriceDetailWidget(title: 'Laser Therapy', price:'200'),
-            PriceDetailWidget(title: 'Osteopathy ', price: '200'),
-
+            PriceDetailWidget(title: 'Laser Therapy', price: '200'),
+            PriceDetailWidget(title: 'Osteopathy', price: '200'),
             Divider(color: AppColors.blackColor),
-            PriceDetailWidget(title: 'Full Cost ', price: '800'),
-            PriceDetailWidget(title: 'Discount ', price: '80'),
-            PriceDetailWidget(title: 'Final Cost ', price: '720'),
+            PriceDetailWidget(title: 'Full Cost', price: '800'),
+
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                color: AppColors.colorE9F5FE,
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: AppColors.primaryColor),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Discount",
+                    style: TextStyle(fontSize: 16, color: Colors.black54),
+                  ),
+                  Container(
+                    width: 80.w,
+                    height: 40.h,
+                    padding: EdgeInsets.symmetric(horizontal: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: TextField(
+                      controller: _controller,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        suffixText: "\$",
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            PriceDetailWidget(title: 'Final Cost', price: '720'),
             SizedBox(height: 20.h),
             // Next Button
-            CustomButton(onTap: () {
-              Get.toNamed(AppRoutes.createNewChartDetailsScreen);
-            }, text: 'Next'),
+            CustomButton(
+              onTap: () {
+                Get.toNamed(AppRoutes.createNewChartDetailsScreen);
+              },
+              text: 'Next',
+            ),
             SizedBox(height: 20.h)
           ],
         ),

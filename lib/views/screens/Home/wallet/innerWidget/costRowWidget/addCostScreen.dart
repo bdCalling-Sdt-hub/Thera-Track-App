@@ -1,11 +1,27 @@
+import 'dart:io';
+
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:thera_track_app/helpers/route.dart';
+import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
-import 'package:thera_track_app/views/base/custom_text_field.dart';
+import 'package:thera_track_app/views/base/custom_text.dart';
 import 'package:thera_track_app/views/base/dotted_border_container.dart';
 
-class CostAddScreen extends StatelessWidget {
+class CostAddScreen extends StatefulWidget {
+
+  CostAddScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CostAddScreen> createState() => _CostAddScreenState();
+}
+
+class _CostAddScreenState extends State<CostAddScreen> {
   final TextEditingController departureController = TextEditingController();
   final TextEditingController destinationController = TextEditingController();
   final TextEditingController distanceController = TextEditingController();
@@ -13,7 +29,8 @@ class CostAddScreen extends StatelessWidget {
   final TextEditingController gasController = TextEditingController();
   final TextEditingController otherController = TextEditingController();
 
-  CostAddScreen({Key? key}) : super(key: key);
+  Uint8List? _image;
+  File? selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -30,39 +47,66 @@ class CostAddScreen extends StatelessWidget {
         padding: EdgeInsets.all(16.0.r),
         child: Column(
           children: [
-            _buildTextField('Departure', 'Starting place name', departureController),
-            _buildTextField('Destination', 'Place name', destinationController),
-            _buildTextField('Distance', '00 Km', distanceController),
-            _buildTextField('Food', '00\$', foodController),
-            _buildTextField('Gas', '00\$', gasController),
-            _buildTextField('Other', '00\$', otherController),
+            _buildTextField('Departure', departureController),
+            _buildTextField('Destination', destinationController),
+            _buildTextField('Distance', distanceController),
+            _buildTextField('Food', foodController),
+            _buildTextField('Gas', gasController),
+            _buildTextField('Other', otherController),
             SizedBox(height: 20.h),
-            GestureDetector(
-              onTap: () {
-                // Handle file picker action
-              },
-              child: DottedBorderContainer(
-                child: Container(
-                  height: 100.h,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  child: Text(
-                    'Click to browse or\ndrag and drop your files',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey),
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                _image != null
+                    ?  Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 16.w),
+                      child: GestureDetector(
+                      onTap: () {
+                        showImagePickerOption(context);
+                      },
+                      child: DottedBorderContainer(
+                        child: Container(
+                          height: 200.h,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              border: Border.all(width: 2.w, color: AppColors.whiteColor),
+                              borderRadius: BorderRadius.circular(8.r),
+                              image: DecorationImage(
+                                  image: MemoryImage(_image!),
+                                  fit: BoxFit.cover)),
+                        )
+                      ) ),
+                    ):
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 16.w),
+                  child: InkWell(
+                    onTap: (){
+                      showImagePickerOption(context);
+                    },
+                    child: DottedBorderContainer(
+                        child: Container(
+                          height: 200.h,
+                          child: Center(
+                              child: Text('Click to browse or \ndrag and drop your files',textAlign: TextAlign.center)),
+                        )
+                    ),
                   ),
                 ),
-              ),
+
+
+              ],
             ),
             SizedBox(height: 20.h),
-            CustomButton(onTap: () {}, text: 'Save'),
-          ],
-        ),
-      ),
+            CustomButton(onTap: () {
+              Get.toNamed(AppRoutes.costDetailsScreen);
+            }, text: 'Save'),
+          ]
+        )
+      )
     );
   }
 
-  Widget _buildTextField(String label, String placeholder, TextEditingController controller) {
+  Widget _buildTextField(String label, TextEditingController controller) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 8.w),
       child: Container(
@@ -87,15 +131,14 @@ class CostAddScreen extends StatelessWidget {
                   child: TextFormField(
                     controller: controller,
                     decoration: InputDecoration(
-                      hintText: placeholder,
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white), // White border
+                        borderSide: BorderSide(color: Colors.white),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white), // White border when not focused
+                        borderSide: BorderSide(color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white, width: 2), // White border when focused
+                        borderSide: BorderSide(color: Colors.white, width: 2),
                       ),
                       contentPadding: EdgeInsets.symmetric(horizontal: 10.r, vertical: 10.r),
                     ),
@@ -107,5 +150,85 @@ class CostAddScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  //==================================> ShowImagePickerOption Function <===============================
+  void showImagePickerOption(BuildContext context) {
+    showModalBottomSheet(
+        backgroundColor: AppColors.whiteColor,
+        context: context,
+        builder: (builder) {
+          return Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 4.2,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        _pickImageFromGallery();
+                      },
+                      child: SizedBox(
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.image,
+                              size: 50.w,
+                              color: AppColors.primaryColor,
+                            ),
+                            CustomText(text: 'Gallery')
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        _pickImageFromCamera();
+                      },
+                      child: SizedBox(
+                        child: Column(
+                          children: [
+                            Icon(Icons.camera_alt,
+                                size: 50.w, color: AppColors.primaryColor),
+                            CustomText(text: 'Camera')
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  //==================================> Gallery <===============================
+  Future _pickImageFromGallery() async {
+    final returnImage =
+    await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (returnImage == null) return;
+    setState(() {
+      selectedImage = File(returnImage.path);
+      _image = File(returnImage.path).readAsBytesSync();
+    });
+    Get.back();
+  }
+
+//==================================> Camera <===============================
+  Future _pickImageFromCamera() async {
+    final returnImage =
+    await ImagePicker().pickImage(source: ImageSource.camera);
+    if (returnImage == null) return;
+    setState(() {
+      selectedImage = File(returnImage.path);
+      _image = File(returnImage.path).readAsBytesSync();
+    });
+    Get.back();
   }
 }
