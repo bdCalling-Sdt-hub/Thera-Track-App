@@ -17,9 +17,8 @@ class CreateNewChartStepTwoScreen extends StatefulWidget {
 class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScreen> {
 
   TextEditingController searchController = TextEditingController();
-  final TextEditingController addAnimal = TextEditingController();
 
-  final AddClientController addClientController = Get.put(AddClientController());
+  final ClientController addClientController = Get.put(ClientController());
 
   List<String> recentClients = [
     'Christopher Rogers',
@@ -174,71 +173,7 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
                 },
               ),
 
-            /*  // Selection Animal
-              SizedBox(height: 8.h),
-              Text('Select animal', style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
-              SizedBox(height: 8.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Horse')
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 10.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Dog')
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 12.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Cat')
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 10.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Add New')
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 12.h),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: CustomTextField(
-                        controller: addAnimal),
-                  ),
-                  SizedBox(width: 10.w),
-                  SizedBox(
-                    height: 60.h,
-                    width: 80.w,
-                    child: CustomButton(onTap: () {}, text: 'Add'),
-                  ),
-                ],
-              ),*/
+
               SizedBox(height: 12.h),
               Obx(() =>
                  CustomButton(

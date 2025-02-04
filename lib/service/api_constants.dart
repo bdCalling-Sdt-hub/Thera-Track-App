@@ -19,10 +19,14 @@ class ApiConstants {
   //ProfileInfo
   static const String getProfileDataEndPoint = "/user/profile";
   static const String editProfileEndPoint = "/user/profile";
+  static const String updateAdvanceSettingEndPoint = "/user/change-user-status";
 
 
   //============================>> Create Clients <<=================================
   static const String createHumanClientEndPoint = "/client/create-client";
+  static const String grtAllClientDataEndPoint = "/client/read-client";
+  static const String clientAnimalEndPoint = "/client/get-unique-animals";
+  static const String clientWithAnimalEndPoint = "/client//get-clients-with-animal/Cat";
 
 
 }

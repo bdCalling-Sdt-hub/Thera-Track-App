@@ -15,15 +15,16 @@ import 'package:thera_track_app/views/screens/Home/contacts/human/clients_contac
 import 'package:thera_track_app/views/screens/Home/contacts/contact_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/contact_search_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/human/edit_contact_details_screen.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepFive.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepOne.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepSix.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepThree.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepTwo.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/equipmentScreen.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/horseDetailsScreen.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/appoinmentCalenderScreen.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/createNewChartDetails.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepFive.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepFour.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepOne.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepSix.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepThree.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepTwo.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/equipmentScreen.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/horseDetailsScreen.dart';
 import 'package:thera_track_app/views/screens/Home/home_screen.dart';
 import 'package:thera_track_app/views/screens/Home/inventory/inventory_screen.dart';
 import 'package:thera_track_app/views/screens/Home/notification/notificationScreen.dart';
@@ -39,7 +40,6 @@ import 'package:thera_track_app/views/screens/appDrawer/feedback/feedback_screen
 import 'package:thera_track_app/views/screens/appDrawer/paid/paidDetails_screen.dart';
 import 'package:thera_track_app/views/screens/appDrawer/treatment/treatment_screen.dart';
 import 'package:thera_track_app/views/screens/appDrawer/unpaid/undPaidDetails_screen.dart';
-import '../views/screens/Home/createNewChart/animalStep/createNew_chart_stepFour.dart';
 import '../views/screens/appDrawer/yourDetails/yourDetails_screen.dart';
 
 class AppRoutes{

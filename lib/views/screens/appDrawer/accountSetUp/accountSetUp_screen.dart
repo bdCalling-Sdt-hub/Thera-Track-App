@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +14,6 @@ import 'package:thera_track_app/utils/app_images.dart';
 import 'package:thera_track_app/utils/app_strings.dart';
 import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
-import 'package:thera_track_app/views/base/custom_page_loading.dart';
 import 'package:thera_track_app/views/base/custom_text.dart';
 import 'package:thera_track_app/views/base/custom_text_field.dart';
 
@@ -40,7 +40,7 @@ class _AccountSetUpScreenState extends State<AccountSetUpScreen> {
   void initState() {
     super.initState();
     var profileData = profileController.profileInformationModel.value;
-    nameCTRl.text = profileData.fullName ?? '';
+    nameCTRl.text = profileData.firstName ?? '';
     cityCTRl.text = profileData.city ?? '';
     postCodeCTRl.text = profileData.postCode ?? '';
     countryCTRl.text = profileData.country ?? '';
@@ -76,36 +76,55 @@ class _AccountSetUpScreenState extends State<AccountSetUpScreen> {
                           clipBehavior: Clip.none,
                           children:  [
                             _image != null
-                                ? CircleAvatar(radius: 60.r, backgroundImage: MemoryImage(_image!))
-                                : Container(
-                              clipBehavior: Clip.antiAlias,
-                              height: 100.h,
-                              width: 100.w,
-                              decoration: const BoxDecoration(shape: BoxShape.circle),
-                              child: profileData?.profileImage == null || profileData?.profileImage == ''
-                                  ? const Center(child: CustomPageLoading())
-                                  : CachedNetworkImage(
-                                imageUrl: "${ApiConstants.imageBaseUrl}/${profileData?.profileImage}",
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) => const Center(
-                                  child: CustomPageLoading(),
+                                ? InkWell(
+                              onTap: (){
+                                showImagePickerOption(context);
+                              },
+                              child: Container(
+                                height: 120.h,
+                                width: 120.w,
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  shape: BoxShape.rectangle,
+                                  image: DecorationImage(
+                                    image: MemoryImage(_image!),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            )
+                                : InkWell(
+                              onTap: (){
+                                showImagePickerOption(context);
+                              },
+                              child: Container(
+                                height: 120.h,
+                                width: 120.w,
+                                decoration: const BoxDecoration(shape: BoxShape.circle),
+                                child: profileData?.profileImage == null || profileData?.profileImage == ''
+                                    ?  Center(child: CupertinoActivityIndicator(radius: 32.r, color:AppColors.primaryColor))
+                                    : CachedNetworkImage(
+                                  imageUrl: "${ApiConstants.imageBaseUrl}${profileData?.profileImage}",
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => Center(child: CupertinoActivityIndicator(radius: 32.r, color:AppColors.primaryColor)
+                                  ),
                                 ),
                               ),
                             ),
-                            Positioned(
+                           /* Positioned(
                               bottom: 0.h,
-                              right: 0.w,
+                              right: 40.w,
                               child: GestureDetector(
                                 onTap: () {
                                   showImagePickerOption(context);
                                 },
-                                child: Image.asset(AppImages.appLogo, width: 30.w, height: 29.h),
+                                child: Icon(Icons.add_photo_alternate_rounded,color:AppColors.whiteColor,size: 35)
                               ),
-                            ),
+                            ),*/
                           ],
                         ),
                         Text(
-                          'Darlene Robertson',
+                          "${profileData?.firstName}",
                           style: AppStyles.fontSize16(fontWeight: FontWeight.w400),
                         ),
                       ],
