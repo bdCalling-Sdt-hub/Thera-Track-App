@@ -4,6 +4,7 @@ import 'package:thera_track_app/views/screens/Auth/SignIn/sign_in_screen.dart';
 import 'package:thera_track_app/views/screens/Auth/SignUp/sign_up_screen.dart';
 import 'package:thera_track_app/views/screens/Auth/Verification/verify_screen.dart';
 import 'package:thera_track_app/views/screens/Auth/forgotPassword/forgotPassword_screen.dart';
+import 'package:thera_track_app/views/screens/Auth/resetPassword/resetPassword_screen.dart';
 import 'package:thera_track_app/views/screens/Home/appointment/appointment_screen.dart';
 import 'package:thera_track_app/views/screens/Home/chartArchive/chartArchive_screen.dart';
 import 'package:thera_track_app/views/screens/Home/chartArchive/detailsChartArchive_screen.dart';
@@ -14,17 +15,23 @@ import 'package:thera_track_app/views/screens/Home/contacts/human/clients_contac
 import 'package:thera_track_app/views/screens/Home/contacts/contact_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/contact_search_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/human/edit_contact_details_screen.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepFive.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepOne.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepSix.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepThree.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/createNew_chart_stepTwo.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/animalStep/horseDetailsScreen.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/appoinmentCalenderScreen.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/createNewChartDetails.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepFive.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepFour.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepOne.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepSix.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepThree.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepTwo.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/equipmentScreen.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/steps/horseDetailsScreen.dart';
 import 'package:thera_track_app/views/screens/Home/home_screen.dart';
+import 'package:thera_track_app/views/screens/Home/inventory/inventory_screen.dart';
 import 'package:thera_track_app/views/screens/Home/notification/notificationScreen.dart';
 import 'package:thera_track_app/views/screens/Home/offline_file/offline_file_screen.dart';
+import 'package:thera_track_app/views/screens/Home/wallet/costDetailsScreen.dart';
+import 'package:thera_track_app/views/screens/Home/wallet/innerWidget/costRowWidget/addCostScreen.dart';
+import 'package:thera_track_app/views/screens/Home/wallet/wallet_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/onboarding_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/splash_screen.dart';
 import 'package:thera_track_app/views/screens/appDrawer/AccountSetUp/accountSetUp_screen.dart';
@@ -33,7 +40,6 @@ import 'package:thera_track_app/views/screens/appDrawer/feedback/feedback_screen
 import 'package:thera_track_app/views/screens/appDrawer/paid/paidDetails_screen.dart';
 import 'package:thera_track_app/views/screens/appDrawer/treatment/treatment_screen.dart';
 import 'package:thera_track_app/views/screens/appDrawer/unpaid/undPaidDetails_screen.dart';
-import '../views/screens/Home/createNewChart/animalStep/createNew_chart_stepFour.dart';
 import '../views/screens/appDrawer/yourDetails/yourDetails_screen.dart';
 
 class AppRoutes{
@@ -72,6 +78,12 @@ class AppRoutes{
   static String createNewChartDetailsScreen = "/createNewChartDetailsScreen";
   static String appoinmentCalenderScreen = "/appoinmentCalenderScreen";
   static String notificationScreen = "/notificationScreen";
+  static String resetPassword = "/resetPassword";
+  static String inventoryScreen = "/inventoryScreen";
+  static String walletDetailsScreen = "/walletDetailsScreen";
+  static String costAddScreen = "/costAddScreen";
+  static String costDetailsScreen = "/costDetailsScreen";
+  static String equipmentScreen = "/equipmentScreen";
 
 
  static List<GetPage> page=[
@@ -84,6 +96,7 @@ class AppRoutes{
     GetPage(name:signUpScreen, page: ()=>const SignUpScreen()),
     GetPage(name:forgotPasswordScreen, page: ()=>const ForgotPasswordScreen()),
     GetPage(name:verifyScreen, page: ()=>const VerifyScreen()),
+    GetPage(name:resetPassword, page: ()=>const ResetPassword()),
 
    //Home
    GetPage(name:homeScreen, page: ()=> HomeScreen(),transition: Transition.noTransition),
@@ -130,7 +143,18 @@ class AppRoutes{
    //OffLineFileScreen
    GetPage(name:offLineFileScreen, page: ()=> OffLineFileScreen(),transition: Transition.noTransition),
 
+   //Inventory Screen
+   GetPage(name:inventoryScreen, page: ()=> InventoryScreen(),transition: Transition.noTransition),
+   // Wallet Details Screen
+   GetPage(name:walletDetailsScreen, page: ()=> WalletDetailsScreen(),transition: Transition.noTransition),
+   GetPage(name:costAddScreen, page: ()=> CostAddScreen(),transition: Transition.noTransition),
+   GetPage(name:costDetailsScreen, page: ()=> CostDetailsScreen(),transition: Transition.noTransition),
+
    //Notification
    GetPage(name:notificationScreen, page: ()=> NotificationScreen(),transition: Transition.noTransition),
+
+
+   // EquipmentScreen
+   GetPage(name:equipmentScreen, page: ()=> EquipmentScreen(),transition: Transition.noTransition),
   ];
 }

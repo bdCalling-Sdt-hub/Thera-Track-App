@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:thera_track_app/controller/clientController/clientController.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
@@ -16,15 +17,19 @@ class ContactSearchScreen extends StatefulWidget {
 
 class _ContactSearchScreenState extends State<ContactSearchScreen> {
   TextEditingController searchController = TextEditingController();
+  ClientController _clientController=Get.put(ClientController());
 
-  // A sample list with both humans and animals
-  List<Map<String, dynamic>> recentContacts = [
-    {'name': 'Human - Christopher Rogers', 'type': 'human'},
-    {'name': 'Human - Joshua Walker', 'type': 'human'},
-    {'name': 'Animal - Dog', 'type': 'animal'},
-    {'name': 'Animal -- Cat', 'type': 'animal'},
-  ];
+  var parameter = Get.parameters;
 
+  @override
+  void initState() {
+
+    WidgetsBinding.instance.addPostFrameCallback((_){
+       _clientController.getClientWithAnimal("${parameter['animalName']}");
+    });
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,37 +57,48 @@ class _ContactSearchScreenState extends State<ContactSearchScreen> {
                 searchController: searchController,
               ),
               // Recent Contacts section
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 10),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: recentContacts.length,
-                    itemBuilder: (context, index) {
-                      var contact = recentContacts[index];
-                      return Column(
-                        children: [
-                          ListTile(
-                            title: Text(contact['name']),
-                            trailing: SvgPicture.asset(AppIcons.rightArrow),
-                            onTap: () {
-                              // Navigate based on the type (human or animal)
-                              if (contact['type'] == 'human') {
-                                Get.toNamed(AppRoutes.clientsContactDetailsScreen);
-                              } else if (contact['type'] == 'animal') {
-                                Get.toNamed(AppRoutes.animalListScreen);
+              Obx((){
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 10),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: _clientController.getClientWithAnimalModel.length,
+                      itemBuilder: (context, index) {
+                        var displayData =  _clientController.getClientWithAnimalModel[index];
+                        return Column(
+                          children: [
+                            ListTile(
+                              title: Text('${displayData.name}'),
+                              trailing: SvgPicture.asset(AppIcons.rightArrow),
+                              onTap: () {
+
+                                // Navigate based on the type (human or animal)
+                              if (displayData.humanClient == true) {
+                                Get.toNamed(AppRoutes.clientsContactDetailsScreen,
+                                parameters: {
+                                  "clientId": '${displayData.id}',
+                                }
+                                );
+                              } else if ((displayData.humanClient == false)) {
+                                Get.toNamed(AppRoutes.animalListScreen,
+                                    parameters: {
+                                      "clientId": '${displayData.id}',
+                                    }
+                                );
                               }
-                            },
-                          ),
-                          Divider(color: AppColors.secondaryColor),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              ),
+                              },
+                            ),
+                            Divider(color: AppColors.secondaryColor),
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                );
+              }),
               SizedBox(height: 20),
             ],
           ),

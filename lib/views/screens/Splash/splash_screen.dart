@@ -1,16 +1,16 @@
 import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:thera_track_app/helpers/prefs_helpers.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_constants.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:thera_track_app/utils/app_images.dart';
-import 'package:thera_track_app/utils/app_strings.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
+
 
 
 class SplashScreen extends StatefulWidget {
@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     StreamSubscription;
-  //  getConnectivity();
+    getConnectivity();
   }
 
   @override
@@ -45,13 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 fit: BoxFit.cover,
               ),
               SizedBox(height: 80.h),
-              CustomButton(
-                textColor: AppColors.textColor,
-                onTap: () {
-                   Get.toNamed(AppRoutes.signInScreen);
-                },
-                text: 'Get Started',
-              ),
+
             ],
           ),
         ),
@@ -65,15 +59,14 @@ class _SplashScreenState extends State<SplashScreen> {
   bool isConnection = false;
 
   ///========================is internet connection check========================>
-/*  void getConnectivity() {
-    streamSubscription =
-        Connectivity().onConnectivityChanged.listen((event) async {
-    //  isConnection = await InternetConnectionChecker().hasConnection;
+  void getConnectivity() {
+    streamSubscription = Connectivity().onConnectivityChanged.listen((event) async {
+     isConnection = await InternetConnectionChecker.instance.hasConnection;
 
       ///==================if internet is available===================>
       if (isConnection) {
         print("------------------Internet available");
-        Timer(const Duration(seconds: 4), () async {
+        Timer(const Duration(seconds: 3), () async {
           bool? isLogged = await PrefsHelper.getBool(AppConstants.isLogged);
           String token = await PrefsHelper.getString(AppConstants.bearerToken);
           var role = await PrefsHelper.getString(AppConstants.role);
@@ -81,16 +74,9 @@ class _SplashScreenState extends State<SplashScreen> {
           ///========================check islogged in, token, and role then decide where will be navigate====================>
 
           if (isLogged != null && isLogged) {
-            if (token.isNotEmpty) {
-              if (role == "user") {
-              //  Get.offAllNamed(AppRoutes.homeScreen);
-              }
-              if (role == "employee") {
-             //   Get.offAllNamed(AppRoutes.deliveryHomeScreen);
-              }
-            }
+                Get.offAllNamed(AppRoutes.homeScreen);
           } else {
-          //  Get.offAllNamed(AppRoutes.onboardingScreen);
+            Get.offAllNamed(AppRoutes.onboardingScreen);
           }
         });
       }
@@ -102,5 +88,5 @@ class _SplashScreenState extends State<SplashScreen> {
         print("----------------------No internet");
       }
     });
-  }*/
+  }
 }

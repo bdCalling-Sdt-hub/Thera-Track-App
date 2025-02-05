@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:thera_track_app/controller/auth_controller.dart';
 import 'package:thera_track_app/helpers/route.dart';
@@ -102,14 +103,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
+                        height: 60.h,
                         decoration: BoxDecoration(
-                            color: AppColors.fillColor,
+                            color: AppColors.whiteColor,
                             border: Border.all(
                                 width: 1.w, color: AppColors.primaryColor),
                             borderRadius: BorderRadius.circular(4.r)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+
                             //=================================> Country Code Picker Widget <============================
                             CountryCodePicker(
                               showFlag: false,
@@ -136,7 +139,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       SizedBox(width: 10.w),
                       Expanded(
                         child: CustomTextField(
-                            keyboardType: TextInputType.phone,
+                            keyboardType: TextInputType.number,
                             controller: authController.phoneNumberCTRL,
                             prefixIcon: Padding(
                               padding: EdgeInsets.symmetric(
@@ -199,21 +202,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   _checkboxSection(),
                   // Sign Up Button
                   SizedBox(height: 20.h),
-                  CustomButton(
-                    onTap: () {
-                      if (_formKey.currentState!.validate()) {
-                        if (isChecked) {
-                          authController.signUpMethod();
-                        } else {
-                          Get.snackbar(
-                            "Error in Checkbox",
-                            "Must agree to terms and conditions",
-                          );
+                  Obx(()=>
+                    CustomButton(
+                      loading: authController.signUpLoading.value,
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          if (isChecked) {
+                            authController.signUpMethod();
+                          } else {
+                            Get.snackbar(
+                              "Error in Checkbox",
+                              "Must agree to terms and conditions",
+                            );
+                          }
                         }
-                      }
-                    },
-                    text: AppStrings.signUp,
-                  ),
+                      },
+                      text: AppStrings.signUp,
+                    ),
+              ),
 
                   // Don't Have an Account Section
                   Row(

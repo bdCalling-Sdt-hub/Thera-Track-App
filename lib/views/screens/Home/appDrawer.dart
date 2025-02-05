@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:thera_track_app/helpers/prefs_helpers.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
+import 'package:thera_track_app/utils/app_constants.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
 import 'package:thera_track_app/utils/app_images.dart';
 
@@ -88,6 +90,12 @@ class AppDrawer extends StatelessWidget {
               leading: SvgPicture.asset(AppIcons.logOut),
               title: Text('Log Out',style: TextStyle(color: AppColors.whiteColor),),
               onTap: () {
+                // Clear user data on logout
+              PrefsHelper.remove(AppConstants.isLogged);
+
+             /*   await PrefsHelper.remove(AppConstants.bearerToken);
+                await PrefsHelper.remove(AppConstants.userId);*/
+
                 Get.toNamed(AppRoutes.signInScreen);
               },
             ),

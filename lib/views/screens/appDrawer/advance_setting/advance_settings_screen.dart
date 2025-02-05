@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:thera_track_app/controller/profileController.dart';
 import 'package:thera_track_app/utils/style.dart';
 
 class AdvanceSettingsScreen extends StatefulWidget {
@@ -7,12 +11,30 @@ class AdvanceSettingsScreen extends StatefulWidget {
 }
 
 class _AdvanceSettingsScreenState extends State<AdvanceSettingsScreen> {
-
   List<String> options = ['Animal', 'Human'];
-  Map<String, bool> selectionMap = {
-    'Animal': false,
-    'Human': false,
-  };
+  String? selectedOption;
+  ProfileController _profileController=Get.put(ProfileController());
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSelectedOption();
+  }
+
+
+  void _loadSelectedOption() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      selectedOption = prefs.getString('selectedOption') ?? 'Human';
+    });
+  }
+
+
+  void _saveSelectedOption(String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('selectedOption', value);
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,22 +47,26 @@ class _AdvanceSettingsScreenState extends State<AdvanceSettingsScreen> {
         padding: EdgeInsets.all(16.0),
         child: Column(
           children: [
-
             Expanded(
               child: ListView.builder(
                 itemCount: options.length,
                 itemBuilder: (context, index) {
                   String option = options[index];
-                  return CheckboxListTile(
+                  return ListTile(
                     title: Text(option),
-                    value: selectionMap[option] ?? false,
-                    onChanged: (bool? value) {
-                      setState(() {
-                        selectionMap[option] = value!;
-                      });
-                    },
-                    activeColor: Colors.blue,
-                    checkColor: Colors.white,
+                    trailing: Radio<String>(
+                      value: option,
+                      groupValue: selectedOption,
+                      onChanged: (String? value) {
+                        setState(() {
+                          selectedOption = value;
+                          _saveSelectedOption(value!);
+                          _profileController.updateSelection(isHumanTrue: value!);
+                          print('selected : $value');
+                        });
+                      },
+                      activeColor: Colors.blue,
+                    ),
                   );
                 },
               ),

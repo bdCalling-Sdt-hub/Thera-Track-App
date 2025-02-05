@@ -6,13 +6,14 @@ class AppColors{
 
   static const Color primaryColor = Color(0xFF2196F3);
   static const Color secondaryColor = Color(0xFFBADEFB);
-  static Color textColor = const Color(0xFF010101);
+  static const Color textColor =  Color(0xFF010101);
 
 
   static const Color color424242 = Color(0xFF424242);
   static const Color color99CFF9 = Color(0xFF99CFF9);
   static const Color color909090 = Color(0xFF909090);
   static const Color colorE9F5FE = Color(0xFFE9F5FE);
+  static const Color color707070 = Color(0xFF707070);
 
 
 
@@ -20,7 +21,7 @@ class AppColors{
   static const Color secondColor = Color(0x804040F8);
   static const Color thirdColor = Color(0xFF9191FB);
 
-  static Color blackColor=const Color(0xFF010101);
+  static Color blackColor = const Color(0xFF010101);
   static Color cardColor = const Color(0xFFDCEFF9);
   static Color borderColor = const Color(0xFF1397D5);
   static Color color575757 = const Color(0xFF575757);
@@ -52,6 +53,7 @@ class AppColors{
   static Color greenColor = const Color(0xFFADDAAF);
 //=============
   static const Color color878787 = Color(0xFF878787);
+  static const Color colorB1B1B1 = Color(0xFFB1B1B1);
 
 
   static BoxShadow shadow = BoxShadow(

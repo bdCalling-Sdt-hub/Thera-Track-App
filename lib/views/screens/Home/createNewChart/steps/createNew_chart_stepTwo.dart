@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:thera_track_app/helpers/route.dart';
+import 'package:thera_track_app/controller/clientController/clientController.dart';
+
+import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_strings.dart';
 import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
@@ -15,12 +17,8 @@ class CreateNewChartStepTwoScreen extends StatefulWidget {
 class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScreen> {
 
   TextEditingController searchController = TextEditingController();
-  final TextEditingController nameCTRL = TextEditingController();
-  final TextEditingController stateController = TextEditingController();
-  final TextEditingController zipController = TextEditingController();
 
-  final TextEditingController addAnimal = TextEditingController();
-
+  final ClientController addClientController = Get.put(ClientController());
 
   List<String> recentClients = [
     'Christopher Rogers',
@@ -34,8 +32,15 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
   ];
 
   @override
+  void dispose() {
+    addClientController.clearValues();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text('Step 2',style: AppStyles.fontSize16(),),
         centerTitle: true,
@@ -50,7 +55,7 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
               Text(AppStrings.nameText, style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
               SizedBox(height: 8.h),
               CustomTextField(
-                controller: nameCTRL,
+                controller: addClientController.nameCtrl,
                 hintText: AppStrings.enterName,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -64,7 +69,7 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
               Text('City', style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
               SizedBox(height: 8.h),
               CustomTextField(
-                controller: nameCTRL,
+                controller: addClientController.cityCtrl,
                 hintText: AppStrings.enterName,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -88,7 +93,7 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
                             Text('State', style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
                             SizedBox(height: 8.h),
                             CustomTextField(
-                              controller: stateController,
+                              controller: addClientController.stateCtrl,
                               hintText: 'Enter State',
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -108,7 +113,7 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
                             Text('Zip', style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
                             SizedBox(height: 8.h),
                             CustomTextField(
-                              controller: zipController,
+                              controller: addClientController.zipCtrl,
                               hintText: 'Zip Code',
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -129,7 +134,7 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
               Text('Phone Number', style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
               SizedBox(height: 8.h),
               CustomTextField(
-                controller: stateController,
+                controller: addClientController.phoneNumberCtrl,
                 hintText: 'Enter Phone Number',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -144,7 +149,7 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
               Text('Email', style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
               SizedBox(height: 8.h),
               CustomTextField(
-                controller: stateController,
+                controller: addClientController.emailCtrl,
                 hintText: 'Enter Email',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -158,7 +163,7 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
               Text('Other', style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
               SizedBox(height: 8.h),
               CustomTextField(
-                controller: stateController,
+                controller:addClientController.otherCtrl,
                 hintText: 'Enter Other',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -168,75 +173,15 @@ class _CreateNewChartStepTwoScreenState extends State<CreateNewChartStepTwoScree
                 },
               ),
 
-              // Selection Animal
-              SizedBox(height: 8.h),
-              Text('Select animal', style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
-              SizedBox(height: 8.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Horse')
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 10.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Dog')
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+
               SizedBox(height: 12.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Cat')
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 10.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Add New')
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 12.h),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: CustomTextField(
-                        controller: addAnimal),
-                  ),
-                  SizedBox(width: 10.w),
-                  SizedBox(
-                    height: 60.h,
-                    width: 80.w,
-                    child: CustomButton(onTap: () {}, text: 'Add'),
-                  ),
-                ],
-              ),
-              SizedBox(height: 12.h),
-              CustomButton(onTap: (){
-                Get.toNamed(AppRoutes.createNewChartStepThreeScreen);
-              }, text: 'Done')
+              Obx(() =>
+                 CustomButton(
+                   loading: addClientController.addClientLoading.value,
+                     onTap: () {
+                       addClientController.addClient();
+                }, text: 'Done'),
+              )
             ],
           ),
         ),

@@ -12,5 +12,22 @@ class ApiConstants {
   static const String signUpEndPoint = "/auth/register";
   static const String signInEndPoint = "/auth/login";
   static const String otpVerifyEndPoint = "/auth/verify-email";
+  static const String forgotPasswordEndPoint = "/auth/forgot-password";
+  static const String resetPasswordEndPoint = "/auth/reset-password";
+  static const String resendOTPEndPoint = "/auth/resend-otp";
+
+  //ProfileInfo
+  static const String getProfileDataEndPoint = "/user/profile";
+  static const String editProfileEndPoint = "/user/profile";
+  static const String updateAdvanceSettingEndPoint = "/user/change-user-status";
+
+
+  //============================>> Create Clients <<=================================
+  static const String createHumanClientEndPoint = "/client/create-client";
+  static const String grtAllClientDataEndPoint = "/client/read-client";
+  static const String clientAnimalEndPoint = "/client/get-unique-animals";
+  static const String clientWithAnimalEndPoint = "/client/get-clients-with-animal";
+  static const String clientDetailsByIDEndPoint = "/client/get-one-client";
+
 
 }
