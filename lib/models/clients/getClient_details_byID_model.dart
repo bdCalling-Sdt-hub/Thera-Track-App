@@ -1,14 +1,4 @@
-// To parse this JSON data, do
-//
-//     final getClientWithAnimalModel = getClientWithAnimalModelFromJson(jsonString);
-
-import 'dart:convert';
-
-List<GetClientWithAnimalModel> getClientWithAnimalModelFromJson(String str) => List<GetClientWithAnimalModel>.from(json.decode(str).map((x) => GetClientWithAnimalModel.fromJson(x)));
-
-String getClientWithAnimalModelToJson(List<GetClientWithAnimalModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
-class GetClientWithAnimalModel {
+class GetClientInfoByIdModel {
   final Address? address;
   final String? id;
   final String? name;
@@ -18,7 +8,7 @@ class GetClientWithAnimalModel {
   final int? v;
   final bool? humanClient;
 
-  GetClientWithAnimalModel({
+  GetClientInfoByIdModel({
     this.address,
     this.id,
     this.name,
@@ -29,7 +19,7 @@ class GetClientWithAnimalModel {
     this.humanClient,
   });
 
-  factory GetClientWithAnimalModel.fromJson(Map<String, dynamic> json) => GetClientWithAnimalModel(
+  factory GetClientInfoByIdModel.fromJson(Map<String, dynamic> json) => GetClientInfoByIdModel(
     address: json["address"] == null ? null : Address.fromJson(json["address"]),
     id: json["_id"],
     name: json["name"],

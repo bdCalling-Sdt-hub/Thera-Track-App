@@ -21,6 +21,7 @@ ClientController _clientController=Get.put(ClientController());
 
 WidgetsBinding.instance.addPostFrameCallback((_){
   _clientController.clientAnimalList();
+ // _clientController.getClientWithAnimal('Cat');
 });
     // TODO: implement initState
     super.initState();
@@ -44,7 +45,12 @@ WidgetsBinding.instance.addPostFrameCallback((_){
                 children: [
                   ListTile(
                     onTap: () {
-                      Get.toNamed(AppRoutes.contactSearchScreen);
+                      Get.toNamed(AppRoutes.contactSearchScreen,
+                        parameters: {
+                          "animalName": "$animalName",
+                        }
+                      );
+                    //  _clientController.getClientWithAnimal('$animalName');
                     },
                     leading: Icon(Icons.account_circle_outlined),
                     title: Text(animalName,style: AppStyles.fontSize16()),

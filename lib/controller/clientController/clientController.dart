@@ -6,6 +6,8 @@ import 'package:logger/logger.dart';
 import 'package:thera_track_app/helpers/prefs_helpers.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/models/clients/all_clients_model.dart';
+import 'package:thera_track_app/models/clients/client_with_animal_model.dart';
+import 'package:thera_track_app/models/clients/getClient_details_byID_model.dart';
 import 'package:thera_track_app/service/api_checker.dart';
 import 'package:thera_track_app/service/api_client.dart';
 import 'package:thera_track_app/service/api_constants.dart';
@@ -84,8 +86,7 @@ class ClientController extends GetxController {
     var response = await ApiClient.getData(
         "${ApiConstants.grtAllClientDataEndPoint}");
     if (response.statusCode == 200) {
-      getClientInfoModel.value = List.from(
-          response.body['data']['attributes'].map((x) => GetClientInfoModel.fromJson(x)));
+      getClientInfoModel.value = List.from(response.body['data']['attributes'].map((x) => GetClientInfoModel.fromJson(x)));
       loading(false);
       update();
     }
@@ -103,18 +104,12 @@ class ClientController extends GetxController {
   clientAnimalList() async {
     loading(true);
 
-    var response = await ApiClient.getData(
-        "${ApiConstants.clientAnimalEndPoint}");
+    var response = await ApiClient.getData("${ApiConstants.clientAnimalEndPoint}");
     if (response.statusCode == 200) {
-var animals=response.body['data']['attributes'];
-
-
+      var animals=response.body['data']['attributes'];
       for(var x in animals ){
         animalList.add(x);
       }
-
-
-
       Logger log=Logger();
       log.i("animal list is==================> ${animalList.length}");
 
@@ -127,5 +122,51 @@ var animals=response.body['data']['attributes'];
       update();
     }
   }
+  //=========================>> Get Client with Animal <<============================
+
+  RxList<GetClientWithAnimalModel> getClientWithAnimalModel = <GetClientWithAnimalModel>[].obs;
+  var showLoading = false.obs;
+
+  getClientWithAnimal(String animalName) async {
+    showLoading(true);
+
+    var response = await ApiClient.getData("${ApiConstants.clientWithAnimalEndPoint}/$animalName");
+    if (response.statusCode == 200) {
+      getClientWithAnimalModel.value = List.from(response.body['data']['attributes']['clientDetails'].map((x) => GetClientWithAnimalModel.fromJson(x)));
+      showLoading(false);
+      update();
+    }
+    else {
+      ApiChecker.checkApi(response);
+      showLoading(false);
+      update();
+    }
+  }
+  // ======================= Client Details by ID ==========================
+  
+  Rx<GetClientInfoByIdModel> getClientInfoByIdModel = GetClientInfoByIdModel().obs;
+  var clientInfoLoading = false.obs;
+  
+  clientDetailsByID(String carId) async {
+    clientInfoLoading(true);
+    var bearerToken = await PrefsHelper.getString(AppConstants.bearerToken);
+
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $bearerToken'
+    };
+
+    var response = await ApiClient.getData("${ApiConstants.clientDetailsByIDEndPoint}/$carId",headers: headers);
+    if (response.statusCode == 200) {
+      getClientInfoByIdModel.value = GetClientInfoByIdModel.fromJson(response.body['data']['attributes']);
+      clientInfoLoading(false);
+      update();
+    } else {
+      ApiChecker.checkApi(response);
+      clientInfoLoading(false);
+      update();
+    }
+  }
+
 }
 
