@@ -168,5 +168,47 @@ class ClientController extends GetxController {
     }
   }
 
+
+  ///====================== Edit Client Profile============================>
+
+/*  editClientProfile({
+    required File? image,
+    required String fullName,
+    required city ,
+    required postCode,
+    required country,
+    required phoneNumber,
+  }) async {
+    List<MultipartBody> multipartBody = image == null ? [] : [
+      MultipartBody("profileImage", image)
+    ];
+
+    Map<String, String> body = {
+      "fullName": fullName,
+      "city": city,
+      "postCode": postCode,
+      "country": country,
+      "phoneNumber": phoneNumber,
+    };
+
+    var response = await ApiClient.patchMultipartData(
+      ApiConstants.editProfileEndPoint,
+      body,
+      multipartBody: multipartBody,
+    );
+
+    print("===========response body : ${response
+        .body} \nand status code : ${response.statusCode}");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      profileInformationModel.value =
+          ProfileInformationModel.fromJson(response.body['data']['attributes']);
+      profileInformationModel.refresh();
+      Get.offAllNamed(AppRoutes.homeScreen);
+      Get.snackbar('Successfully', 'Profile Updated');
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }*/
+
 }
 

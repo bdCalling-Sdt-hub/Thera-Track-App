@@ -14,7 +14,7 @@ class InventoryScreen extends StatefulWidget {
 
 class _InventoryScreenState extends State<InventoryScreen> {
   List<Map<String, String>> inventory = [];
-  TextEditingController treatmentController = TextEditingController();
+  TextEditingController inventoryController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
 
@@ -25,20 +25,20 @@ class _InventoryScreenState extends State<InventoryScreen> {
   }
 
   void _addTreatment() {
-    if (treatmentController.text.isEmpty || priceController.text.isEmpty) {
+    if (inventoryController.text.isEmpty || priceController.text.isEmpty) {
       Get.snackbar('Error!', 'Please fill all fields');
       return;
     }
 
     setState(() {
       inventory.add({
-        'treatmentName': treatmentController.text,
+        'treatmentName': inventoryController.text,
         'price': priceController.text,
         'quantity': quantityController.text,
       });
     });
 
-    treatmentController.clear();
+    inventoryController.clear();
     priceController.clear();
     quantityController.clear();
   }
@@ -159,7 +159,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                   child: Container(
                     height: 40.h,
                     child: CustomTextField(
-                      controller: treatmentController,
+                      controller: inventoryController,
                       contentPaddingVertical: 5,
                     ),
                   ),

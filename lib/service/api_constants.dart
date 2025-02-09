@@ -29,5 +29,8 @@ class ApiConstants {
   static const String clientWithAnimalEndPoint = "/client/get-clients-with-animal";
   static const String clientDetailsByIDEndPoint = "/client/get-one-client";
 
+  static const String createTreatmentEndPoint = "/treatment/create-treatment";
+  static const String getAllTreatmentEndPoint = "/treatment/get-all-treatment";
+
 
 }
