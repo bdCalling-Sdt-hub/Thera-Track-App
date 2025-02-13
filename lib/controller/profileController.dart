@@ -144,6 +144,16 @@ class ProfileController extends GetxController  implements GetxService{
       ApiChecker.checkApi(response);
     }
   }
+//=================================================>>>>>> Delete Singel Treatment <<<<<<=========================================================
+  deleteSingelTreatment({required String treatmentID}) async {
+    var response = await ApiClient.deleteData('${ApiConstants.deleteSingelTreatmentEndPoint}/${treatmentID}');
+    if (response.statusCode == 200 || response.statusCode == 201) {
+     Get.snackbar('Successfully', 'Deleted Treatment');
+     getAllTreatMentList.refresh();
+    } else {
+      ApiChecker.checkApi(response);
+    }
+  }
 
 //===============================>>>>> Advance Setting <<<<<=================================
   updateSelection({required String isHumanTrue}) async {

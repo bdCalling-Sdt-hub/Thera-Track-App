@@ -31,6 +31,8 @@ class ApiConstants {
 
   static const String createTreatmentEndPoint = "/treatment/create-treatment";
   static const String getAllTreatmentEndPoint = "/treatment/get-all-treatment";
+  static const String deleteSingelTreatmentEndPoint = "/treatment/delete-treatment";
+  static const String getAllAnimalUnderOneClientTreatmentEndPoint = "/client/all-animal-under-one-client";
 
 
 }

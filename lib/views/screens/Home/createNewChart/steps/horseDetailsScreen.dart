@@ -1,11 +1,13 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:thera_track_app/controller/clientController/clientController.dart';
+import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
 import 'package:thera_track_app/views/base/custom_text_field.dart';
+import 'package:thera_track_app/views/screens/Home/createNewChart/innerWidget/animalAdd_row.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/innerWidget/detailsRow_widget.dart';
 
 class HorseDetailsScreen extends StatefulWidget {
@@ -14,73 +16,125 @@ class HorseDetailsScreen extends StatefulWidget {
 }
 
 class _HorseDetailsScreenState extends State<HorseDetailsScreen> {
-  TextEditingController addAnimal = TextEditingController();
+  final ClientController _clientController = Get.put(ClientController());
+  List<String> animals = ['Horse', 'Dog'];
+  TextEditingController _addAnimalController = TextEditingController();
+  int? selectedIndex;
+
+  void _addAnimal() {
+    setState(() {
+      if (_addAnimalController.text.isNotEmpty) {
+        animals.add(_addAnimalController.text);
+        _addAnimalController.clear();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Horse Details',style: AppStyles.fontSize16()),
+        title: Text('Horse Details', style: AppStyles.fontSize16()),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Horse Details
-            DetailRow(titelText: 'Age', value: '5 years',),
-            DetailRow(titelText: 'Breed', value: 'Thomas Anree',),
-            DetailRow(titelText: 'Gender', value: 'Male',),
-            DetailRow(titelText: 'Height', value: '5 ft',),
-            DetailRow(titelText: 'Color', value: 'Black',),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Horse Details
+              AnimalAddDetailsRow(titelText: 'Age', controller: _clientController.age),
+              AnimalAddDetailsRow(titelText: 'Breed', controller: _clientController.breed),
+              AnimalAddDetailsRow(titelText: 'Gender', controller: _clientController.gender),
+              AnimalAddDetailsRow(titelText: 'Height', controller: _clientController.heigh),
+              AnimalAddDetailsRow(titelText: 'Color', controller: _clientController.color),
 
               // Selection Animal
-            SizedBox(height: 20.h),
+              SizedBox(height: 20.h),
               Text('Select animal', style: AppStyles.fontSize16(fontWeight: FontWeight.w700)),
               SizedBox(height: 8.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Horse')
-                      ],
+
+              // Grid View for Animals (2 items per row)
+            Container(
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,  // 2 items per row
+                  crossAxisSpacing: 2.w,
+                  mainAxisSpacing: 2.h,
+                  childAspectRatio: 3,
+                ),
+                itemCount: animals.length,
+                itemBuilder: (context, index) {
+                  bool isSelected = selectedIndex == index;
+
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = isSelected ? null : index;
+                          print('Selected Animal==================>> ${animals[index]}');
+                        });
+                      },
+                      child: Container(
+                        height: 50.h,
+                        decoration: BoxDecoration(
+                          color: isSelected ? Colors.blue : Colors.white,
+                          borderRadius: BorderRadius.circular(4.r),
+                          border: Border.all(
+                            color: AppColors.primaryColor,
+                            width: 1, // Border width
+                          ),
+                        ),
+                        child: Center(
+                          child: Text(
+                            animals[index],
+                            style: AppStyles.fontSize16(
+                              color: isSelected ? AppColors.whiteColor : AppColors.primaryColor,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 10.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Dog')
-                      ],
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
+            ),
+
+
+
               SizedBox(height: 12.h),
               Row(
                 children: [
                   Expanded(
                     flex: 2,
-                    child: CustomTextField(controller: addAnimal),
+                    child: CustomTextField(controller: _addAnimalController),
                   ),
                   SizedBox(width: 10.w),
                   SizedBox(
                     height: 60.h,
                     width: 80.w,
-                    child: CustomButton(onTap: () {}, text: 'Add'),
+                    child: CustomButton(onTap: _addAnimal, text: 'Add'),
                   ),
                 ],
               ),
-            SizedBox(height: 20.h),
-            CustomButton(onTap: (){}, text: 'Done')
-          ],
+              SizedBox(height: 20.h),
+
+              // Done Button
+              CustomButton(
+                onTap: () {
+                  Get.toNamed(AppRoutes.createNewChartStepFourScreen);
+                },
+                text: 'Done',
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-
 }

@@ -22,11 +22,26 @@ class CreateNewChartStepFourScreen extends StatefulWidget {
 
 class _CreateNewChartStepFourScreenState extends State<CreateNewChartStepFourScreen> {
   TextEditingController searchController = TextEditingController();
+
   TextEditingController addNew = TextEditingController();
   TextEditingController addType = TextEditingController();
+  List<String> addList = ['Joints', 'Spine/Back','Paws','Muscles','Neck','Ears'];
+
+  TextEditingController _addController = TextEditingController();
+
+  int? selectedIndex;
 
   Uint8List? _image;
   File? selectedImage;
+
+  void _addAnimal() {
+    setState(() {
+      if (_addController.text.isNotEmpty) {
+        addList.add(_addController.text);
+        _addController.clear();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +57,7 @@ class _CreateNewChartStepFourScreenState extends State<CreateNewChartStepFourScr
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
             Text('Select the Area of Concern',style: AppStyles.fontSize18(fontWeight: FontWeight.w500)),
-            Text('Select one or more areas. If unsure select Other.',style: AppStyles.fontSize14(color: AppColors.color424242)),
+            Text('Select one or more areas. If unsure select Other.',style: AppStyles.fontSize14(color: AppColors.greyColor)),
               Center(
                 child: Stack(
                   clipBehavior: Clip.none,
@@ -75,7 +90,7 @@ class _CreateNewChartStepFourScreenState extends State<CreateNewChartStepFourScr
                             child: Container(
                               height: 200.h,
                               child: Center(
-                                  child: Text('Click to browse or \ndrag and drop your files',textAlign: TextAlign.center)),
+                                  child: Text('Click to browse or \ndrag and drop your files',textAlign: TextAlign.center,style: TextStyle(color: AppColors.greyColor),)),
                             )
                         ),
                       ),
@@ -85,50 +100,66 @@ class _CreateNewChartStepFourScreenState extends State<CreateNewChartStepFourScr
                   ],
                 ),
               ),
+              SizedBox(height: 10.h),
+              Container(
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,  // 2 items per row
+                    crossAxisSpacing: 2.w,
+                    mainAxisSpacing: 2.h,
+                    childAspectRatio: 2,
+                  ),
+                  itemCount: addList.length,
+                  itemBuilder: (context, index) {
+                    bool isSelected = selectedIndex == index;
 
-              SizedBox(height: 10.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Cat')
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 4.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Add New')
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 4.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomButton(onTap: (){}, text: 'Add New')
-                      ],
-                    ),
-                  ),
-                ],
+                    return Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = isSelected ? null : index;
+                            print('Selected Animal==================>> ${addList[index]}');
+                          });
+                        },
+                        child: Container(
+                          height: 50.h,
+                          decoration: BoxDecoration(
+                            color: isSelected ? Colors.blue : Colors.white,
+                            borderRadius: BorderRadius.circular(8.r),
+                            border: Border.all(
+                              color: AppColors.greyColor,
+                              width: 1, // Border width
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              addList[index],
+                              style: AppStyles.fontSize16(
+                                color: isSelected ? AppColors.whiteColor : AppColors.greyColor,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-              SizedBox(height: 10.h),
               Row(
                 children: [
                   Expanded(
                     flex: 2,
-                    child: CustomTextField(controller: addNew),
+                    child: CustomTextField(controller: _addController),
                   ),
-                  SizedBox(width: 10.w), // Add spacing between the text field and button
+                  SizedBox(width: 10.w),
                   SizedBox(
-                    width: 120.w, // Set button width
-                    child: CustomButton(onTap: () {}, text: 'Add'),
+                    height: 60.h,
+                    width: 80.w,
+                    child: CustomButton(onTap: _addAnimal, text: 'Add'),
                   ),
                 ],
               ),

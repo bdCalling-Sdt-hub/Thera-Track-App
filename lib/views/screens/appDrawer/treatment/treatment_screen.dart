@@ -104,6 +104,7 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
                             icon: Icon(Icons.close, color: Colors.black),
                             onPressed: () {
                               setState(() {
+                                profileController.deleteSingelTreatment(treatmentID: '${profileController.getAllTreatMentList[index].id}');
                                 profileController.getAllTreatMentList.removeAt(index);
                               });
                             },
