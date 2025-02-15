@@ -10,23 +10,36 @@ class TextBoxList extends StatefulWidget {
 }
 
 class _TextBoxListState extends State<TextBoxList> {
-  // List to store all TextBox widgets
   List<Widget> textBoxes = [];
+  List<String> textValues = [];
+
 
   void addTextBox() {
     setState(() {
       int newIndex = textBoxes.length;
-      textBoxes.add(TextBox(index: newIndex, onRemove: removeTextBox));
+      textValues.add("");
+      textBoxes.add(TextBox(
+        index: newIndex,
+        onRemove: removeTextBox,
+        onTextChanged: (text) => updateTextValue(newIndex, text),
+      ));
     });
   }
 
-  // Function
   void removeTextBox(int index) {
     setState(() {
       textBoxes.removeAt(index);
+      textValues.removeAt(index);
+
+      // Update indexes
       for (int i = 0; i < textBoxes.length; i++) {
         (textBoxes[i] as TextBox).setIndex(i);
       }
+    });
+  }
+  void updateTextValue(int index, String value) {
+    setState(() {
+      textValues[index] = value;
     });
   }
 
@@ -41,7 +54,6 @@ class _TextBoxListState extends State<TextBoxList> {
           Container(
             decoration: BoxDecoration(
               color: AppColors.secondaryColor,
-
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -59,7 +71,6 @@ class _TextBoxListState extends State<TextBoxList> {
               ),
             ),
           ),
-          // Displaying the list of TextBox widgets
           Center(
             child: Column(
               children: textBoxes.isEmpty
@@ -67,7 +78,6 @@ class _TextBoxListState extends State<TextBoxList> {
                   : textBoxes,
             ),
           ),
-          SizedBox(height: 20),
         ],
       ),
     );
@@ -77,8 +87,9 @@ class _TextBoxListState extends State<TextBoxList> {
 class TextBox extends StatefulWidget {
   final int index;
   final Function(int) onRemove;
+  final Function(String) onTextChanged;
 
-  TextBox({required this.index, required this.onRemove});
+  TextBox({required this.index, required this.onRemove, required this.onTextChanged});
 
   @override
   _TextBoxState createState() => _TextBoxState();
@@ -88,11 +99,13 @@ class TextBox extends StatefulWidget {
 
 class _TextBoxState extends State<TextBox> {
   late int index;
+  late TextEditingController _controller;
 
   @override
   void initState() {
     super.initState();
     index = widget.index;
+    _controller = TextEditingController();
   }
 
   void setIndex(int newIndex) {
@@ -104,9 +117,7 @@ class _TextBoxState extends State<TextBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-    decoration: BoxDecoration(
-    color: AppColors.secondaryColor
-    ),
+      decoration: BoxDecoration(color: AppColors.secondaryColor),
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Row(
@@ -121,6 +132,8 @@ class _TextBoxState extends State<TextBox> {
                   children: [
                     Expanded(
                       child: TextField(
+                        controller: _controller,
+                        onChanged: widget.onTextChanged,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -146,7 +159,6 @@ class _TextBoxState extends State<TextBox> {
                   ],
                 ),
               ),
-
             ),
           ],
         ),

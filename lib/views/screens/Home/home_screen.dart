@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var profileData = _profileController.profileInformationModel.value;
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: PreferredSize(
@@ -44,7 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
           automaticallyImplyLeading: false,
           title: Row(
             children: [
-              Container(
+            Obx((){
+              var profileData = _profileController.profileInformationModel.value;
+              return Container(
                 height: 60.h,
                 width: 60.w,
                 decoration: BoxDecoration(
@@ -52,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 clipBehavior: Clip.hardEdge,
                 child: CachedNetworkImage(
-                  imageUrl: "${ApiConstants.imageBaseUrl}${profileData?.profileImage}",
+                  imageUrl: "${ApiConstants.imageBaseUrl}${profileData.profileImage}",
                   fit: BoxFit.cover,
                   placeholder: (context, url) => Center(
                     child: CupertinoActivityIndicator(
@@ -62,7 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   errorWidget: (context, url, error) => Icon(Icons.error, size: 24.r, color: Colors.black),
                 ),
-              ),
+              );
+            }
+            ),
               SizedBox(width: 10.w),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

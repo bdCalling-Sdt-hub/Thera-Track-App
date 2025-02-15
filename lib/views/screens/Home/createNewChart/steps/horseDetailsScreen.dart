@@ -17,14 +17,14 @@ class HorseDetailsScreen extends StatefulWidget {
 
 class _HorseDetailsScreenState extends State<HorseDetailsScreen> {
   final ClientController _clientController = Get.put(ClientController());
-  List<String> animals = ['Horse', 'Dog'];
+
   TextEditingController _addAnimalController = TextEditingController();
   int? selectedIndex;
 
   void _addAnimal() {
     setState(() {
       if (_addAnimalController.text.isNotEmpty) {
-        animals.add(_addAnimalController.text);
+        _clientController.animals.add(_addAnimalController.text);
         _addAnimalController.clear();
       }
     });
@@ -33,6 +33,7 @@ class _HorseDetailsScreenState extends State<HorseDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text('Horse Details', style: AppStyles.fontSize16()),
         centerTitle: true,
@@ -66,7 +67,7 @@ class _HorseDetailsScreenState extends State<HorseDetailsScreen> {
                   mainAxisSpacing: 2.h,
                   childAspectRatio: 3,
                 ),
-                itemCount: animals.length,
+                itemCount: _clientController.animals.length,
                 itemBuilder: (context, index) {
                   bool isSelected = selectedIndex == index;
 
@@ -75,8 +76,14 @@ class _HorseDetailsScreenState extends State<HorseDetailsScreen> {
                     child: GestureDetector(
                       onTap: () {
                         setState(() {
-                          selectedIndex = isSelected ? null : index;
-                          print('Selected Animal==================>> ${animals[index]}');
+                          if (isSelected) {
+                            selectedIndex = null;
+                            _clientController.selectedAnimal.value = '';
+                          } else {
+                            selectedIndex = index;
+                            _clientController.selectedAnimal.value = _clientController.animals[index]; // Update selection
+                          }
+                          print('Selected Animal==================>>> ${_clientController.selectedAnimal.value}');
                         });
                       },
                       child: Container(
@@ -91,7 +98,7 @@ class _HorseDetailsScreenState extends State<HorseDetailsScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            animals[index],
+                            _clientController.animals[index],
                             style: AppStyles.fontSize16(
                               color: isSelected ? AppColors.whiteColor : AppColors.primaryColor,
                               fontWeight: FontWeight.w400,

@@ -44,14 +44,14 @@ class _CreateNewChartStepThreeScreenState extends State<CreateNewChartStepThreeS
 
             children: [
               CustomHeaderWithSearch(
-                titleText: 'Horse',
+                titleText: 'Animal',
                 actionChild: InkWell(
                     onTap: (){
                     Get.toNamed(AppRoutes.horseDetailsScreen);
                     },
                     child: Row(
                       children: [
-                        Text('Add Horse'),
+                        Text('Add Animal'),
                         SizedBox(width: 4.w),
                         Icon(Icons.add,size: 15.sp),
                       ]
