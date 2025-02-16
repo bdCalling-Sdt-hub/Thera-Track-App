@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:thera_track_app/controller/clientController/inventoryController.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
@@ -13,34 +14,16 @@ class InventoryScreen extends StatefulWidget {
 }
 
 class _InventoryScreenState extends State<InventoryScreen> {
-  List<Map<String, String>> inventory = [];
-  TextEditingController inventoryController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
-  TextEditingController quantityController = TextEditingController();
 
-  // Format price as currency
-  String formatCurrency(double price) {
-    final NumberFormat formatter = NumberFormat.simpleCurrency();
-    return formatter.format(price);
-  }
 
-  void _addTreatment() {
-    if (inventoryController.text.isEmpty || priceController.text.isEmpty) {
-      Get.snackbar('Error!', 'Please fill all fields');
-      return;
-    }
+  final InventoryController inventoryController = Get.put(InventoryController());
 
-    setState(() {
-      inventory.add({
-        'treatmentName': inventoryController.text,
-        'price': priceController.text,
-        'quantity': quantityController.text,
-      });
+  @override
+  void initState() {
+    super.initState();
+    inventoryController.getAllInventory().then((_) {
+      setState(() {});
     });
-
-    inventoryController.clear();
-    priceController.clear();
-    quantityController.clear();
   }
 
   @override
@@ -59,7 +42,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            if (inventory.isNotEmpty)
+            if (inventoryController.getAllInventoryModel.isNotEmpty)
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 12.h),
                 child: Row(
@@ -76,13 +59,14 @@ class _InventoryScreenState extends State<InventoryScreen> {
               ),
             // Display the list of treatments
             Expanded(
-              child: inventory.isEmpty
+              child:  inventoryController.getAllInventoryModel.isEmpty
                   ? Center(child: Text('No item added yet.', style: TextStyle(color: Colors.black)))
-                  : ListView.builder(
-                itemCount: inventory.length,
+                  : Obx(() => ListView.builder(
+                itemCount: inventoryController.getAllInventoryModel.length,
                 itemBuilder: (context, index) {
+                  var displayData = inventoryController.getAllInventoryModel[index];
                   return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8.w,vertical: 4.h),
+                    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
@@ -101,12 +85,12 @@ class _InventoryScreenState extends State<InventoryScreen> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              inventory[index]['treatmentName']!,
+                              displayData.productName ?? 'N/A',
                               style: TextStyle(color: AppColors.color424242),
                             ),
                           ),
                         ),
-                        // Price with Border
+                        // Price
                         Container(
                           height: 44.h,
                           width: 120.w,
@@ -117,12 +101,12 @@ class _InventoryScreenState extends State<InventoryScreen> {
                           padding: EdgeInsets.all(8.0),
                           child: Center(
                             child: Text(
-                              inventory[index]['price']!,
+                              displayData.pricePerOne.toString() ?? 'N/A',
                               style: TextStyle(color: AppColors.color424242),
                             ),
                           ),
                         ),
-                        // Quantity with Border
+                        // Quantity
                         Container(
                           height: 44.h,
                           width: 50.w,
@@ -133,24 +117,35 @@ class _InventoryScreenState extends State<InventoryScreen> {
                           padding: EdgeInsets.all(8.0),
                           child: Center(
                             child: Text(
-                              inventory[index]['quantity']!,
+                              displayData.currentQuantity.toString() ?? 'N/A',
                               style: TextStyle(color: AppColors.color424242),
                             ),
                           ),
                         ),
-                        // Delete Button (IconButton)
+                        // Delete Button
                         IconButton(
-                          icon: Icon(Icons.close, color: Colors.grey),
+                          icon: Icon(Icons.close, color: Colors.black),
                           onPressed: () {
-                            setState(() {
-                              inventory.removeAt(index);
-                            });
+                            Get.dialog(
+                              _confirmDialog(
+                                title: "Delete Product!",
+                                message: "Are you sure you want to delete this product?",
+                                onConfirm: () {
+                                  inventoryController.deleteSingelProduct(
+                                    productID: '${inventoryController.getAllInventoryModel[index].id}',
+                                  );
+                                  inventoryController.getAllInventoryModel.removeAt(index);
+                                },
+                              ),
+                            );
                           },
                         ),
+
                       ],
                     ),
                   );
                 },
+              ),
               ),
             ),
             Row(
@@ -159,7 +154,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                   child: Container(
                     height: 40.h,
                     child: CustomTextField(
-                      controller: inventoryController,
+                      controller: inventoryController.productName,
                       contentPaddingVertical: 5,
                     ),
                   ),
@@ -169,7 +164,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                   child: Container(
                     height: 40.h,
                     child: CustomTextField(
-                      controller: priceController,
+                      controller: inventoryController.pricePerOne,
                       contentPaddingVertical: 5,
                     ),
                   ),
@@ -179,7 +174,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                   child: Container(
                     height: 40.h,
                     child: CustomTextField(
-                      controller: quantityController,
+                      controller: inventoryController.quantity,
                       contentPaddingVertical: 5,
                     ),
                   ),
@@ -188,7 +183,25 @@ class _InventoryScreenState extends State<InventoryScreen> {
                 CustomButton(
                   width: 8.w,
                   height: 45.h,
-                  onTap: _addTreatment,
+                  onTap: () {
+                    int? price = int.tryParse(inventoryController.pricePerOne.text.trim());
+                    int? quantity = int.tryParse(inventoryController.quantity.text.trim());
+
+                    if (price == null || price <= 0) {
+                      Get.snackbar('Error', 'Please enter a valid price.');
+                      return;
+                    }
+                    if (quantity == null || quantity <= 0) {
+                      Get.snackbar('Error', 'Please enter a valid quantity.');
+                      return;
+                    }
+
+                    inventoryController.addInventoryMethod(
+                      productName: inventoryController.productName.text.trim(),
+                      price: price,
+                      quantity: quantity,
+                    );
+                  },
                   text: 'Add',
                 ),
               ],
@@ -199,3 +212,28 @@ class _InventoryScreenState extends State<InventoryScreen> {
     );
   }
 }
+//=====================>>> Confirm Dialog <<<==================
+Widget _confirmDialog({
+  required String title,
+  required String message,
+  required VoidCallback onConfirm,
+}) {
+  return AlertDialog(
+    title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+    content: Text(message),
+    actions: [
+      TextButton(
+        onPressed: () => Get.back(),
+        child: Text("Cancel", style: TextStyle(color: Colors.grey)),
+      ),
+      TextButton(
+        onPressed: () {
+          Get.back();
+          onConfirm();
+        },
+        child: Text("Yes", style: TextStyle(color: Colors.red)),
+      ),
+    ],
+  );
+}
+

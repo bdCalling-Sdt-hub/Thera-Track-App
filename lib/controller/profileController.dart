@@ -144,6 +144,8 @@ class ProfileController extends GetxController  implements GetxService{
       ApiChecker.checkApi(response);
     }
   }
+
+
 //=================================================>>>>>> Delete Singel Treatment <<<<<<=========================================================
   deleteSingelTreatment({required String treatmentID}) async {
     var response = await ApiClient.deleteData('${ApiConstants.deleteSingelTreatmentEndPoint}/${treatmentID}');

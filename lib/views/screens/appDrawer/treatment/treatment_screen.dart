@@ -103,10 +103,16 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
                           IconButton(
                             icon: Icon(Icons.close, color: Colors.black),
                             onPressed: () {
-                              setState(() {
-                                profileController.deleteSingelTreatment(treatmentID: '${profileController.getAllTreatMentList[index].id}');
-                                profileController.getAllTreatMentList.removeAt(index);
-                              });
+                              Get.dialog(
+                                _confirmDialog(
+                                  title: "Delete treatment!",
+                                  message: "Are you sure you want to delete this treatment?",
+                                  onConfirm: () {
+                                    profileController.deleteSingelTreatment(treatmentID: '${profileController.getAllTreatMentList[index].id}');
+                                    profileController.getAllTreatMentList.removeAt(index);
+                                  },
+                                ),
+                              );
                             },
                           ),
                         ],
@@ -166,4 +172,28 @@ class _TreatmentScreenState extends State<TreatmentScreen> {
       ),
     );
   }
+}
+//=====================>>> Confirm Dialog <<<==================
+Widget _confirmDialog({
+  required String title,
+  required String message,
+  required VoidCallback onConfirm,
+}) {
+  return AlertDialog(
+    title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+    content: Text(message),
+    actions: [
+      TextButton(
+        onPressed: () => Get.back(),
+        child: Text("Cancel", style: TextStyle(color: Colors.grey)),
+      ),
+      TextButton(
+        onPressed: () {
+          Get.back();
+          onConfirm();
+        },
+        child: Text("Yes", style: TextStyle(color: Colors.red)),
+      ),
+    ],
+  );
 }

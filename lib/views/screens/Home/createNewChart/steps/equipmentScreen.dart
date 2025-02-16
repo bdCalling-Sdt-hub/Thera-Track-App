@@ -39,6 +39,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text("Equipment",
         style: AppStyles.fontSize16(fontWeight: FontWeight.w500)),
