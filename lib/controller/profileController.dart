@@ -67,11 +67,9 @@ class ProfileController extends GetxController  implements GetxService{
       multipartBody: multipartBody,
     );
 
-    print("===========response body : ${response
-        .body} \nand status code : ${response.statusCode}");
+    print("===========response body : ${response.body} \nand status code : ${response.statusCode}");
     if (response.statusCode == 200 || response.statusCode == 201) {
-      profileInformationModel.value =
-          ProfileInformationModel.fromJson(response.body['data']['attributes']);
+      profileInformationModel.value = ProfileInformationModel.fromJson(response.body['data']['attributes']);
       profileInformationModel.refresh();
       Get.offAllNamed(AppRoutes.homeScreen);
       Get.snackbar('Successfully', 'Profile Updated');

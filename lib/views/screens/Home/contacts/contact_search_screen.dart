@@ -25,7 +25,7 @@ class _ContactSearchScreenState extends State<ContactSearchScreen> {
   void initState() {
 
     WidgetsBinding.instance.addPostFrameCallback((_){
-       _clientController.getClientWithAnimal("${parameter['animalName']}");
+       _clientController.getAllClientInfo();
     });
     // TODO: implement initState
     super.initState();
@@ -65,9 +65,9 @@ class _ContactSearchScreenState extends State<ContactSearchScreen> {
                     ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: _clientController.getClientWithAnimalModel.length,
+                      itemCount: _clientController.getClientInfoModel.length,
                       itemBuilder: (context, index) {
-                        var displayData =  _clientController.getClientWithAnimalModel[index];
+                        var displayData =  _clientController.getClientInfoModel[index];
                         return Column(
                           children: [
                             ListTile(

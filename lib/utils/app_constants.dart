@@ -28,6 +28,7 @@ class AppConstants{
   static String email = "Email";
   static String address = "Address";
   static String role = "Role";
+  static String selectedOption = "selectedOption";
 
 
 

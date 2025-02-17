@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:thera_track_app/controller/clientController/clientController.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
 import 'package:thera_track_app/utils/style.dart';
-import 'package:thera_track_app/views/screens/Home/createNewChart/innerWidget/customHeaderWithSearch_widget.dart';
 
 class AnimalListScreen extends StatefulWidget {
   const AnimalListScreen({super.key});
 
   @override
-  _AnimalListScreenState createState() => _AnimalListScreenState();
+  State<AnimalListScreen> createState() => _AnimalListScreenState();
 }
 
 class _AnimalListScreenState extends State<AnimalListScreen> {
   TextEditingController searchController = TextEditingController();
 
-  // A sample list with both humans and animals
-  List<Map<String, dynamic>> recentContacts = [
+  ClientController _clientController = Get.put(ClientController());
+  var parameter = Get.parameters;
 
-    {'name': 'Animal - Dog', },
-    {'name': 'Animal -- Cat', },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _clientController.getAnimalUnderOneClient("${parameter['clientId']}");
+       _clientController.getClientWithAnimal("${parameter['animalName']}");
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,31 +36,37 @@ class _AnimalListScreenState extends State<AnimalListScreen> {
         title: Text('Animal List', style: AppStyles.fontSize16()),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: recentContacts.length,
-            itemBuilder: (context, index) {
-              var contact = recentContacts[index];
-              return Column(
-                children: [
-                  ListTile(
-                    title: Text(contact['name']),
-                    trailing: SvgPicture.asset(AppIcons.rightArrow),
-                    onTap: () {
+      body: Obx(() {
+        if (_clientController.getAnimalUnderOneClientModel.isEmpty) {
+          return Center(child:Text('No Data found!'));
+        }
+
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: _clientController.getAnimalUnderOneClientModel.length,
+              itemBuilder: (context, index) {
+                var displayData = _clientController.getAnimalUnderOneClientModel[index];
+                return Column(
+                  children: [
+                    ListTile(
+                      title: Text(displayData.name),
+                      trailing: SvgPicture.asset(AppIcons.rightArrow),
+                      onTap: () {
                         Get.toNamed(AppRoutes.animalContactDetailsScreen);
-                    },
-                  ),
-                  Divider(color: AppColors.secondaryColor),
-                ],
-              );
-            },
+                      },
+                    ),
+                    Divider(color: AppColors.secondaryColor),
+                  ],
+                );
+              },
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thera_track_app/controller/profileController.dart';
+import 'package:thera_track_app/helpers/prefs_helpers.dart';
+import 'package:thera_track_app/utils/app_constants.dart';
 import 'package:thera_track_app/utils/style.dart';
 
 class AdvanceSettingsScreen extends StatefulWidget {
@@ -19,20 +21,24 @@ class _AdvanceSettingsScreenState extends State<AdvanceSettingsScreen> {
   void initState() {
     super.initState();
     _loadSelectedOption();
+    SharedPreferences.getInstance().then((prefs) {
+      String? selected = prefs.getString(AppConstants.selectedOption) ?? 'Human';
+      print('=========> Selected Option - $selected');
+    });
   }
 
 
   void _loadSelectedOption() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      selectedOption = prefs.getString('selectedOption') ?? 'Human';
+      selectedOption = prefs.getString(AppConstants.selectedOption) ?? 'Human';
     });
   }
 
 
   void _saveSelectedOption(String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('selectedOption', value);
+    await prefs.setString(AppConstants.selectedOption, value);
   }
 
 

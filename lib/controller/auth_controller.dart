@@ -45,8 +45,7 @@ class AuthController extends GetxController {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     };
-    var response = await ApiClient.postData(
-        ApiConstants.signUpEndPoint, jsonEncode(body), headers: headers
+    var response = await ApiClient.postData(ApiConstants.signUpEndPoint, jsonEncode(body), headers: headers
     );
 
     if (response.statusCode == 200) {
@@ -94,8 +93,7 @@ class AuthController extends GetxController {
         headers: headers,
       );
 
-      print("============> Response Body: ${response
-          .body}, Status Code: ${response.statusCode}");
+      print("============> Response Body: ${response.body}, Status Code: ${response.statusCode}");
       if (response.statusCode == 200 || response.statusCode == 201) {
          PrefsHelper.setBool(AppConstants.isLogged, true);
          PrefsHelper.setString(AppConstants.bearerToken, response.body['data']['attributes']['tokens']['accessToken']);
@@ -134,9 +132,7 @@ class AuthController extends GetxController {
       print("===================> ${body}");
       var headers = {'Content-Type': 'application/json'};
 
-      Response response = await ApiClient.postData(
-          ApiConstants.otpVerifyEndPoint, jsonEncode(body),
-          headers: headers);
+      Response response = await ApiClient.postData(ApiConstants.otpVerifyEndPoint, jsonEncode(body), headers: headers);
 
       print("============> Response Body ${response.body} and ==> ${response.statusCode}");
       if (response.statusCode == 200 || response.statusCode == 201) {

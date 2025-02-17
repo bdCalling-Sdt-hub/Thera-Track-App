@@ -92,9 +92,8 @@ class AppDrawer extends StatelessWidget {
               onTap: () {
                 // Clear user data on logout
               PrefsHelper.remove(AppConstants.isLogged);
-
-             /*   await PrefsHelper.remove(AppConstants.bearerToken);
-                await PrefsHelper.remove(AppConstants.userId);*/
+             PrefsHelper.remove(AppConstants.bearerToken);
+         /*       await PrefsHelper.remove(AppConstants.userId);*/
 
                 Get.toNamed(AppRoutes.signInScreen);
               },
