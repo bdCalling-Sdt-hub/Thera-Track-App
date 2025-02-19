@@ -195,7 +195,7 @@ class ClientController extends GetxController {
   TextEditingController age = TextEditingController();
   TextEditingController breed = TextEditingController();
   TextEditingController gender = TextEditingController();
-  TextEditingController heigh = TextEditingController();
+  TextEditingController height = TextEditingController();
   TextEditingController color = TextEditingController();
   TextEditingController addController = TextEditingController();
 
@@ -209,6 +209,7 @@ class ClientController extends GetxController {
 
   List<String> pointList = [];
   final TextEditingController pointController = TextEditingController();
+
   File? selectedImage;
 
 

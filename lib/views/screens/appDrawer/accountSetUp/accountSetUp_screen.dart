@@ -10,7 +10,6 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:thera_track_app/controller/profileController.dart';
 import 'package:thera_track_app/service/api_constants.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
-import 'package:thera_track_app/utils/app_images.dart';
 import 'package:thera_track_app/utils/app_strings.dart';
 import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
@@ -46,6 +45,15 @@ class _AccountSetUpScreenState extends State<AccountSetUpScreen> {
     countryCTRl.text = profileData.country ?? '';
     phoneNumberCTRl.text = profileData.phoneNumber ?? '';
     emailCTRl.text = profileData.email ?? '';
+  }
+  String extractCountryCode(String phoneNumber) {
+    if (phoneNumber.isNotEmpty) {
+      final match = RegExp(r'^\+(\d+)').firstMatch(phoneNumber);
+      if (match != null) {
+        return match.group(1) ?? 'US'; // Extract country code or default to 'US'
+      }
+    }
+    return 'US';
   }
 
   @override
@@ -191,7 +199,17 @@ class _AccountSetUpScreenState extends State<AccountSetUpScreen> {
                 SizedBox(height: 8.h),
                 Text('Mobile', style: AppStyles.fontSize16(fontWeight: FontWeight.w400, color: AppColors.color424242)),
                 SizedBox(height: 8.h),
-                IntlPhoneField(
+                CustomTextField(
+                  onTab: () {
+                    Get.snackbar('Wrong !!', 'You Can\'t Edit your Number.');
+                  },
+                 readOnly: true,
+                  controller: phoneNumberCTRl,
+                  hintText: 'Enter Your email',
+                ),
+                SizedBox(height: 10.h),
+
+               /* IntlPhoneField(
                   decoration: InputDecoration(
                     hintText: AppStrings.enterPhoneNumber,
                     hintStyle: TextStyle(color: Colors.grey),
@@ -211,13 +229,15 @@ class _AccountSetUpScreenState extends State<AccountSetUpScreen> {
                   ),
                   showCountryFlag: true,
                   initialCountryCode: 'US',
+                  initialValue: phoneNumberCTRl.text,
                   flagsButtonMargin: EdgeInsets.only(left: 10.w),
                   disableLengthCheck: true,
                   dropdownIconPosition: IconPosition.trailing,
                   onChanged: (phone) {
+                    phoneNumberCTRl.text = phone.completeNumber;
                     print("Phone===============> ${phone.completeNumber}");
                   },
-                ),
+                ),*/
                 // Main Email Address
                 SizedBox(height: 8.h),
                 Text('Main Email Address', style: AppStyles.fontSize16(fontWeight: FontWeight.w400, color: AppColors.color424242)),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:thera_track_app/controller/clientController/clientController.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_images.dart';
@@ -20,13 +21,17 @@ class CreateNewChartDetailsScreen extends StatefulWidget {
   const CreateNewChartDetailsScreen({super.key});
 
   @override
-  State<CreateNewChartDetailsScreen> createState() => _CreateNewChartDetailsScreenState();
+  State<CreateNewChartDetailsScreen> createState() =>
+      _CreateNewChartDetailsScreenState();
 }
 
-class _CreateNewChartDetailsScreenState extends State<CreateNewChartDetailsScreen> {
+class _CreateNewChartDetailsScreenState
+    extends State<CreateNewChartDetailsScreen> {
   final TextEditingController fullNameCTRl = TextEditingController();
   final TextEditingController emailCTRl = TextEditingController();
   final TextEditingController addressCTRl = TextEditingController();
+
+  final ClientController clientController = Get.put(ClientController());
 
   bool isPaid = false;
   void togglePaidStatus(bool value) {
@@ -38,313 +43,309 @@ class _CreateNewChartDetailsScreenState extends State<CreateNewChartDetailsScree
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.whiteColor,
-      //=============================> AppBar Section <=======================
-      appBar: AppBar(
-        title: Text(
-          'New Create Details',
-          style: AppStyles.fontSize16(fontWeight: FontWeight.w500),
+        backgroundColor: AppColors.whiteColor,
+        //=============================> AppBar Section <=======================
+        appBar: AppBar(
+          title: Text(
+            'New Create Details',
+            style: AppStyles.fontSize16(fontWeight: FontWeight.w500),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 12.h,vertical: 12.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 16.h),
-              Center(
-                child: Image.asset(
-                  height: 100.h,
-                  AppImages.appLogo,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              //Full Name
-              Text(AppStrings.nameText,style: AppStyles.fontSize16(fontWeight:FontWeight.w400,color: AppColors.color424242),),
-              SizedBox(height: 8.h),
-              CustomListTile(title: 'Name here'),
-              // Email
-              Text('Email',style: AppStyles.fontSize16(fontWeight:FontWeight.w400,color: AppColors.color424242),),
-              SizedBox(height: 8.h),
-              CustomListTile(title: 'email@gmail.com'),
-              // Mobile
-              SizedBox(height: 8.h),
-              Text('Mobile', style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242)),
-              SizedBox(height: 8.h),
-              CustomListTile(title: '+44 - 000 -0042'),
-              //Address
-              Text('Address', style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242)),
-              SizedBox(height: 8.h),
-              CustomListTile(title: 'Dhaka'),
-
-              DetailRow(titelText: 'Horse', value: 'Horse Name'),
-              DetailRow(titelText: 'Age', value: '25'),
-              DetailRow(titelText: 'Breed', value: '20'),
-              DetailRow(titelText: 'Gender', value: 'Male'),
-              DetailRow(titelText: 'Height', value: '6'),
-              DetailRow(titelText: 'Color', value: 'Black'),
-
-              SizedBox(height: 10.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 25.h,vertical: 12.w),
-                child: DottedBorderContainer(
-                    child: Container(
-                      height: 200.h,
-                      width: double.infinity,
-                      child: Center(
-                        child: CachedNetworkImage(
-                            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhKFBfVl1eFy2aAdsqhr6ZsKT74WGNxzkTQQ&s%27',
-                           // imageUrl: 'https://t3.ftcdn.net/jpg/02/43/12/34/240_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
-                          placeholder: (context, url) => CircularProgressIndicator(),
-                          errorWidget: (context, url, error) => Icon(Icons.error),
+        body: SingleChildScrollView(
+            child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.h, vertical: 12.w),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 16.h),
+                      Center(
+                        child: Image.asset(
+                          height: 100.h,
+                          AppImages.appLogo,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    ))
-
-                ),
-
-              SizedBox(height: 10.h),
-              Container(
-                padding: EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  color: AppColors.secondaryColor,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4.w),
-                      child: Text(
-                          'Description',
-                          style: AppStyles.fontSize18(color: AppColors.color575757)
+                      //Full Name
+                      Text(
+                        AppStrings.nameText,
+                        style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: AppColors.whiteColor,
-                        borderRadius: BorderRadius.circular(4),
+                      SizedBox(height: 8.h),
+                      CustomListTile(title: 'Name here'),
+                      // Email
+                      Text(
+                        'Email',
+                        style: AppStyles.fontSize16(fontWeight: FontWeight.w400, color: AppColors.color424242),
                       ),
-                      child: Column(
+                      SizedBox(height: 8.h),
+                      CustomListTile(title: 'email@gmail.com'),
+                      // Mobile
+                      SizedBox(height: 8.h),
+                      Text('Mobile', style: AppStyles.fontSize16(fontWeight: FontWeight.w400, color: AppColors.color424242)),
+                      SizedBox(height: 8.h),
+                      CustomListTile(title: '+44 - 000 -0042'),
+                      //Address
+                      Text('Address', style: AppStyles.fontSize16(fontWeight: FontWeight.w400,color: AppColors.color424242)),
+                      SizedBox(height: 8.h),
+                      CustomListTile(title: 'Dhaka'),
+
+                      DetailRow(titelText: 'Horse', value: 'Horse Name'),
+                      DetailRow(titelText: 'Age', value: '25'),
+                      DetailRow(titelText: 'Breed', value: '20'),
+                      DetailRow(titelText: 'Gender', value: 'Male'),
+                      DetailRow(titelText: 'Height', value: '6'),
+                      DetailRow(titelText: 'Color', value: 'Black'),
+
+                      SizedBox(height: 10.h),
+                      Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 25.h, vertical: 12.w),
+                          child: DottedBorderContainer(
+                              child: Container(
+                            height: 200.h,
+                            width: double.infinity,
+                            child: Center(
+                              child: clientController.selectedImage != null
+                                  ? Image.file(
+                                      clientController.selectedImage!,
+                                      height: 200.h,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.asset('assets/images/image_placeHolder.jpg'),
+                            ),
+                          ))),
+
+                      SizedBox(height: 10.h),
+                      Container(
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: AppColors.secondaryColor,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(vertical: 4.w),
+                              child: Text('Description',
+                                  style: AppStyles.fontSize18(color: AppColors.color575757)),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: AppColors.whiteColor,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '1. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                                        style: AppStyles.fontSize14(color: AppColors.color575757),
+                                      ),
+                                      Text(
+                                        '2. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                                        style: AppStyles.fontSize14(color: AppColors.color575757),
+                                      ),
+                                      Text('3. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                                        style: AppStyles.fontSize14(color: AppColors.color575757)),
+                                    ],
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Recent Clients section
+                      SizedBox(height: 10.h),
+                      TextBoxList(),
+                      SizedBox(height: 10.h),
+                      PriceDetailWidget(title: 'Caps', price: '200'),
+                      PriceDetailWidget(title: 'Cap Fragment', price: '200'),
+                      PriceDetailWidget(title: 'Overbite', price: '200'),
+                      PriceDetailWidget(title: 'Cap Fragment ', price: '200'),
+
+                      Divider(color: AppColors.blackColor),
+                      PriceDetailWidget(title: 'Total', price: '800'),
+                      PriceDetailWidget(title: 'Discount ', price: '80'),
+                      PriceDetailWidget(title: 'Total', price: '720'),
+                      SizedBox(height: 20.h),
+
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                '1. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                                style: AppStyles.fontSize14(color: AppColors.color575757),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomButton(
+                                      onTap: () {
+                                        Get.toNamed(AppRoutes.appoinmentCalenderScreen);
+                                      },
+                                      prefixIcon: Icon(Icons.calendar_month),
+                                      text: 'Make Appointment',
+                                      textStyle: AppStyles.fontSize12(color: AppColors.whiteColor),
+                                    )
+                                  ],
+                                ),
                               ),
-                              Text(
-                                '2. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                                style: AppStyles.fontSize14(color: AppColors.color575757),
-                              ),
-                              Text(
-                                '3. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                                style: AppStyles.fontSize14(color: AppColors.color575757),
+                              SizedBox(width: 10.w),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomButton(
+                                      onTap: () {},
+                                      prefixIcon: Icon(Icons.send),
+                                      text: 'Sent',
+                                      textStyle: AppStyles.fontSize12(color: AppColors.whiteColor),
+                                    )
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                          SizedBox(height: 8),
-                          Text(
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                          SizedBox(height: 12.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomButton(
+                                      onTap: () {},
+                                      prefixIcon: Icon(Icons.save),
+                                      text: 'Save',
+                                      textStyle: AppStyles.fontSize12(color: AppColors.whiteColor),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: 10.w),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomButton(
+                                      onTap: () {},
+                                      prefixIcon: Icon(Icons.print),
+                                      text: 'Print',
+                                      textStyle: AppStyles.fontSize12(color: AppColors.whiteColor),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
+                          //Paid/unpaid
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16.h),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // Paid Container
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isPaid = true;
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 50.h,
+                                      padding: EdgeInsets.symmetric(horizontal: 20),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        border: Border.all(color: AppColors.primaryColor),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Transform.scale(
+                                            scale: 1.2,
+                                            child: Checkbox(
+                                              value: isPaid,
+                                              onChanged: (bool? value) {
+                                                setState(() {
+                                                  isPaid = value ?? false;
+                                                });
+                                              },
+                                              activeColor: AppColors.primaryColor,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Paid',
+                                            style: TextStyle(
+                                                color: AppColors.primaryColor),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 8.w),
+                                // Unpaid Container
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isPaid = false;
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 50.h,
+                                      padding: EdgeInsets.symmetric(horizontal: 20),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        border: Border.all(color: AppColors.redColor),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Transform.scale(
+                                            scale: 1.2,
+                                            child: Checkbox(
+                                                value: !isPaid,
+                                                onChanged: (bool? value) {
+                                                  setState(() {
+                                                    isPaid = !(value ?? false);
+                                                  });
+                                                },
+                                                activeColor: AppColors.redColor),
+                                          ),
+                                          Text(
+                                            'Unpaid',
+                                            style: TextStyle(color: AppColors.redColor),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              // Recent Clients section
-              SizedBox(height: 10.h),
-              TextBoxList(),
-              SizedBox(height: 10.h),
-              PriceDetailWidget(title: 'Caps', price: '200'),
-              PriceDetailWidget(title: 'Cap Fragment', price: '200'),
-              PriceDetailWidget(title: 'Overbite', price:'200'),
-              PriceDetailWidget(title: 'Cap Fragment ', price: '200'),
-
-              Divider(color: AppColors.blackColor),
-              PriceDetailWidget(title: 'Total', price: '800'),
-              PriceDetailWidget(title: 'Discount ', price: '80'),
-              PriceDetailWidget(title: 'Total', price: '720'),
-              SizedBox(height: 20.h),
-
-              Column(
-
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomButton(
-                                onTap: (){
-                                  Get.toNamed(AppRoutes.appoinmentCalenderScreen);
-                                },
-                                prefixIcon: Icon(Icons.calendar_month),
-                                text: 'Make Appointment',
-                              textStyle: AppStyles.fontSize12(color: AppColors.whiteColor),
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 10.w),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomButton(
-                                onTap: (){},
-                                prefixIcon: Icon(Icons.send),
-                                text: 'Sent',
-                              textStyle: AppStyles.fontSize12(color: AppColors.whiteColor),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 12.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomButton(
-                                onTap: (){},
-                                prefixIcon: Icon(Icons.save),
-                                text: 'Save',
-                              textStyle: AppStyles.fontSize12(color: AppColors.whiteColor),
-                            )
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 10.w),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomButton(
-                                onTap: (){},
-                                prefixIcon: Icon(Icons.print),
-                                text: 'Print',
-                              textStyle: AppStyles.fontSize12(color: AppColors.whiteColor),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  //Paid/unpaid
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16.h),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Paid Container
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isPaid = true;
-                              });
-                            },
-                            child: Container(
-                              height: 50.h,
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(color: AppColors.primaryColor),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Transform.scale(
-                                    scale: 1.2,
-                                    child: Checkbox(
-                                      value: isPaid,
-                                      onChanged: (bool? value) {
-                                        setState(() {
-                                          isPaid = value ?? false;
-                                        });
-                                      },
-                                      activeColor: AppColors.primaryColor,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Paid',
-                                    style: TextStyle(color: AppColors.primaryColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 8.w),
-                        // Unpaid Container
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isPaid = false;
-                              });
-                            },
-                            child: Container(
-                              height: 50.h,
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(color: AppColors.redColor),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Transform.scale(
-                                    scale: 1.2,
-                                    child: Checkbox(
-                                        value: !isPaid,
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            isPaid = !(value ?? false);
-                                          });
-                                        },
-                                        activeColor: AppColors.redColor
-                                    ),
-                                  ),
-                                  Text(
-                                    'Unpaid',
-                                    style: TextStyle(color: AppColors.redColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 10.h),
-              CustomButton(onTap: (){
-                Get.toNamed(AppRoutes.createNewChartStepFiveScreen);
-              }, text: 'Finished'),
-              SizedBox(height: 10.h),
-            ],
-          ),
-        ),
-      ),
-    );
+                      SizedBox(height: 10.h),
+                      CustomButton(
+                          onTap: () {
+                            Get.toNamed(AppRoutes.createNewChartStepFiveScreen);
+                          },
+                          text: 'Finished'),
+                      SizedBox(height: 10.h),
+                    ]))));
   }
-
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
+import 'package:thera_track_app/controller/clientController/inventoryController.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/style.dart';
@@ -13,14 +13,23 @@ class EquipmentScreen extends StatefulWidget {
 }
 
 class _EquipmentScreenState extends State<EquipmentScreen> {
-  final Map<String, int> equipment = {
-    "Horse Shoes": 1,
-    "Lead": 1,
-    "Ear Net": 1,
-    "Hoof Pick": 1,
-    "Hoof": 1,
+  final InventoryController inventoryController = Get.put(InventoryController());
 
-  };
+  // Store quantity for each item
+  Map<String, int> equipment = {};
+
+  @override
+  void initState() {
+    super.initState();
+    inventoryController.getAllInventory().then((_) {
+      setState(() {
+        // Initialize equipment quantity with 1 for each product
+        for (var item in inventoryController.getAllInventoryModel) {
+          equipment[item.productName ?? 'N/A'] = 1;
+        }
+      });
+    });
+  }
 
   void _increment(String item) {
     setState(() {
@@ -41,12 +50,14 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
     return Scaffold(
       backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
-        title: Text("Equipment",
-        style: AppStyles.fontSize16(fontWeight: FontWeight.w500)),
-        centerTitle: true
+        title: Text(
+          "Equipment",
+          style: AppStyles.fontSize16(fontWeight: FontWeight.w500),
+        ),
+        centerTitle: true,
       ),
       body: Padding(
-        padding:  EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -59,40 +70,53 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
             ),
             SizedBox(height: 8),
             Expanded(
-              child: ListView(
-                children: equipment.keys.map((item) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(item, style: AppStyles.fontSize16(color: AppColors.colorB1B1B1)),
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.remove_circle_outline,color: AppColors.colorB1B1B1),
-                            onPressed: () => _decrement(item),
+              child: ListView.builder(
+                itemCount: inventoryController.getAllInventoryModel.length,
+                itemBuilder: (context, index) {
+                  var displayData = inventoryController.getAllInventoryModel[index];
+                  String itemName = displayData.productName ?? 'N/A';
+
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            itemName,
+                            style: AppStyles.fontSize16(color: AppColors.colorB1B1B1),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          Container(
-                            width: 60.w,
-                            height: 40.h,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: AppColors.colorB1B1B1),
-                              borderRadius: BorderRadius.circular(4),
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.remove_circle_outline, color: AppColors.colorB1B1B1),
+                              onPressed: () => _decrement(itemName),
                             ),
-                            child: Text(
-                              "${equipment[item] ?? 1}",
-                              style: AppStyles.fontSize16(color: AppColors.color707070)
+                            Container(
+                              width: 60.w,
+                              height: 40.h,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: AppColors.colorB1B1B1),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                "${equipment[itemName] ?? 1}",
+                                style: AppStyles.fontSize16(color: AppColors.color707070),
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.add_circle_outline,color: AppColors.colorB1B1B1,),
-                            onPressed: () => _increment(item),
-                          ),
-                        ],
-                      ),
-                    ],
+                            IconButton(
+                              icon: Icon(Icons.add_circle_outline, color: AppColors.colorB1B1B1),
+                              onPressed: () => _increment(itemName),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   );
-                }).toList(),
+                },
               ),
             ),
             SizedBox(height: 16),

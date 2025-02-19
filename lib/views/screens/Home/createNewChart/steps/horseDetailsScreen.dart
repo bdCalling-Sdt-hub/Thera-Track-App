@@ -48,7 +48,7 @@ class _HorseDetailsScreenState extends State<HorseDetailsScreen> {
               AnimalAddDetailsRow(titelText: 'Age', controller: _clientController.age),
               AnimalAddDetailsRow(titelText: 'Breed', controller: _clientController.breed),
               AnimalAddDetailsRow(titelText: 'Gender', controller: _clientController.gender),
-              AnimalAddDetailsRow(titelText: 'Height', controller: _clientController.heigh),
+              AnimalAddDetailsRow(titelText: 'Height', controller: _clientController.height),
               AnimalAddDetailsRow(titelText: 'Color', controller: _clientController.color),
 
               // Selection Animal
