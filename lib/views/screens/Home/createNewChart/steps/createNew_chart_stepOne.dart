@@ -103,14 +103,13 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
                               trailing: SvgPicture.asset(AppIcons.rightArrow),
                               onTap: () {
                                 if(clientData.humanClient == true){
-                                  Get.toNamed(AppRoutes.horseDetailsScreen); //human
+                                  Get.toNamed(AppRoutes.createNewChartStepFourScreen);
                                 }
                                 if(clientData.humanClient == false){
-                                  Get.toNamed(AppRoutes.createNewChartStepThreeScreen,parameters: {
+                                  Get.toNamed(AppRoutes.horseDetailsScreen,parameters: {
                                     "clientID": '${clientData.id}'
                                   }); //animal
                                 }
-
                               },
                             ),
                             Divider(color: AppColors.secondaryColor),

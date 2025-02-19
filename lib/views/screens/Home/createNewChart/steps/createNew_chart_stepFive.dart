@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,14 +18,16 @@ class _CreateNewChartStepFiveScreenState
   final ProfileController profileController = Get.put(ProfileController());
 
   var selectedTreatments = <bool>[].obs; // Track selected checkboxes
+  var isLoading = true.obs; // Loading indicator
 
   @override
   void initState() {
     super.initState();
     profileController.getAllTreatment().then((_) {
-      // Initialize selected states
-      selectedTreatments.assignAll(List.generate(
-          profileController.getAllTreatMentList.length, (index) => false));
+      selectedTreatments.assignAll(
+          List.generate(
+              profileController.getAllTreatMentList.length, (index) => false
+          ));
     });
   }
 
@@ -54,51 +57,75 @@ class _CreateNewChartStepFiveScreenState
             ),
             SizedBox(height: 16.h),
             Expanded(
-              child: Obx(() => ListView.builder(
-                shrinkWrap: true,
-                itemCount: profileController.getAllTreatMentList.length,
-                itemBuilder: (context, index) {
-                  var treatment =
-                  profileController.getAllTreatMentList[index];
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 4.h),
-                    child: Container(
-                      height: 50.h,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 8.w, vertical: 8.h),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: AppColors.primaryColor, width: 1),
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            treatment.treatmentTitle,
-                            style: TextStyle(fontSize: 14.sp),
-                          ),
-                          Obx(() => Checkbox(
-                            value: selectedTreatments[index],
-                            onChanged: (bool? value) {
-                              selectedTreatments[index] = value!;
-                            },
-                            activeColor: AppColors.primaryColor,
-                          )),
-                        ],
-                      ),
+              child: Obx(() {
+                if (profileController.isLoading.value) {
+                  return Center(child: CupertinoActivityIndicator(radius: 32.r, color:AppColors.primaryColor));
+                }
+                if (profileController.getAllTreatMentList.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "No Treatments Available",
+                      style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                     ),
                   );
-                },
-              )),
+                }
+
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: profileController.getAllTreatMentList.length,
+                  itemBuilder: (context, index) {
+                    var treatment = profileController.getAllTreatMentList[index];
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4.h),
+                      child: Container(
+                        height: 50.h,
+                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.primaryColor, width: 1),
+                          borderRadius: BorderRadius.circular(4.r),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                treatment.treatmentTitle,
+                                style: TextStyle(fontSize: 14.sp),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ),
+                            SizedBox(width: 10.w),
+                            SizedBox(
+                              width: 24.w,
+                              height: 24.h,
+                              child: Obx(() => Checkbox(
+                                value: selectedTreatments.isNotEmpty
+                                    ? selectedTreatments[index]
+                                    : false,
+                                onChanged: (bool? value) {
+                                  if (selectedTreatments.isNotEmpty) {
+                                    selectedTreatments[index] = value!;
+                                  }
+                                },
+                                activeColor: AppColors.primaryColor,
+                              )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }),
             ),
+
             CustomButton(
               onTap: () {
                 Get.toNamed(AppRoutes.equipmentScreen);
               },
               text: 'Next',
             ),
-
             SizedBox(height: 20.h),
           ],
         ),

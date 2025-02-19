@@ -112,7 +112,7 @@ class _CreateNewChartDetailsScreenState
                                       width: double.infinity,
                                       fit: BoxFit.cover,
                                     )
-                                  : Image.asset('assets/images/image_placeHolder.jpg'),
+                                  : Image.asset('assets/images/image_placeHolder.png'),
                             ),
                           ))),
 

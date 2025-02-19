@@ -131,15 +131,19 @@ class ProfileController extends GetxController  implements GetxService{
 //============== All treatment
   RxList<GetAllTreatMentModel> getAllTreatMentList = <GetAllTreatMentModel>[].obs;
 
+
   getAllTreatment() async {
+    isLoading(true);
     var response = await ApiClient.getData(ApiConstants.getAllTreatmentEndPoint);
     print("===========>> Response body : ${response.body} \nand status code : ${response.statusCode}");
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       getAllTreatMentList.value = List.from(response.body['data']['attributes'].map((x) => GetAllTreatMentModel.fromJson(x)));
       getAllTreatMentList.refresh();
+      isLoading(false);
     } else {
       ApiChecker.checkApi(response);
+      isLoading(false);
     }
   }
 
