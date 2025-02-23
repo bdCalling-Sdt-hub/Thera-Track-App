@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:thera_track_app/controller/clientController/appointmentController.dart';
 import 'package:thera_track_app/helpers/route.dart';
@@ -9,7 +8,7 @@ import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/screens/Home/chartArchive/innerWidget/chartArchive_card.dart';
 
 class AppointmentScreen extends StatefulWidget {
-  AppointmentScreen({Key? key}) : super(key: key);
+  const AppointmentScreen({super.key});
 
   @override
   State<AppointmentScreen> createState() => _AppointmentScreenState();
