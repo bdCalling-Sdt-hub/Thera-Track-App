@@ -1,10 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:thera_track_app/controller/profileController.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
-import 'package:thera_track_app/utils/app_icons.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
 
 class CreateNewChartStepFiveScreen extends StatefulWidget {
@@ -15,17 +15,26 @@ class CreateNewChartStepFiveScreen extends StatefulWidget {
 
 class _CreateNewChartStepFiveScreenState
     extends State<CreateNewChartStepFiveScreen> {
-  List<Map<String, dynamic>> treatments = [
-    {"name": "Cryotherapy", "isChecked": false},
-    {"name": "Hydrotherapy", "isChecked": false},
-    {"name": "Laser Therapy", "isChecked": false},
-    {"name": "Osteopathy", "isChecked": false},
-  ];
+  final ProfileController profileController = Get.put(ProfileController());
 
+  var selectedTreatments = <bool>[].obs; // Track selected checkboxes
+  var isLoading = true.obs; // Loading indicator
+
+  @override
+  void initState() {
+    super.initState();
+    profileController.getAllTreatment().then((_) {
+      selectedTreatments.assignAll(
+          List.generate(
+              profileController.getAllTreatMentList.length, (index) => false
+          ));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor,
       appBar: AppBar(
         title: Text(
           'Step 5',
@@ -42,72 +51,75 @@ class _CreateNewChartStepFiveScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Treatments",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                IconButton(
-                  onPressed: _showAddTreatmentDialog,
-                  icon: SvgPicture.asset(
-                    AppIcons.addIcon,
-                    height: 25.h,
-                    width: 20.w,
-                  ),
-                ),
-              ],
+            Text(
+              "Treatments",
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
             ),
             SizedBox(height: 16.h),
             Expanded(
-              child: ListView.separated(
-                shrinkWrap: true,
-                itemCount: treatments.length,
-                separatorBuilder: (context, index) => SizedBox(height: 8.h),
-                itemBuilder: (context, index) {
-                  return Container(
-                    height: 50.h,
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
-                    decoration: BoxDecoration(
-                      border:
-                      Border.all(color: AppColors.primaryColor, width: 1),
-                      borderRadius: BorderRadius.circular(4.r),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          treatments[index]['name'],
-                          style: TextStyle(fontSize: 14.sp),
-                        ),
-                        Transform.scale(
-                          scale: 1.5,
-                          child: Checkbox(
-                            checkColor: AppColors.whiteColor,
-                            activeColor: AppColors.primaryColor,
-                            value: treatments[index]['isChecked'],
-                            onChanged: (value) {
-                              setState(() {
-                                treatments[index]['isChecked'] = value;
-                              });
-                            },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4.r),
-                            ),
-                            side: BorderSide(color: AppColors.primaryColor),
-                          ),
-                        ),
-                      ],
+              child: Obx(() {
+                if (profileController.isLoading.value) {
+                  return Center(child: CupertinoActivityIndicator(radius: 32.r, color:AppColors.primaryColor));
+                }
+                if (profileController.getAllTreatMentList.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "No Treatments Available",
+                      style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                     ),
                   );
-                },
-              ),
+                }
+
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: profileController.getAllTreatMentList.length,
+                  itemBuilder: (context, index) {
+                    var treatment = profileController.getAllTreatMentList[index];
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 4.h),
+                      child: Container(
+                        height: 50.h,
+                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.primaryColor, width: 1),
+                          borderRadius: BorderRadius.circular(4.r),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                treatment.treatmentTitle,
+                                style: TextStyle(fontSize: 14.sp),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ),
+                            SizedBox(width: 10.w),
+                            SizedBox(
+                              width: 24.w,
+                              height: 24.h,
+                              child: Obx(() => Checkbox(
+                                value: selectedTreatments.isNotEmpty
+                                    ? selectedTreatments[index]
+                                    : false,
+                                onChanged: (bool? value) {
+                                  if (selectedTreatments.isNotEmpty) {
+                                    selectedTreatments[index] = value!;
+                                  }
+                                },
+                                activeColor: AppColors.primaryColor,
+                              )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }),
             ),
+
             CustomButton(
               onTap: () {
                 Get.toNamed(AppRoutes.equipmentScreen);
@@ -118,69 +130,6 @@ class _CreateNewChartStepFiveScreenState
           ],
         ),
       ),
-    );
-  }
-
-  void _showAddTreatmentDialog() {
-    final _textController = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(
-            "Add New Treatment",
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-          ),
-          content: TextFormField(
-            controller: _textController,
-            decoration: InputDecoration(
-              hintText: "Enter treatment name",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-            ),
-          ),
-          actions: [
-            Row(
-              children: [
-                Expanded(
-                  child: CustomButton(onTap: (){
-                    if (_textController.text.isNotEmpty) {
-                      setState(() {
-                        treatments.add({
-                          "name": _textController.text,
-                          "isChecked": false,
-                        });
-                      });
-                      Navigator.pop(context);
-                    }
-                  }, text: "Cancel",
-                  color: AppColors.redColor.withOpacity(.6),
-
-                  ),
-                ),
-                SizedBox(width: 4.w),
-                Expanded(
-                  child: CustomButton(onTap: (){
-                    if (_textController.text.isNotEmpty) {
-                      setState(() {
-                        treatments.add({
-                          "name": _textController.text,
-                          "isChecked": false,
-                        });
-                      });
-                      Navigator.pop(context); // Close the dialog
-                    }
-                  }, text: "Add"),
-                )
-              ],
-            ),
-
-
-          ],
-        );
-      },
     );
   }
 }

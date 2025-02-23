@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
-import 'package:thera_track_app/utils/app_icons.dart';
 import 'package:thera_track_app/views/base/custom_button.dart';
 import 'package:thera_track_app/views/base/price_details_row.dart';
 
-import '../innerWidget/detailsRow_widget.dart';
 
 class CreateNewChartStepSixScreen extends StatefulWidget {
   @override

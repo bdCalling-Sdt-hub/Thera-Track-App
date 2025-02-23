@@ -8,8 +8,6 @@ import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
 import 'package:thera_track_app/utils/app_strings.dart';
 import 'package:thera_track_app/utils/style.dart';
-
-
 import 'package:thera_track_app/views/base/custom_list_tile.dart';
 
 class AnimalContactDetailsScreen extends StatefulWidget {

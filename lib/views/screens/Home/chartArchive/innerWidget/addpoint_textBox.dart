@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
+
+import '../../../../../controller/clientController/clientController.dart';
 
 class TextBoxList extends StatefulWidget {
   @override
@@ -10,23 +13,38 @@ class TextBoxList extends StatefulWidget {
 }
 
 class _TextBoxListState extends State<TextBoxList> {
-  // List to store all TextBox widgets
-  List<Widget> textBoxes = [];
+  List<TextBox> textBoxes = [];
+  ClientController _clientController = Get.put(ClientController());
 
   void addTextBox() {
     setState(() {
       int newIndex = textBoxes.length;
-      textBoxes.add(TextBox(index: newIndex, onRemove: removeTextBox));
+      TextEditingController newController = TextEditingController();
+      _clientController.pointList.add("");
+      textBoxes.add(TextBox(
+        index: newIndex,
+        controller: newController,
+        onRemove: removeTextBox,
+        onTextChanged: (text) => updateTextValue(newIndex, text),
+      ));
     });
   }
 
-  // Function
   void removeTextBox(int index) {
     setState(() {
       textBoxes.removeAt(index);
+      _clientController.pointList.removeAt(index);
+
+      // Update indexes
       for (int i = 0; i < textBoxes.length; i++) {
-        (textBoxes[i] as TextBox).setIndex(i);
+        textBoxes[i].setIndex(i);
       }
+    });
+  }
+
+  void updateTextValue(int index, String value) {
+    setState(() {
+      _clientController.pointList[index] = value;
     });
   }
 
@@ -41,7 +59,6 @@ class _TextBoxListState extends State<TextBoxList> {
           Container(
             decoration: BoxDecoration(
               color: AppColors.secondaryColor,
-
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -59,15 +76,13 @@ class _TextBoxListState extends State<TextBoxList> {
               ),
             ),
           ),
-          // Displaying the list of TextBox widgets
           Center(
             child: Column(
               children: textBoxes.isEmpty
-                  ? [Text('No text point yet added')]
+                  ? [Text('No point added yet')]
                   : textBoxes,
             ),
           ),
-          SizedBox(height: 20),
         ],
       ),
     );
@@ -75,38 +90,42 @@ class _TextBoxListState extends State<TextBoxList> {
 }
 
 class TextBox extends StatefulWidget {
-  final int index;
+  int index;
   final Function(int) onRemove;
+  final Function(String) onTextChanged;
+  final TextEditingController controller;
 
-  TextBox({required this.index, required this.onRemove});
+  TextBox({
+    required this.index,
+    required this.onRemove,
+    required this.onTextChanged,
+    required this.controller,
+  });
+
+  void setIndex(int i) {
+    index = i;
+  }
 
   @override
   _TextBoxState createState() => _TextBoxState();
-
-  void setIndex(int i) {}
 }
 
 class _TextBoxState extends State<TextBox> {
-  late int index;
-
   @override
   void initState() {
     super.initState();
-    index = widget.index;
   }
 
   void setIndex(int newIndex) {
     setState(() {
-      index = newIndex;
+      widget.index = newIndex;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-    decoration: BoxDecoration(
-    color: AppColors.secondaryColor
-    ),
+      decoration: BoxDecoration(color: AppColors.secondaryColor),
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Row(
@@ -121,10 +140,12 @@ class _TextBoxState extends State<TextBox> {
                   children: [
                     Expanded(
                       child: TextField(
+                        controller: widget.controller,
+                        onChanged: widget.onTextChanged,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: '${index + 1}. Text', // Hint text
+                          hintText: '${widget.index + 1}. Text',
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: AppColors.whiteColor),
                           ),
@@ -138,7 +159,7 @@ class _TextBoxState extends State<TextBox> {
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                         onTap: () {
-                          widget.onRemove(index);
+                          widget.onRemove(widget.index);
                         },
                         child: SvgPicture.asset(AppIcons.removeIcon),
                       ),
@@ -146,7 +167,6 @@ class _TextBoxState extends State<TextBox> {
                   ],
                 ),
               ),
-
             ),
           ],
         ),

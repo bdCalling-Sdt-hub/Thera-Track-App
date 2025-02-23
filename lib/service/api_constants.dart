@@ -28,6 +28,20 @@ class ApiConstants {
   static const String clientAnimalEndPoint = "/client/get-unique-animals";
   static const String clientWithAnimalEndPoint = "/client/get-clients-with-animal";
   static const String clientDetailsByIDEndPoint = "/client/get-one-client";
+  static const String addInventoryEndPoint = "/inventory/create-product";
+  static const String getAllInventoryEndPoint = "/inventory/get-all-product";
+  static const String deleteSingelProductEndPoint = "/inventory/delete-product";
 
+  static const String createTreatmentEndPoint = "/treatment/create-treatment";
+  static const String getAllTreatmentEndPoint = "/treatment/get-all-treatment";
+  static const String deleteSingelTreatmentEndPoint = "/treatment/delete-treatment";
+  static const String getAllAnimalUnderOneClientTreatmentEndPoint = "/client/all-animal-under-one-client";
+  static const String getAllWalletEndPoint = "/travel/get-all-travel-expenses";
+  static const String addTravelCostEndPoint = "/travel/create-travel-expenses";
+
+
+//============================>> Chart Archive  <<=================================
+  static const String getAllServiceEndPoint = "/patient/get-all-service";
+  static const String getAllAppointmentEndPoint = "/make-appointment/get-all-appointment";
 
 }

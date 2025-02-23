@@ -4,7 +4,7 @@ import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/style.dart';
 
 class ChartCard extends StatelessWidget {
-  final int id;
+  final String id;
   final String date;
   final String name;
   final int? price;

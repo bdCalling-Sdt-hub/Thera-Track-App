@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:thera_track_app/controller/wallet/wallet_controller.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/style.dart';
@@ -22,15 +23,11 @@ class CostAddScreen extends StatefulWidget {
 }
 
 class _CostAddScreenState extends State<CostAddScreen> {
-  final TextEditingController departureController = TextEditingController();
-  final TextEditingController destinationController = TextEditingController();
-  final TextEditingController distanceController = TextEditingController();
-  final TextEditingController foodController = TextEditingController();
-  final TextEditingController gasController = TextEditingController();
-  final TextEditingController otherController = TextEditingController();
+WalletController walletController = Get.put(WalletController());
 
   Uint8List? _image;
-  File? selectedImage;
+File? selectedImage;
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +44,13 @@ class _CostAddScreenState extends State<CostAddScreen> {
         padding: EdgeInsets.all(16.0.r),
         child: Column(
           children: [
-            _buildTextField('Departure', departureController),
-            _buildTextField('Destination', destinationController),
-            _buildTextField('Distance', distanceController),
-            _buildTextField('Food', foodController),
-            _buildTextField('Gas', gasController),
-            _buildTextField('Other', otherController),
+
+            _buildTextField('Departure', walletController.departureController),
+            _buildTextField('Destination', walletController.destinationController),
+            _buildTextField('Distance', walletController.distanceController),
+            _buildTextField('Food', walletController.foodController),
+            _buildTextField('Gas', walletController.gasController),
+            _buildTextField('Other', walletController.otherController),
             SizedBox(height: 20.h),
             Stack(
               clipBehavior: Clip.none,
@@ -98,7 +96,26 @@ class _CostAddScreenState extends State<CostAddScreen> {
             ),
             SizedBox(height: 20.h),
             CustomButton(onTap: () {
-              Get.toNamed(AppRoutes.costDetailsScreen);
+              if (selectedImage == null) {
+                Get.snackbar('Error', 'Please select a receipt image.');
+                return;
+              }
+              int? departure = int.tryParse(walletController.departureController.text.trim());
+              int? distance = int.tryParse(walletController.distanceController.text.trim());
+              int? food = int.tryParse(walletController.foodController.text.trim());
+              int? gas = int.tryParse(walletController.gasController.text.trim());
+              int? other = int.tryParse(walletController.otherController.text.trim());
+
+              walletController.addTravelExpenses(
+                  departure: departure,
+                  destination: walletController.destinationController.text.trim(),
+                  distance: distance,
+                  food: food,
+                  gas: gas,
+                  other: other,
+                  receiptImages: selectedImage!
+              );
+
             }, text: 'Save'),
           ]
         )
@@ -226,7 +243,7 @@ class _CostAddScreenState extends State<CostAddScreen> {
     await ImagePicker().pickImage(source: ImageSource.camera);
     if (returnImage == null) return;
     setState(() {
-      selectedImage = File(returnImage.path);
+     selectedImage = File(returnImage.path);
       _image = File(returnImage.path).readAsBytesSync();
     });
     Get.back();

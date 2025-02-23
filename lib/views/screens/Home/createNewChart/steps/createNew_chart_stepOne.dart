@@ -103,12 +103,13 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
                               trailing: SvgPicture.asset(AppIcons.rightArrow),
                               onTap: () {
                                 if(clientData.humanClient == true){
-                                  Get.toNamed(AppRoutes.horseDetailsScreen); //human
+                                  Get.toNamed(AppRoutes.createNewChartStepFourScreen);
                                 }
                                 if(clientData.humanClient == false){
-                                  Get.toNamed(AppRoutes.createNewChartStepFiveScreen); //animal
+                                  Get.toNamed(AppRoutes.horseDetailsScreen,parameters: {
+                                    "clientID": '${clientData.id}'
+                                  }); //animal
                                 }
-
                               },
                             ),
                             Divider(color: AppColors.secondaryColor),
@@ -175,6 +176,14 @@ class _CreateNewChartStepOneScreenState extends State<CreateNewChartStepOneScree
                               title: Text(clientData.name ?? 'N/A',style: AppStyles.fontSize16(color: AppColors.blackColor)),
                               trailing: SvgPicture.asset(AppIcons.rightArrow),
                               onTap: () {
+                                if(clientData.humanClient == true){
+                                  Get.toNamed(AppRoutes.horseDetailsScreen); //human
+                                }
+                                if(clientData.humanClient == false){
+                                  Get.toNamed(AppRoutes.createNewChartStepThreeScreen,parameters: {
+                                    "clientID": '${clientData.id}'
+                                  }); //animal
+                                }
 
                               },
                             ),

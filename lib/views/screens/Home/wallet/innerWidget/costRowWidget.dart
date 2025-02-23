@@ -6,49 +6,60 @@ class CostRowWidget extends StatelessWidget {
   final String departure;
   final String destination;
   final String distance;
-  final int totalCost;
+  final dynamic totalCost;
+  final int index;
 
   const CostRowWidget({
     required this.departure,
     required this.destination,
     required this.distance,
     required this.totalCost,
+    required this.index,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.secondaryColor),
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 8),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: index.isEven ? AppColors.colorE9F5FE : Colors.white,
+        border: Border.all(color: AppColors.secondaryColor),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            departure,
+            style: AppStyles.fontSize16(
+              color: AppColors.color707070,
+              fontWeight: FontWeight.normal,
+            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                departure,
-                  style: AppStyles.fontSize16(color: AppColors.color707070)
-              ),
-              Text(
-                destination,
-                  style: AppStyles.fontSize16(color: AppColors.color707070)
-              ),
-              Text(
-                distance,
-                  style: AppStyles.fontSize16(color: AppColors.color707070)
-              ),
-              Text(
-                '$totalCost \$',
-                  style: AppStyles.fontSize16(color: AppColors.color707070)
-              ),
-            ],
+          Text(
+            destination,
+            style: AppStyles.fontSize16(
+              color: AppColors.color707070,
+              fontWeight: FontWeight.normal,
+            ),
           ),
-        ),
-      ],
+          Text(
+            distance,
+            style: AppStyles.fontSize16(
+              color: AppColors.color707070,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+          Text(
+            '$totalCost \$',
+            style: AppStyles.fontSize16(
+              color: AppColors.color707070,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

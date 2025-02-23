@@ -37,6 +37,7 @@ class _ClientsContactDetailsScreenState extends State<ClientsContactDetailsScree
     WidgetsBinding.instance.addPostFrameCallback((_){
       _clientController.clientDetailsByID("${parameter['clientId']}");
     });
+
     // TODO: implement initState
     super.initState();
   }
@@ -47,10 +48,14 @@ class _ClientsContactDetailsScreenState extends State<ClientsContactDetailsScree
       //=============================> AppBar Section <=======================
       appBar: AppBar(
         backgroundColor: AppColors.whiteColor,
-        title: Text(
-          'Client Name',
-          style: AppStyles.fontSize16(fontWeight: FontWeight.w500),
-        ),
+        title: Obx(() {
+          final clientInfo = _clientController.getClientInfoByIdModel.value;
+          return Text(
+            clientInfo.name ?? "Client Details",
+            style: AppStyles.fontSize16(fontWeight: FontWeight.w500),
+          );
+        }),
+
         centerTitle: true,
         actions: [
           Padding(

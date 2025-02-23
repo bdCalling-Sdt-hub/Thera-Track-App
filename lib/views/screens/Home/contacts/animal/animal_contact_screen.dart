@@ -7,12 +7,12 @@ import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/style.dart';
 
-class ContactsScreen extends StatefulWidget {
+class AnimalContactsScreen extends StatefulWidget {
   @override
-  State<ContactsScreen> createState() => _ContactsScreenState();
+  State<AnimalContactsScreen> createState() => _AnimalContactsScreenState();
 }
 
-class _ContactsScreenState extends State<ContactsScreen> {
+class _AnimalContactsScreenState extends State<AnimalContactsScreen> {
 
 ClientController _clientController=Get.put(ClientController());
 
@@ -31,11 +31,18 @@ WidgetsBinding.instance.addPostFrameCallback((_){
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contacts',style: AppStyles.fontSize16()),
+        title: Text('Animal Contacts',style: AppStyles.fontSize16()),
         centerTitle: true,
       ),
-      body: Obx((){
-        return ListView.builder(
+      body:Obx(() {
+        return _clientController.animalList.isEmpty
+            ? Center(
+          child: Text(
+            "No animals added yet",
+            style: AppStyles.fontSize16().copyWith(color: Colors.grey),
+          ),
+        )
+            :  ListView.builder(
           itemCount: _clientController.animalList.length,
           itemBuilder: (context, index) {
             var animalName = _clientController.animalList[index];

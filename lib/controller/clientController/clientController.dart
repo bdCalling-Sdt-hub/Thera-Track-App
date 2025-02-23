@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:thera_track_app/helpers/prefs_helpers.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/models/clients/all_clients_model.dart';
 import 'package:thera_track_app/models/clients/client_with_animal_model.dart';
+import 'package:thera_track_app/models/clients/getAllAnimalUnderClientModel.dart';
 import 'package:thera_track_app/models/clients/getClient_details_byID_model.dart';
 import 'package:thera_track_app/service/api_checker.dart';
 import 'package:thera_track_app/service/api_client.dart';
@@ -107,14 +109,12 @@ class ClientController extends GetxController {
     var response = await ApiClient.getData("${ApiConstants.clientAnimalEndPoint}");
     if (response.statusCode == 200) {
       var animals=response.body['data']['attributes'];
-      for(var x in animals ){
+     for(var x in animals ){
         animalList.add(x);
       }
       Logger log=Logger();
       log.i("animal list is==================> ${animalList.length}");
-
       loading(false);
-      update();
     }
     else {
       ApiChecker.checkApi(response);
@@ -133,6 +133,24 @@ class ClientController extends GetxController {
     var response = await ApiClient.getData("${ApiConstants.clientWithAnimalEndPoint}/$animalName");
     if (response.statusCode == 200) {
       getClientWithAnimalModel.value = List.from(response.body['data']['attributes']['clientDetails'].map((x) => GetClientWithAnimalModel.fromJson(x)));
+      showLoading(false);
+      update();
+    }
+    else {
+      ApiChecker.checkApi(response);
+      showLoading(false);
+      update();
+    }
+  }
+  //=========================>> Get Client with Animal <<============================
+
+  RxList<GetAnimalUnderOneClientModel> getAnimalUnderOneClientModel = <GetAnimalUnderOneClientModel>[].obs;
+
+  getAnimalUnderOneClient(String clientID) async {
+    showLoading(true);
+    var response = await ApiClient.getData("${ApiConstants.getAllAnimalUnderOneClientTreatmentEndPoint}/$clientID");
+    if (response.statusCode == 200) {
+      getAnimalUnderOneClientModel.value = List.from(response.body['data']['attributes'].map((x) => GetAnimalUnderOneClientModel.fromJson(x)));
       showLoading(false);
       update();
     }
@@ -167,6 +185,43 @@ class ClientController extends GetxController {
       update();
     }
   }
+
+
+
+  ///================================ >> Add Animal To The Service << ================================
+
+  TextEditingController addAnimal = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController age = TextEditingController();
+  TextEditingController breed = TextEditingController();
+  TextEditingController gender = TextEditingController();
+  TextEditingController height = TextEditingController();
+  TextEditingController color = TextEditingController();
+  TextEditingController addController = TextEditingController();
+
+  List<String> animals = ['Horse', 'Dog'];
+
+  RxString selectedAnimal = ''.obs;
+
+ var areaOfConcernList = ['Joints', 'Spine/Back','Paws','Muscles','Neck','Ears'].obs;
+  var selectedAreaOfConcern = <String>[].obs;
+  final TextEditingController descriptionTextController = TextEditingController();
+
+  List<String> pointList = [];
+  final TextEditingController pointController = TextEditingController();
+
+  File? selectedImage;
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

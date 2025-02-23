@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:thera_track_app/controller/clientController/clientController.dart';
 import 'package:thera_track_app/helpers/route.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/app_icons.dart';
@@ -15,12 +16,19 @@ class CreateNewChartStepThreeScreen extends StatefulWidget {
 
 class _CreateNewChartStepThreeScreenState extends State<CreateNewChartStepThreeScreen> {
   TextEditingController searchController = TextEditingController();
+  final ClientController clientController = Get.put(ClientController());
+  var parameter = Get.parameters;
 
-  List<String> horseList = [
-    'Amigo',
-    'Blaze',
-    'Thunder',
-  ];
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      clientController.getAnimalUnderOneClient('${parameter['clientID']}');
+      print('================>> client id ${parameter['clientID']}');
+    });
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +44,14 @@ class _CreateNewChartStepThreeScreenState extends State<CreateNewChartStepThreeS
 
             children: [
               CustomHeaderWithSearch(
-                titleText: 'Horse',
+                titleText: 'Animal',
                 actionChild: InkWell(
                     onTap: (){
-                    Get.toNamed(AppRoutes.createNewChartStepTwoScreen);
+                    Get.toNamed(AppRoutes.horseDetailsScreen);
                     },
                     child: Row(
                       children: [
-                        Text('Add Horse'),
+                        Text('Add Animal'),
                         SizedBox(width: 4.w),
                         Icon(Icons.add,size: 15.sp),
                       ]
@@ -53,41 +61,44 @@ class _CreateNewChartStepThreeScreenState extends State<CreateNewChartStepThreeS
 
               // Recent Clients section
               SizedBox(height: 10.h),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: horseList.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      ListTile(
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(horseList[index]),
-                            SizedBox(width: 8.w),
+              Obx((){
+               return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: clientController.getAnimalUnderOneClientModel.length,
+                  itemBuilder: (context, index) {
+                    var displayData =  clientController.getAnimalUnderOneClientModel[index];
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(displayData.name),
+                              SizedBox(width: 8.w),
 
-                            Row(
-                              children: [
-                                Text('Previous Chart :',style: AppStyles.fontSize12()),
-                                Text('15 Jan,2025',style: AppStyles.fontSize12(color: AppColors.redColor)),
-                              ],
-                            ),
+                              Row(
+                                children: [
+                                  Text('Previous Chart :',style: AppStyles.fontSize12()),
+                                  Text('15 Jan,2025',style: AppStyles.fontSize12(color: AppColors.redColor)),
+                                ],
+                              ),
 
-                          ],
+                            ],
+                          ),
+                          trailing: SvgPicture.asset(AppIcons.rightArrow),
+                          onTap: () {
+                            // Get.toNamed(AppRoutes.horseDetailsScreen);
+                             Get.toNamed(AppRoutes.createNewChartStepFourScreen);
+                          },
                         ),
-                        trailing: SvgPicture.asset(AppIcons.rightArrow),
-                        onTap: () {
-                          // Get.toNamed(AppRoutes.horseDetailsScreen);
-                           Get.toNamed(AppRoutes.createNewChartStepFourScreen);
-                        },
-                      ),
-                      Divider(color: AppColors.secondaryColor),
-                    ],
-                  );
-                },
-              ),
-              SizedBox(height: 20),
+                        Divider(color: AppColors.secondaryColor),
+                      ],
+                    );
+                  },
+                );
+              },
+              )
             ],
           ),
         ),

@@ -12,9 +12,10 @@ import 'package:thera_track_app/views/screens/Home/contacts/animal/animalList_sc
 import 'package:thera_track_app/views/screens/Home/contacts/animal/animal_contact_details_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/animal/edit_animal_contact_details_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/human/clients_contact_details_screen.dart';
-import 'package:thera_track_app/views/screens/Home/contacts/contact_screen.dart';
+import 'package:thera_track_app/views/screens/Home/contacts/animal/animal_contact_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/contact_search_screen.dart';
 import 'package:thera_track_app/views/screens/Home/contacts/human/edit_contact_details_screen.dart';
+import 'package:thera_track_app/views/screens/Home/contacts/human/human_client_contact_screen.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/appoinmentCalenderScreen.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/createNewChartDetails.dart';
 import 'package:thera_track_app/views/screens/Home/createNewChart/steps/createNew_chart_stepFive.dart';
@@ -30,7 +31,7 @@ import 'package:thera_track_app/views/screens/Home/inventory/inventory_screen.da
 import 'package:thera_track_app/views/screens/Home/notification/notificationScreen.dart';
 import 'package:thera_track_app/views/screens/Home/offline_file/offline_file_screen.dart';
 import 'package:thera_track_app/views/screens/Home/wallet/costDetailsScreen.dart';
-import 'package:thera_track_app/views/screens/Home/wallet/innerWidget/costRowWidget/addCostScreen.dart';
+import 'package:thera_track_app/views/screens/Home/wallet/addCostScreen.dart';
 import 'package:thera_track_app/views/screens/Home/wallet/wallet_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/onboarding_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/splash_screen.dart';
@@ -64,7 +65,7 @@ class AppRoutes{
   static String chartArchiveScreen="/chartArchiveScreen";
   static String chartArchiveDetailsScreen="/chartArchiveDetailsScreen";
   static String appointmentScreen="/appointmentScreen";
-  static String contactsScreen= "/contactsScreen";
+  static String animalContactsScreen= "/animalContactsScreen";
   static String contactSearchScreen= "/contactSearchScreen";
   static String clientsContactDetailsScreen= "/clientsContactDetailsScreen";
   static String editContactDetailsScreen= "/editContactDetailsScreen";
@@ -84,6 +85,7 @@ class AppRoutes{
   static String costAddScreen = "/costAddScreen";
   static String costDetailsScreen = "/costDetailsScreen";
   static String equipmentScreen = "/equipmentScreen";
+  static String humanContactsScreen = "/humanContactsScreen";
 
 
  static List<GetPage> page=[
@@ -132,13 +134,14 @@ class AppRoutes{
    GetPage(name:appointmentScreen, page: ()=> AppointmentScreen(),transition: Transition.noTransition),
 
    //ContactsScreen
-   GetPage(name:contactsScreen, page: ()=> ContactsScreen(),transition: Transition.noTransition),
+   GetPage(name:animalContactsScreen, page: ()=> AnimalContactsScreen(),transition: Transition.noTransition),
    GetPage(name:contactSearchScreen, page: ()=> ContactSearchScreen(),transition: Transition.noTransition),
    GetPage(name:clientsContactDetailsScreen, page: ()=> ClientsContactDetailsScreen(),transition: Transition.noTransition),
    GetPage(name:editContactDetailsScreen, page: ()=> EditContactDetailsScreen(),transition: Transition.noTransition),
    GetPage(name:animalContactDetailsScreen, page: ()=> AnimalContactDetailsScreen(),transition: Transition.noTransition),
    GetPage(name:animalListScreen, page: ()=> AnimalListScreen(),transition: Transition.noTransition),
    GetPage(name:editAnimalContactDetailsScreen, page: ()=> EditAnimalContactDetailsScreen(),transition: Transition.noTransition),
+   GetPage(name:humanContactsScreen, page: ()=> HumanContactsScreen(),transition: Transition.noTransition),
 
    //OffLineFileScreen
    GetPage(name:offLineFileScreen, page: ()=> OffLineFileScreen(),transition: Transition.noTransition),

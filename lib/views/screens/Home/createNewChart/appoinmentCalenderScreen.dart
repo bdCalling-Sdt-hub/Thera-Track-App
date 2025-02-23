@@ -7,8 +7,7 @@ import 'package:thera_track_app/views/screens/Home/createNewChart/timePicker.dar
 
 class AppoinmentCalenderScreen extends StatefulWidget {
   @override
-  _AppoinmentCalenderScreenState createState() =>
-      _AppoinmentCalenderScreenState();
+  _AppoinmentCalenderScreenState createState() => _AppoinmentCalenderScreenState();
 }
 
 class _AppoinmentCalenderScreenState extends State<AppoinmentCalenderScreen> {
