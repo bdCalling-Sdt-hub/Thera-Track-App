@@ -1,12 +1,3 @@
-// To parse this JSON data, do
-//
-//     final getAllChartArchiveModel = getAllChartArchiveModelFromJson(jsonString);
-
-import 'dart:convert';
-
-List<GetAllChartArchiveModel> getAllChartArchiveModelFromJson(String str) => List<GetAllChartArchiveModel>.from(json.decode(str).map((x) => GetAllChartArchiveModel.fromJson(x)));
-
-String getAllChartArchiveModelToJson(List<GetAllChartArchiveModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class GetAllChartArchiveModel {
   final String? id;

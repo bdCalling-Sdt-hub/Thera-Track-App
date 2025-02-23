@@ -25,7 +25,7 @@ class _ContactSearchScreenState extends State<ContactSearchScreen> {
   void initState() {
 
     WidgetsBinding.instance.addPostFrameCallback((_){
-       _clientController.getAllClientInfo();
+      _clientController.getAllClientInfo();
     });
     // TODO: implement initState
     super.initState();

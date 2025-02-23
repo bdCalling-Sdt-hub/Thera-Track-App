@@ -40,4 +40,8 @@ class ApiConstants {
   static const String addTravelCostEndPoint = "/travel/create-travel-expenses";
 
 
+//============================>> Chart Archive  <<=================================
+  static const String getAllServiceEndPoint = "/patient/get-all-service";
+  static const String getAllAppointmentEndPoint = "/make-appointment/get-all-appointment";
+
 }

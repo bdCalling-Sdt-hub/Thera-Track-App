@@ -26,7 +26,6 @@ class TimeFormatHelper {
     String formattedTime = DateFormat('h:mm a').format(parsedTime);
     return formattedTime;
   }
-
  /* static Future<void> isFutureDate(String input) async {
     try {
       DateTime date = DateTime.parse(input);
