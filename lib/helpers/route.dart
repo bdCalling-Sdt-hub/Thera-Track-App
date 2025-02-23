@@ -31,7 +31,7 @@ import 'package:thera_track_app/views/screens/Home/inventory/inventory_screen.da
 import 'package:thera_track_app/views/screens/Home/notification/notificationScreen.dart';
 import 'package:thera_track_app/views/screens/Home/offline_file/offline_file_screen.dart';
 import 'package:thera_track_app/views/screens/Home/wallet/costDetailsScreen.dart';
-import 'package:thera_track_app/views/screens/Home/wallet/innerWidget/costRowWidget/addCostScreen.dart';
+import 'package:thera_track_app/views/screens/Home/wallet/addCostScreen.dart';
 import 'package:thera_track_app/views/screens/Home/wallet/wallet_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/onboarding_screen.dart';
 import 'package:thera_track_app/views/screens/Splash/splash_screen.dart';

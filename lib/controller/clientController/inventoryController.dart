@@ -18,7 +18,7 @@ class InventoryController extends GetxController {
   Future<void> addInventoryMethod({
     required String productName,
     required int price,
-    required int quantity, // Change type from String to int
+    required int quantity,
   }) async {
     if (productName.isEmpty || price <= 0 || quantity <= 0) {
       Get.snackbar('Error', 'All fields are required and must be valid.');
@@ -41,7 +41,7 @@ class InventoryController extends GetxController {
       'Authorization': 'Bearer $bearerToken'
     };
 
-    try {
+
       var response = await ApiClient.postData(
         ApiConstants.addInventoryEndPoint,
         jsonEncode(body),
@@ -56,12 +56,6 @@ class InventoryController extends GetxController {
         clearFields();
       } else {
         ApiChecker.checkApi(response);
-      }
-    } catch (e) {
-      Get.snackbar('Error', 'Something went wrong: $e');
-    } finally {
-      addInventoryLoading(false);
-      update();
     }
   }
 

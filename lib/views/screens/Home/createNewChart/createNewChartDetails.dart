@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -132,6 +131,7 @@ class _CreateNewChartDetailsScreenState
                                   style: AppStyles.fontSize18(color: AppColors.color575757)),
                             ),
                             Container(
+                              width: double.infinity,
                               padding: EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 color: AppColors.whiteColor,
@@ -143,20 +143,9 @@ class _CreateNewChartDetailsScreenState
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        '1. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                                        style: AppStyles.fontSize14(color: AppColors.color575757),
-                                      ),
-                                      Text(
-                                        '2. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                                        style: AppStyles.fontSize14(color: AppColors.color575757),
-                                      ),
-                                      Text('3. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                                        style: AppStyles.fontSize14(color: AppColors.color575757)),
+                                      Text('${clientController.descriptionTextController.text.trim()}'),
+
                                     ],
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
                                   ),
                                 ],
                               ),
