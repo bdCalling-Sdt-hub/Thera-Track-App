@@ -1,11 +1,3 @@
-
-
-import 'dart:convert';
-
-GetAllTreatmentModels getAllPaidTreatmentModelsFromJson(String str) => GetAllTreatmentModels.fromJson(json.decode(str));
-
-String getAllPaidTreatmentModelsToJson(GetAllTreatmentModels data) => json.encode(data.toJson());
-
 class GetAllTreatmentModels {
   final String? id;
   final String? clientId;
