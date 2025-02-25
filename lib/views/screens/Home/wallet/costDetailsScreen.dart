@@ -26,62 +26,6 @@ class _CostDetailsScreenState extends State<CostDetailsScreen> {
   TextEditingController emailController = TextEditingController();
   WalletController walletController = Get.put(WalletController());
 
-  Future<void> _generateAndSendPDF() async {final pdf = pw.Document();
-
-    pdf.addPage(
-      pw.Page(
-        pageFormat: PdfPageFormat.a4,
-        build: (pw.Context context) {
-          return pw.Column(
-            crossAxisAlignment: pw.CrossAxisAlignment.start,
-            children: [
-              pw.Text("Cost Review", style: pw.TextStyle(fontSize: 24)),
-              pw.SizedBox(height: 10),
-              _buildCostDetailsPdf(),
-            ],
-          );
-        },
-      ),
-    );
-
-    final output = await getTemporaryDirectory();
-    final file = File("${output.path}/cost_details.pdf");
-    await file.writeAsBytes(await pdf.save());
-
-    await _sendEmailWithPDF(file.path);
-  }
-
-  pw.Widget _buildCostDetailsPdf() {
-    return pw.Column(
-      crossAxisAlignment: pw.CrossAxisAlignment.start,
-      children: [
-        pw.Text("Departure: Rangpur 2"),
-        pw.Text("Destination: Dhaka"),
-        pw.Text("Distance: 200 Km"),
-        pw.Text("Food: 200 \$"),
-        pw.Text("Gas: 200 \$"),
-        pw.Text("Other: 200 \$"),
-      ],
-    );
-  }
-
-  Future<void> _sendEmailWithPDF(String filePath) async {
-    final Email email = Email(
-      body: 'Attached is your cost details.',
-      subject: 'Cost Details PDF',
-      recipients: [emailController.text],
-      attachmentPaths: [filePath],
-      isHTML: false,
-    );
-
-    try {
-      await FlutterEmailSender.send(email);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Mail Done")));
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Mail Failed: $error")));
-      print("Mail Failed===================>>>: $error");
-    }
-  }
   var travelID = Get.arguments;
 
   @override
@@ -182,7 +126,7 @@ class _CostDetailsScreenState extends State<CostDetailsScreen> {
             child: SizedBox(
               width: 194.w,
               child: ElevatedButton.icon(
-                onPressed: _generateAndSendPDF,
+                onPressed: (){},
                 icon: Icon(Icons.send, color: AppColors.whiteColor),
                 label: Text('Send', style: TextStyle(color: AppColors.whiteColor)),
                 style: ElevatedButton.styleFrom(

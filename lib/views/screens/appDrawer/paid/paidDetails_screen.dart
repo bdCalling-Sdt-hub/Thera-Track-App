@@ -37,50 +37,55 @@ class _PaidDetailsScreenState extends State<PaidDetailsScreen> {
             child: Obx(
                   () => profileController.getAllPaidTreatmentModels.isEmpty
                   ? Center(child: Text('No paid treatments added yet.', style: TextStyle(color: Colors.black)))
-                  : ListView.builder(
-                itemCount: profileController.getAllPaidTreatmentModels.length,
-                itemBuilder: (context, index) {
-                  final displayData = profileController.getAllPaidTreatmentModels[index];
-                  return ClientRowWidget(
-                    status: 'paid',
-                    name: displayData.name ?? 'N/A',
-                    date: TimeFormatHelper.formatDate(DateTime.parse(displayData.createdAt.toString())),
-                    amount: int.parse(displayData.finalCost.toString()),
-                  );
-                },
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            padding: EdgeInsets.all(12.r),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Total',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      TimeFormatHelper.formatDate(DateTime.now()),
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ],
-                ),
-                Obx(
-                      () => Text(
-                    '${profileController.paidTotalFinalCost} \$',
-                    style: TextStyle(
-                      color: AppColors.greenColor,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  : Column(
+                    children: [
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: profileController.getAllPaidTreatmentModels.length,
+                        itemBuilder: (context, index) {
+                      final displayData = profileController.getAllPaidTreatmentModels[index];
+                      return ClientRowWidget(
+                        status: 'paid',
+                        name: displayData.name ?? 'N/A',
+                        date: TimeFormatHelper.formatDate(DateTime.parse(displayData.createdAt.toString())),
+                        amount: int.parse(displayData.finalCost.toString()),
+                      );
+                      },
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.all(12.r),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Total',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  TimeFormatHelper.formatDate(DateTime.now()),
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                            Obx(
+                                  () => Text(
+                                '${profileController.paidTotalFinalCost} \$',
+                                style: TextStyle(
+                                  color: AppColors.greenColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
             ),
           ),
           _buildEmailInputSection(),

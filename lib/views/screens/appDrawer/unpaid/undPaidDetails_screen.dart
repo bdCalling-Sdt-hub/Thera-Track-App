@@ -39,47 +39,56 @@ class _UnPaidDetailsScreenState extends State<UnPaidDetailsScreen> {
                   ? Center(
                   child: Text('No unPaid treatments added yet.',
                       style: TextStyle(color: Colors.black)))
-                  : ListView.builder(
-                  itemCount: profileController.getAllUnPaidTreatmentModels.length,
-                  itemBuilder: (context, index) {
-                    final displayData = profileController.getAllUnPaidTreatmentModels[index];
-                    return ClientRowWidget(
-                      status: 'unpaid',
-                      name: displayData.name ?? 'N/A',
-                      date: TimeFormatHelper.formatDate(DateTime.parse(displayData.createdAt.toString())),
-                      amount: int.parse(displayData.finalCost.toString()),
-                    );
-                  }),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 16),
-              padding: EdgeInsets.all(12.r),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  : Column(
                     children: [
-                      Text(
-                        'Total',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 4),
-                      Text(
-                        TimeFormatHelper.formatDate(DateTime.now()),
-                        style: TextStyle(color: Colors.grey),
+                      ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: profileController.getAllUnPaidTreatmentModels.length,
+                      itemBuilder: (context, index) {
+                        final displayData = profileController.getAllUnPaidTreatmentModels[index];
+                        return Column(
+                          children: [
+                            ClientRowWidget(
+                              status: 'unpaid',
+                              name: displayData.name ?? 'N/A',
+                              date: TimeFormatHelper.formatDate(DateTime.parse(displayData.createdAt.toString())),
+                              amount: int.parse(displayData.finalCost.toString()),
+                            ),
+                          ],
+                        );
+                      }),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.all(12.r),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Total',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  TimeFormatHelper.formatDate(DateTime.now()),
+                                  style: TextStyle(color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              '${profileController.unpaidTotalFinalCost} \$',
+                              style: TextStyle(
+                                color: AppColors.redColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                  Text(
-                    '${profileController.unpaidTotalFinalCost} \$',
-                    style: TextStyle(
-                      color: AppColors.redColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
             ),
             _buildEmailInputSection(),
           ],

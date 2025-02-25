@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:thera_track_app/controller/profileController.dart';
 import 'package:thera_track_app/helpers/prefs_helpers.dart';
 import 'package:thera_track_app/helpers/route.dart';
