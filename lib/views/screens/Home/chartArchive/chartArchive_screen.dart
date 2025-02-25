@@ -24,6 +24,7 @@ class _ChartArchiveScreenState extends State<ChartArchiveScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       chartArchiveController.getAllChartArchive();
+
     });
   }
 

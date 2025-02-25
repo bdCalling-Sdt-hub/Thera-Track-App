@@ -1,44 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:thera_track_app/controller/profileController.dart';
+import 'package:thera_track_app/helpers/time_formate.dart';
 import 'package:thera_track_app/utils/app_colors.dart';
 import 'package:thera_track_app/utils/style.dart';
 import 'package:thera_track_app/views/screens/appDrawer/paid/innerWidget/clientRowWidget.dart';
 
-class PaidDetailsScreen extends StatelessWidget {
-  final List<Map<String, dynamic>> clients = [
-    {'name': 'Client 01', 'amount': 150, 'date': '14 jan 2025'},
-    {'name': 'Client 02', 'amount': 150, 'date': '14 jan 2025'},
-    {'name': 'Client 03', 'amount': 150, 'date': '14 jan 2025'},
-    {'name': 'Client 04', 'amount': 150, 'date': '14 jan 2025'},
-    {'name': 'Client 05', 'amount': 150, 'date': '14 jan 2025'},
+class PaidDetailsScreen extends StatefulWidget {
+  @override
+  State<PaidDetailsScreen> createState() => _PaidDetailsScreenState();
+}
 
-  ];
+class _PaidDetailsScreenState extends State<PaidDetailsScreen> {
+  final ProfileController profileController = Get.put(ProfileController());
+
+  @override
+  void initState() {
+    super.initState();
+    profileController.getAllPaidTreatmentDetails();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Paid',style: AppStyles.fontSize16(),),
+        title: Text(
+          'Paid',
+          style: AppStyles.fontSize16(),
+        ),
         centerTitle: true,
       ),
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: clients.length,
-              itemBuilder: (context, index) {
-                 final client= clients[index];
+            child: Obx(
+                  () => profileController.getAllPaidTreatmentModels.isEmpty
+                  ? Center(child: Text('No paid treatments added yet.', style: TextStyle(color: Colors.black)))
+                  : ListView.builder(
+                itemCount: profileController.getAllPaidTreatmentModels.length,
+                itemBuilder: (context, index) {
+                  final displayData = profileController.getAllPaidTreatmentModels[index];
                   return ClientRowWidget(
                     status: 'paid',
-                    name: client['name'],
-                    date: client['date'],
-                    amount: 200,
-
+                    name: displayData.name ?? 'N/A',
+                    date: TimeFormatHelper.formatDate(DateTime.parse(displayData.createdAt.toString())),
+                    amount: int.parse(displayData.finalCost.toString()),
                   );
-
-                }
+                },
+              ),
             ),
-
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 16),
@@ -55,16 +66,18 @@ class PaidDetailsScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      '20 Jan 2025',
+                      TimeFormatHelper.formatDate(DateTime.now()),
                       style: TextStyle(color: Colors.grey),
                     ),
                   ],
                 ),
-                Text(
-                  '9000 \$',
-                  style: TextStyle(
-                    color: AppColors.greenColor,
-                    fontWeight: FontWeight.bold,
+                Obx(
+                      () => Text(
+                    '${profileController.paidTotalFinalCost} \$',
+                    style: TextStyle(
+                      color: AppColors.greenColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
@@ -75,8 +88,6 @@ class PaidDetailsScreen extends StatelessWidget {
       ),
     );
   }
-
-
 
   Widget _buildEmailInputSection() {
     return Padding(
@@ -114,7 +125,8 @@ class PaidDetailsScreen extends StatelessWidget {
                 child: ElevatedButton.icon(
                   onPressed: () {},
                   icon: Icon(Icons.send, color: AppColors.whiteColor),
-                  label: Text('Send', style: TextStyle(color: AppColors.whiteColor)),
+                  label: Text('Send',
+                      style: TextStyle(color: AppColors.whiteColor)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryColor,
                     shape: RoundedRectangleBorder(
@@ -124,7 +136,6 @@ class PaidDetailsScreen extends StatelessWidget {
                 ),
               ),
             )
-
           ],
         ),
       ),
